@@ -1,0 +1,46 @@
+/*$navy: #38404a;*/
+/*$navy-light: #696D70;*/
+/*$blue: #2E67BF;*/
+/*$blue-hover: #1D456B;*/
+
+/*$mobilewidth: 812px;*/
+
+/*$sm-screen: 576px;*/
+/*$md-screen: 768px;*/
+/*$lg-screen: 992px;*/
+/*$xl-screen: 1200px;*/
+
+/*$spacing: 1em;*/
+
+
+
+.App {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+}
+
+.sidebar {
+  background-color: white;
+  width: 200px;
+}
+
+.landscape {
+  background-color: #1b446c;
+  flex: 1;
+  overflow: scroll;
+  font-size: 12px;
+  line-height: 1.1;
+}
+
+.white-link {
+  color: white;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/*.oss img {background: white;}*/
+/*.nonoss img {background: #E4E4E4;}*/

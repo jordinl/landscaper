@@ -13,7 +13,6 @@
   "devDependencies": {
     "concurrently": "^7.2.2",
     "husky": "^8.0.1",
-    "lerna": "^5.1.6",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1"
   },

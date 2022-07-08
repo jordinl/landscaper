@@ -6,6 +6,7 @@
   ],
   "scripts": {
     "start": "concurrently -k -r -s first yarn:start:*",
+    "start:changemyname-app": "yarn workspace changemyname-app start",
     "start:changemyname-base": "yarn workspace changemyname-base start",
     "start:cncf-landscape": "yarn workspace cncf-landscape start"
   },

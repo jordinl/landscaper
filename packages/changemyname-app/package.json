@@ -1,0 +1,23 @@
+{
+  "name": "changemyname-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "fs-extra": "^10.1.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "bin": {
+    "changemyname-bin": "bin/changemyname-bin.js"
+  },
+  "scripts": {
+    "build": "babel src --out-dir dist --copy-files",
+    "start": "babel src --watch --out-dir dist --copy-files"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app"
+    ]
+  }
+}

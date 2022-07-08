@@ -2,7 +2,7 @@ import { resolve } from "path";
 import { symlinkSync, mkdirSync, copyFileSync, existsSync } from "fs";
 
 const srcDir = resolve("original");
-const destDir = resolve("public", "assets");
+const destDir = resolve("assets");
 
 if (!existsSync(destDir)) {
   mkdirSync(destDir, { recursive: true });

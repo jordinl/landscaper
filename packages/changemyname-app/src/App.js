@@ -1,9 +1,9 @@
+import React, { useEffect, useState } from "react";
 import "./App.css";
 import { Landscape } from "changemyname-base";
-import { useEffect, useState } from "react";
 
 function App() {
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState();
 
   useEffect(() => {
     fetch("/assets/data.json")

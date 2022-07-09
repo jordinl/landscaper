@@ -8,8 +8,6 @@
   },
   "scripts": {
     "start": "changemyname-bin start",
-    "pull-repo": "node ./scripts/pull-repo.js",
-    "copy-images": "node ./scripts/copy-images.js",
-    "prepare-data": "node ./scripts/prepare-data.js"
+    "setup": "node ./scripts/pull-repo.js && node ./scripts/copy-images.js && node ./scripts/prepare-data.js"
   }
 }

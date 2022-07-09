@@ -8,6 +8,7 @@
   },
   "scripts": {
     "start": "changemyname-bin start",
+    "build": "changemyname-bin build",
     "setup": "node ./scripts/pull-repo.js && node ./scripts/copy-images.js && node ./scripts/prepare-data.js"
   }
 }

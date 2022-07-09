@@ -14,7 +14,7 @@ const categories = settings.big_picture.main.elements
 
 const categoryNames = Object.keys(categories);
 
-const destPath = resolve("assets", "data.json");
+const destPath = resolve("assets", "landscape.json");
 
 const prepareCategory = (category) => {
   const { name } = category;

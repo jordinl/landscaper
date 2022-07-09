@@ -6,7 +6,7 @@ function App() {
   const [categories, setCategories] = useState();
 
   useEffect(() => {
-    fetch("/assets/data.json")
+    fetch("/assets/landscape.json")
       .then((response) => response.json())
       .then((data) => setCategories(data));
   }, []);

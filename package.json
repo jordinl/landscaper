@@ -8,7 +8,11 @@
     "start": "concurrently -k -r -s first yarn:start:*",
     "start:changemyname-app": "yarn workspace changemyname-app start",
     "start:changemyname-base": "yarn workspace changemyname-base start",
-    "start:cncf-landscape": "yarn workspace cncf-landscape start"
+    "start:cncf-landscape": "yarn workspace cncf-landscape start",
+    "build": "concurrently -r -s all yarn:build:*",
+    "build:changemyname-app": "yarn workspace changemyname-app build",
+    "build:changemyname-base": "yarn workspace changemyname-base build",
+    "build:cncf-landscape": "yarn workspace cncf-landscape build"
   },
   "devDependencies": {
     "concurrently": "^7.2.2",

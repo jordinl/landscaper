@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "esbuild": "^0.14.48",
     "fs-extra": "^10.1.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1"
+    "react-dom": "^18.2.0"
   },
   "bin": {
     "changemyname-bin": "bin/changemyname-bin.js"

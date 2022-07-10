@@ -1,13 +1,19 @@
 import { resolve } from "path";
-import { symlinkSync, mkdirSync, copyFileSync, existsSync } from "fs";
+import { symlinkSync, unlinkSync, mkdirSync, copyFileSync, existsSync } from "fs";
 
 const srcDir = resolve("original");
 const destDir = resolve("assets");
+const logosDir = resolve(destDir, "logos")
 
 if (!existsSync(destDir)) {
   mkdirSync(destDir, { recursive: true });
-  symlinkSync(resolve(srcDir, "hosted_logos"), resolve(destDir, "logos"));
 }
+
+if (existsSync(logosDir)) {
+  unlinkSync(logosDir);
+}
+
+symlinkSync(resolve(srcDir, "cached_logos"), logosDir);
 
 copyFileSync(
   resolve(srcDir, "images", "cncf-logo.svg"),

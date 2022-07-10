@@ -40,8 +40,9 @@ const prepareSubcategory = (subcategory, categoryName) => {
 
 const prepareItem = (item, categoryName) => {
   const { name } = item;
-  const logo = `assets/logos/${item.logo}`;
-  const id = item.logo.split('.')[0]
+  const logoName = item.image_data.fileName
+  const logo = `assets/logos/${logoName}`;
+  const id = logoName.split('.')[0]
   return { name, logo, id };
 };
 

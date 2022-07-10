@@ -12,7 +12,9 @@
     "build": "concurrently -r -s all yarn:build:*",
     "build:changemyname-app": "yarn workspace changemyname-app build",
     "build:changemyname-base": "yarn workspace changemyname-base build",
-    "build:cncf-landscape": "yarn workspace cncf-landscape build"
+    "build:cncf-landscape": "yarn workspace cncf-landscape build",
+    "setup": "concurrently -r -s all yarn:setup:*",
+    "setup:cncf-landscape": "yarn workspace cncf-landscape setup"
   },
   "devDependencies": {
     "concurrently": "^7.2.2",

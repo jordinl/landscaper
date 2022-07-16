@@ -5,6 +5,8 @@
   "dependencies": {
     "esbuild": "^0.14.48",
     "fs-extra": "^10.1.0",
+    "primeicons": "^5.0.0",
+    "primereact": "^8.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },

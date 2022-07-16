@@ -24,7 +24,7 @@ const start = () => {
       entryPoints: [resolve(packageDir, "dist", "index.js")],
       bundle: true,
       incremental: true,
-      loader: { ".js": "jsx", ".html": "copy" },
+      loader: { ".js": "jsx", ".html": "copy", ".svg": "copy", ".woff": "copy", ".ttf": "copy", ".eot": "copy" },
     }
   )
     .then((result) => {

@@ -30,7 +30,11 @@ body {
 
 .sidebar {
   background-color: white;
-  width: 200px;
+  width: 250px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .landscape {

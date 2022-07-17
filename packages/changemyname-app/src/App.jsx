@@ -13,7 +13,7 @@ function App() {
   const [zoom, setZoom] = React.useState(100);
 
   useEffect(() => {
-    fetch("/assets/landscape.json")
+    fetch("/landscape.json")
       .then((response) => response.json())
       .then((data) => setCategories(data));
   }, []);

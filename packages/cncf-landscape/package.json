@@ -7,8 +7,9 @@
     "js-yaml": "^4.1.0"
   },
   "scripts": {
-    "start": "changemyname-bin start",
+    "start": "changemyname-bin",
     "build": "changemyname-bin build",
+    "preview": "changemyname-bin preview",
     "setup": "node ./scripts/pull-repo.js && node ./scripts/copy-images.js && node ./scripts/prepare-data.js"
   }
 }

@@ -6,21 +6,20 @@
   ],
   "scripts": {
     "start": "concurrently -k -r -s first yarn:start:*",
-    "start:changemyname-app": "yarn workspace changemyname-app start",
-    "start:changemyname-base": "yarn workspace changemyname-base start",
     "start:cncf-landscape": "yarn workspace cncf-landscape start",
     "build": "concurrently -r -s all yarn:build:*",
-    "build:changemyname-app": "yarn workspace changemyname-app build",
     "build:changemyname-base": "yarn workspace changemyname-base build",
     "build:cncf-landscape": "yarn workspace cncf-landscape build",
     "setup": "concurrently -r -s all yarn:setup:*",
     "setup:cncf-landscape": "yarn workspace cncf-landscape setup"
   },
   "devDependencies": {
+    "@vitejs/plugin-react": "^2.0.0",
     "concurrently": "^7.2.2",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "vite": "^3.0.0"
   },
   "husky": {
     "hooks": {

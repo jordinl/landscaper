@@ -4,16 +4,16 @@
   "main": "./dist/index.js",
   "license": "MIT",
   "scripts": {
-    "build": "babel src --out-dir dist",
-    "start": "babel src --watch --out-dir dist "
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^2.0.0",
+    "vite": "^3.0.0"
   },
   "peerDependencies": {
     "react": "^18.2.0"
   },
-  "devDependencies": {
-    "@babel/cli": "^7.18.6",
-    "@babel/core": "^7.18.6",
-    "@babel/preset-env": "^7.18.6",
-    "@babel/preset-react": "^7.18.6"
-  }
+  "type": "module"
 }

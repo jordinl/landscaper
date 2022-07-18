@@ -6,10 +6,10 @@
   ],
   "scripts": {
     "start": "concurrently -k -r -s first yarn:start:*",
-    "start:cncf-landscape": "yarn workspace cncf-landscape start",
+    "start:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape start",
     "build": "concurrently -r -s all yarn:build:*",
     "build:changemyname-base": "yarn workspace changemyname-base build",
-    "build:cncf-landscape": "yarn workspace cncf-landscape build",
+    "build:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape build",
     "setup": "concurrently -r -s all yarn:setup:*",
     "setup:cncf-landscape": "yarn workspace cncf-landscape setup"
   },

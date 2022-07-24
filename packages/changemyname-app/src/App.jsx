@@ -1,19 +1,18 @@
 import React, { useEffect, useState } from "react";
 import { Landscape } from "changemyname-base";
-import { Sidebar } from 'primereact/sidebar';
-import { Slider } from 'primereact/slider';
+import { Slider } from "primereact/slider";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "./App.css";
+import landscapeUrl from "project/landscape.json?url";
 
 function App() {
   const [categories, setCategories] = useState();
-  const [expanded, setExpanded] = React.useState(false);
   const [zoom, setZoom] = React.useState(100);
 
   useEffect(() => {
-    fetch("/landscape.json")
+    fetch(landscapeUrl)
       .then((response) => response.json())
       .then((data) => setCategories(data));
   }, []);

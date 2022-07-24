@@ -2,11 +2,9 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 
-const extra = process.env.MONOREPO
+const extraAlias = process.env.MONOREPO
   ? {
-      alias: {
-        "changemyname-base": "changemyname-base/src/index.js",
-      },
+      "changemyname-base": "changemyname-base/src/index.js",
     }
   : {};
 
@@ -29,7 +27,10 @@ export default defineConfig({
     port: 4000,
   },
   resolve: {
-    ...extra,
+    alias: {
+      ...extraAlias,
+      project: srcPath,
+    },
   },
-  logLevel: process.env.MONOREPO ? 'info' : 'error'
+  logLevel: process.env.MONOREPO ? "info" : "error",
 });

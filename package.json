@@ -12,7 +12,8 @@
     "build:changemyname-base": "yarn workspace changemyname-base build",
     "build:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape build",
     "setup": "concurrently -r -s all yarn:setup:*",
-    "setup:cncf-landscape": "yarn workspace cncf-landscape setup"
+    "setup:cncf-landscape": "yarn workspace cncf-landscape setup",
+    "preview:cncf-landscape": "yarn workspace cncf-landscape preview"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^2.0.0",

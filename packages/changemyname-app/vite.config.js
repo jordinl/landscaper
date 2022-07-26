@@ -1,6 +1,7 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
+import addLogosToBundle from "./plugins/addLogosToBundle.js";
 
 const extraAlias = process.env.MONOREPO
   ? {
@@ -12,7 +13,7 @@ const srcPath = resolve("assets");
 const distPath = resolve("dist");
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react(), addLogosToBundle(srcPath)],
   publicDir: srcPath,
   clearScreen: false,
   server: {

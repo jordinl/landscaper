@@ -12,9 +12,9 @@ const extraAlias = process.env.MONOREPO
 const srcPath = resolve("assets");
 const distPath = resolve("dist");
 
-export default defineConfig({
+export default defineConfig(({ command }) => ({
   plugins: [react(), addLogosToBundle(srcPath)],
-  publicDir: srcPath,
+  publicDir: command !== "build" && srcPath,
   clearScreen: false,
   server: {
     port: "3000",
@@ -34,4 +34,4 @@ export default defineConfig({
     },
   },
   logLevel: process.env.MONOREPO ? "info" : "error",
-});
+}));

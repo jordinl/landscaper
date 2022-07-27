@@ -1,7 +1,6 @@
 import { resolve, basename } from "path";
 import { readFileSync } from "fs";
 
-// TODO: don't need to add logos folder
 // TODO: Add CNCF logo too
 function addLogosToBundle(srcPath) {
   let refs = {};
@@ -51,7 +50,7 @@ function addLogosToBundle(srcPath) {
         return { ...category, subcategories };
       });
 
-      // TODO: find way of updating chunk hash
+      // TODO: find way of updating chunk hash, rollup 3 should take care of this
       landscapeChunk.source = JSON.stringify(newLandscape);
 
       return bundle;

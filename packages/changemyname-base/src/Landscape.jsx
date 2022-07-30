@@ -34,13 +34,16 @@ const Landscape = ({zoom = 1, header = {}, padding = 10, categories }) => {
         height: headerHeight,
         display: 'flex',
         color: 'white',
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center'
     }
 
+    // TODO: get rid of inline styles
     return <div style={style}>
         { header && <div className="header" style={headerStyle}>
-            { header.title && <h1 style={{ fontSize: 26 }}>{header.title}</h1>}
+            <div style={{ height: '100%' }}>{ header.logo && <img style={{ height: '100%' }} src={header.logo} /> }</div>
+            <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>{ header.title && <h1 style={{ fontSize: 26 }}>{header.title}</h1>}</div>
+            <div style={{ height: '100%' }}></div>
         </div> }
         <div style={{ position: 'relative' }}>
             {elements}

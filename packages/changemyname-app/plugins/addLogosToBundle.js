@@ -15,6 +15,8 @@ function addLogosToBundle(srcPath) {
     });
   });
 
+  const header = landscape.header || {};
+
   return {
     name: "add-logos-to-bundle",
     apply: "build",
@@ -29,6 +31,16 @@ function addLogosToBundle(srcPath) {
 
         refs[logo] = ref;
       });
+
+      if (header.logo) {
+        const logoRef = this.emitFile({
+          type: "asset",
+          name: basename(header.logo),
+          source: readFileSync(`${srcPath}/${header.logo}`, "utf-8"),
+        });
+
+        refs[header.logo] = logoRef;
+      }
     },
     generateBundle(options, bundle) {
       const landscapeChunk = Object.values(bundle).find(
@@ -50,7 +62,14 @@ function addLogosToBundle(srcPath) {
         return { ...category, subcategories };
       });
 
-      const newLandscape = { ...landscape, categories }
+      const headerLogo = landscape.header && landscape.header.logo
+
+      const header = {
+        ...landscape.header,
+        ...(headerLogo ? { logo: this.getFileName(refs[headerLogo]) } : null)
+      }
+
+      const newLandscape = { ...landscape, header, categories }
 
       // TODO: find way of updating chunk hash, rollup 3 should take care of this
       landscapeChunk.source = JSON.stringify(newLandscape);

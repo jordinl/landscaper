@@ -51,7 +51,8 @@ const categories = landscape.landscape
   .map((category) => prepareCategory(category));
 
 const header = {
-  title: 'CNCF Cloud Native Landscape'
+  title: 'CNCF Cloud Native Landscape',
+  logo: 'left-logo.svg'
 }
 
 writeFileSync(destPath, JSON.stringify({ header, categories }, undefined, 4));

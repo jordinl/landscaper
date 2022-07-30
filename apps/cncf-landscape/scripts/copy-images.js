@@ -3,7 +3,8 @@ import {
   symlinkSync,
   unlinkSync,
   mkdirSync,
-  copyFileSync,
+  readFileSync,
+  writeFileSync,
   existsSync,
   lstatSync,
 } from "fs";
@@ -22,7 +23,6 @@ if (lstatSync(logosDir, { throwIfNoEntry: false })) {
 
 symlinkSync(resolve(srcDir, "cached_logos"), logosDir);
 
-copyFileSync(
-    resolve(srcDir, "images", "cncf-logo.svg"),
-    resolve(destDir, "cncf-logo.svg")
-);
+const originalLeftLogo = readFileSync(resolve(srcDir, "images", "left-logo.svg"), 'utf-8');
+const modifiedLeftLogo = originalLeftLogo.replace('#333333', 'white');
+writeFileSync(resolve(destDir, "left-logo.svg"), modifiedLeftLogo);

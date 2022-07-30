@@ -1,7 +1,6 @@
 import { resolve, basename } from "path";
 import { readFileSync } from "fs";
 
-// TODO: Add CNCF logo too
 function addLogosToBundle(srcPath) {
   let refs = {};
 
@@ -15,32 +14,30 @@ function addLogosToBundle(srcPath) {
     });
   });
 
+  // TODO: consider if it's best to have everything in one file or break it up.
   const header = landscape.header || {};
 
   return {
     name: "add-logos-to-bundle",
     apply: "build",
 
-    buildStart() {
-      logos.forEach((logo) => {
-        const ref = this.emitFile({
+    buildStart: function () {
+      const emitAsset = (name) => {
+        return this.emitFile({
           type: "asset",
-          name: basename(logo),
-          source: readFileSync(`${srcPath}/${logo}`, "utf-8"),
+          name: basename(name),
+          source: readFileSync(`${srcPath}/${name}`, "utf-8"),
         });
+      };
 
-        refs[logo] = ref;
+      logos.forEach((logo) => {
+        refs[logo] = emitAsset(logo);
       });
 
-      if (header.logo) {
-        const logoRef = this.emitFile({
-          type: "asset",
-          name: basename(header.logo),
-          source: readFileSync(`${srcPath}/${header.logo}`, "utf-8"),
-        });
+      refs[header.logo] = header.logo && emitAsset(header.logo);
 
-        refs[header.logo] = logoRef;
-      }
+      // TODO: get rid of right logo
+      refs[header.rightLogo] = header.rightLogo && emitAsset(header.rightLogo);
     },
     generateBundle(options, bundle) {
       const landscapeChunk = Object.values(bundle).find(
@@ -50,9 +47,7 @@ function addLogosToBundle(srcPath) {
       const categories = landscape.categories.map((category) => {
         const subcategories = category.subcategories.map((subcategory) => {
           const items = subcategory.items.map((item) => {
-            const logo = refs[item.logo]
-              ? this.getFileName(refs[item.logo])
-              : item.logo;
+            const logo = this.getFileName(refs[item.logo]);
             return { ...item, logo };
           });
 
@@ -62,14 +57,19 @@ function addLogosToBundle(srcPath) {
         return { ...category, subcategories };
       });
 
-      const headerLogo = landscape.header && landscape.header.logo
+      const headerLogo = landscape.header && landscape.header.logo;
+      const rightLogo = landscape.header && landscape.header.rightLogo;
 
+      // TODO: get rid of right logo
       const header = {
         ...landscape.header,
-        ...(headerLogo ? { logo: this.getFileName(refs[headerLogo]) } : null)
-      }
+        ...(headerLogo ? { logo: this.getFileName(refs[headerLogo]) } : null),
+        ...(rightLogo
+          ? { rightLogo: this.getFileName(refs[rightLogo]) }
+          : null),
+      };
 
-      const newLandscape = { ...landscape, header, categories }
+      const newLandscape = { ...landscape, header, categories };
 
       // TODO: find way of updating chunk hash, rollup 3 should take care of this
       landscapeChunk.source = JSON.stringify(newLandscape);

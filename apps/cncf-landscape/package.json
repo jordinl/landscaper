@@ -4,7 +4,8 @@
   "private": true,
   "dependencies": {
     "changemyname-app": "*",
-    "js-yaml": "^4.1.0"
+    "js-yaml": "^4.1.0",
+    "node-fetch": "^3.2.9"
   },
   "scripts": {
     "start": "changemyname-bin",

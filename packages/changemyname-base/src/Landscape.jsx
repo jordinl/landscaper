@@ -43,7 +43,7 @@ const Landscape = ({zoom = 1, header = {}, padding = 10, categories }) => {
         { header && <div className="header" style={headerStyle}>
             <div style={{ height: '100%' }}>{ header.logo && <img style={{ height: '100%' }} src={header.logo} /> }</div>
             <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>{ header.title && <h1 style={{ fontSize: 26 }}>{header.title}</h1>}</div>
-            <div style={{ height: '100%' }}></div>
+            <div style={{ height: '100%' }}>{ header.rightLogo && <img style={{ height: '100%' }} src={header.rightLogo} /> }</div>
         </div> }
         <div style={{ position: 'relative' }}>
             {elements}

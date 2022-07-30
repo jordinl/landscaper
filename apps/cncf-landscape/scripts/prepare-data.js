@@ -8,17 +8,17 @@ const landscape = load(readFileSync(landscapePath));
 const settingsPath = resolve("original", "settings.yml");
 const settings = load(readFileSync(settingsPath));
 
-const categories = settings.big_picture.main.elements
+const categoriesHash = settings.big_picture.main.elements
   .filter((category) => category.type.includes("Category"))
   .reduce((agg, category) => ({ ...agg, [category.category]: category }), {});
 
-const categoryNames = Object.keys(categories);
+const categoryNames = Object.keys(categoriesHash);
 
 const destPath = resolve("assets", "landscape.json");
 
 const prepareCategory = (category) => {
   const { name } = category;
-  const { width, height, top, left, color, fit_width, type } = categories[name];
+  const { width, height, top, left, color, fit_width, type } = categoriesHash[name];
   const layout = type.includes("Horizontal") ? "horizontal" : "vertical";
   const style = { layout, width, height, top, left, color, fit_width };
   const subcategories = category.subcategories.map((subcategory) =>
@@ -46,8 +46,12 @@ const prepareItem = (item, categoryName) => {
   return { name, logo, id };
 };
 
-const data = landscape.landscape
+const categories = landscape.landscape
   .filter(({ name }) => categoryNames.indexOf(name) >= 0)
   .map((category) => prepareCategory(category));
 
-writeFileSync(destPath, JSON.stringify(data, undefined, 4));
+const header = {
+  title: 'CNCF Cloud Native Landscape'
+}
+
+writeFileSync(destPath, JSON.stringify({ header, categories }, undefined, 4));

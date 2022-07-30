@@ -8,20 +8,20 @@ import "./App.css";
 import landscapeUrl from "project/landscape.json?url";
 
 function App() {
-  const [categories, setCategories] = useState();
+  const [data, setData] = useState();
   const [zoom, setZoom] = React.useState(100);
 
   useEffect(() => {
     fetch(landscapeUrl)
       .then((response) => response.json())
-      .then((data) => setCategories(data));
+      .then((data) => setData(data));
   }, []);
 
   return (
-    categories && (
+    data && (
       <div className="App">
         <div className="landscape">
-          <Landscape categories={categories} zoom={zoom / 100} />
+          <Landscape categories={data.categories} header={data.header} zoom={zoom / 100} />
         </div>
         <div className="sidebar">
             <Slider

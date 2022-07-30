@@ -9,7 +9,7 @@ function addLogosToBundle(srcPath) {
     readFileSync(resolve(srcPath, "landscape.json"), "utf-8")
   );
 
-  const logos = landscape.flatMap((category) => {
+  const logos = landscape.categories.flatMap((category) => {
     return category.subcategories.flatMap((subcategory) => {
       return subcategory.items.flatMap((item) => item.logo);
     });
@@ -35,7 +35,7 @@ function addLogosToBundle(srcPath) {
         ({ name }) => name.indexOf("assets/landscape.json") >= 0
       );
 
-      const newLandscape = landscape.map((category) => {
+      const categories = landscape.categories.map((category) => {
         const subcategories = category.subcategories.map((subcategory) => {
           const items = subcategory.items.map((item) => {
             const logo = refs[item.logo]
@@ -49,6 +49,8 @@ function addLogosToBundle(srcPath) {
 
         return { ...category, subcategories };
       });
+
+      const newLandscape = { ...landscape, categories }
 
       // TODO: find way of updating chunk hash, rollup 3 should take care of this
       landscapeChunk.source = JSON.stringify(newLandscape);

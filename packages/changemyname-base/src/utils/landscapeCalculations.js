@@ -11,7 +11,7 @@ export const dividerWidth = 2
 export const categoryBorder = 1
 export const categoryTitleHeight = 30
 export const outerPadding = 20
-export const headerHeight = 40
+export const headerHeight = 50
 
 
 // Compute if items are large and/or visible.

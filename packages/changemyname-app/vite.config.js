@@ -2,6 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import addLogosToBundle from "./plugins/addLogosToBundle.js";
+import injectTitle from "./plugins/injectTitle.js";
 
 const extraAlias = process.env.MONOREPO
   ? {
@@ -13,7 +14,7 @@ const srcPath = resolve("assets");
 const distPath = resolve("dist");
 
 export default defineConfig(({ command }) => ({
-  plugins: [react(), addLogosToBundle(srcPath)],
+  plugins: [react(), addLogosToBundle(srcPath), injectTitle(srcPath)],
   publicDir: command !== "build" && srcPath,
   clearScreen: false,
   server: {

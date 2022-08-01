@@ -18,7 +18,8 @@ const destPath = resolve("assets", "landscape.json");
 
 const prepareCategory = (category) => {
   const { name } = category;
-  const { width, height, top, left, color, fit_width, type } = categoriesHash[name];
+  const { width, height, top, left, color, fit_width, type } =
+    categoriesHash[name];
   const layout = type.includes("Horizontal") ? "horizontal" : "vertical";
   const style = { layout, width, height, top, left, color, fit_width };
   const subcategories = category.subcategories.map((subcategory) =>
@@ -29,7 +30,9 @@ const prepareCategory = (category) => {
 
 const prepareSubcategory = (subcategory, categoryName) => {
   const { name } = subcategory;
-  const items = subcategory.items.map((item) => prepareItem(item, categoryName));
+  const items = subcategory.items.map((item) =>
+    prepareItem(item, categoryName)
+  );
   return { name, items };
 };
 
@@ -39,11 +42,12 @@ const prepareSubcategory = (subcategory, categoryName) => {
 // return !!categoryAttrs.isLarge || !!relationInfo.big_picture_order;
 
 const prepareItem = (item, categoryName) => {
-  const { name } = item;
-  const logoName = item.image_data.fileName
+  const { name, github_data } = item;
+  const logoName = item.image_data.fileName;
   const logo = `logos/${logoName}`;
-  const id = logoName.split('.')[0]
-  return { name, logo, id };
+  const id = logoName.split(".")[0];
+  const license = (github_data && github_data.license) || "Not Open Source"
+  return { id, name, logo, license };
 };
 
 const categories = landscape.landscape
@@ -51,9 +55,40 @@ const categories = landscape.landscape
   .map((category) => prepareCategory(category));
 
 const header = {
-  title: 'CNCF Cloud Native Landscape',
-  logo: 'left-logo.svg',
-  rightLogo: 'right-logo.svg'
-}
+  title: "CNCF Cloud Native Landscape",
+  logo: "left-logo.svg",
+  rightLogo: "right-logo.svg",
+};
 
-writeFileSync(destPath, JSON.stringify({ header, categories }, undefined, 4));
+const items = landscape.landscape.flatMap((category) => {
+  return category.subcategories.flatMap((subcategory) => {
+    return subcategory.items;
+  });
+});
+
+const licenseNames = items.reduce((agg, item) => {
+  const license = item && item.github_data && item.github_data.license;
+  const extra = license ? { [license]: true } : {};
+  return { ...agg, ...extra };
+}, {});
+
+const licenses = [
+  {
+    label: "Not Open Source"
+  },
+  {
+    label: "Open Source",
+    children: Object.keys(licenseNames).map(name => {
+      return { label: name }
+    })
+  }
+]
+
+const filters = [
+  {
+    name: "license",
+    options: licenses,
+  },
+];
+
+writeFileSync(destPath, JSON.stringify({ header, filters, categories }, undefined, 4));

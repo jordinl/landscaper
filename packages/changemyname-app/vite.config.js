@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import { resolve } from "path";
 import addLogosToBundle from "./plugins/addLogosToBundle.js";
 import injectTitle from "./plugins/injectTitle.js";
+import processLandscape from "./plugins/processLandscape.js";
 
 const extraAlias = process.env.MONOREPO
   ? {
@@ -13,8 +14,10 @@ const extraAlias = process.env.MONOREPO
 const srcPath = resolve("assets");
 const distPath = resolve("dist");
 
+const debugOptions = process.env.DEBUG ? { minify: false } : {}
+
 export default defineConfig(({ command }) => ({
-  plugins: [react(), addLogosToBundle(srcPath), injectTitle(srcPath)],
+  plugins: [react(), addLogosToBundle(srcPath), injectTitle(srcPath), processLandscape()],
   publicDir: command !== "build" && srcPath,
   clearScreen: false,
   server: {
@@ -24,6 +27,7 @@ export default defineConfig(({ command }) => ({
   build: {
     outDir: distPath,
     emptyOutDir: true,
+    ...debugOptions
   },
   preview: {
     port: 4000,

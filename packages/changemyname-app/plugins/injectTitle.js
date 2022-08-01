@@ -1,17 +1,14 @@
-import { resolve } from "path";
-import { readFileSync } from "fs";
+import loadLandscape from "../utils/loadLandscape.js";
 
-function injectTitle(srcPath) {
-  const landscape = JSON.parse(
-    readFileSync(resolve(srcPath, "landscape.json"), "utf-8")
-  );
+function injectTitle() {
+  const landscape = loadLandscape();
 
   const title = (landscape.header && landscape.header.title) || "Landscape";
 
   return {
-    name: 'html-transform',
+    name: "html-transform",
     transformIndexHtml(html) {
-      return html.replace("%APP_TITLE%", title)
+      return html.replace("%APP_TITLE%", title);
     },
   };
 }

@@ -17,6 +17,9 @@ function App() {
       .then((data) => setData(data));
   }, []);
 
+  // TODO: add filters to sidebar
+  console.log(data && data.filters)
+
   return (
     data && (
       <div className="App">

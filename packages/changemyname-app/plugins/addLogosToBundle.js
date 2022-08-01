@@ -1,12 +1,11 @@
-import { resolve, basename } from "path";
+import { basename } from "path";
 import { readFileSync } from "fs";
+import loadLandscape from "../utils/loadLandscape.js";
 
 function addLogosToBundle(srcPath) {
   let refs = {};
 
-  const landscape = JSON.parse(
-    readFileSync(resolve(srcPath, "landscape.json"), "utf-8")
-  );
+  const landscape = loadLandscape();
 
   const logos = landscape.categories.flatMap((category) => {
     return category.subcategories.flatMap((subcategory) => {
@@ -40,6 +39,7 @@ function addLogosToBundle(srcPath) {
       refs[header.rightLogo] = header.rightLogo && emitAsset(header.rightLogo);
     },
     generateBundle(options, bundle) {
+      // TODO: expand filters
       const landscapeChunk = Object.values(bundle).find(
         ({ name }) => name.indexOf("assets/landscape.json") >= 0
       );

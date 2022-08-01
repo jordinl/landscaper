@@ -11,6 +11,7 @@
     "start": "changemyname-bin",
     "build": "changemyname-bin build",
     "preview": "changemyname-bin preview",
-    "setup": "node ./scripts/pull-repo.js && node ./scripts/copy-images.js && node ./scripts/prepare-data.js"
+    "setup": "node ./scripts/pull-repo.js && node ./scripts/copy-images.js && node ./scripts/prepare-data.js",
+    "prepare-data": "node ./scripts/prepare-data.js"
   }
 }

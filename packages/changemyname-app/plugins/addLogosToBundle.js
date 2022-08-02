@@ -1,6 +1,7 @@
 import { basename } from "path";
 import { readFileSync } from "fs";
 import loadLandscape from "../utils/loadLandscape.js";
+import expandLandscape from "../utils/expandLandscape.js";
 
 function addLogosToBundle(srcPath) {
   let refs = {};
@@ -69,7 +70,7 @@ function addLogosToBundle(srcPath) {
           : null),
       };
 
-      const newLandscape = { ...landscape, header, categories };
+      const newLandscape = expandLandscape({ ...landscape, header, categories });
 
       // TODO: find way of updating chunk hash, rollup 3 should take care of this
       landscapeChunk.source = JSON.stringify(newLandscape);

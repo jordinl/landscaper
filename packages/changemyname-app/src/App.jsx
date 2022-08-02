@@ -1,39 +1,71 @@
 import React, { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Landscape } from "changemyname-base";
-import { Slider } from "primereact/slider";
-import "primereact/resources/themes/lara-light-indigo/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
+// TODO: see if we can import this only if necessary
+import { Slider, CheckTreePicker } from "rsuite";
 import "./App.css";
 import landscapeUrl from "project/landscape.json?url";
 
 function App() {
-  const [data, setData] = useState();
-  const [zoom, setZoom] = React.useState(100);
+  const [landscape, setLandscape] = useState();
+  const [zoom, setZoom] = useState(100);
+  const { categories, header, filters } = landscape || {};
+  let [searchParams, setSearchParams] = useSearchParams();
+
+  const getFilterValue = (name) => {
+    const value = searchParams.has(name) && searchParams.get(name);
+    return value ? value.split(",") : [];
+  };
+
+  const onChangeFilter = (name, values) => {
+    const newSearchParams = Object.entries({
+      ...searchParams,
+      [name]: values.join(","),
+    }).reduce((agg, [key, value]) => {
+      return { ...agg, ...(value ? { [key]: value } : {}) };
+    }, {});
+    setSearchParams(newSearchParams);
+  };
 
   useEffect(() => {
     fetch(landscapeUrl)
       .then((response) => response.json())
-      .then((data) => setData(data));
+      .then((landscape) => setLandscape(landscape));
   }, []);
 
-  // TODO: add filters to sidebar
-  console.log(data && data.filters)
-
   return (
-    data && (
+    landscape && (
       <div className="App">
         <div className="landscape">
-          <Landscape categories={data.categories} header={data.header} zoom={zoom / 100} />
+          <Landscape
+            categories={categories}
+            header={header}
+            zoom={zoom / 100}
+          />
         </div>
         <div className="sidebar">
-            <Slider
-                min={100}
-                max={400}
-                step={10}
-                value={zoom}
-                onChange={e => setZoom(e.value)}
-            />
+          {filters &&
+            filters.map((filter) => (
+              <CheckTreePicker
+                data={filter.options}
+                onChange={(values) => onChangeFilter(filter.name, values)}
+                defaultExpandAll={true}
+                placeholder="Select Item"
+                key={filter.name}
+                valueKey="id"
+                preventOverflow={true}
+                value={getFilterValue(filter.name)}
+              />
+            ))}
+
+          <Slider
+            min={100}
+            max={400}
+            step={10}
+            value={zoom}
+            tooltip={false}
+            onChange={(value) => setZoom(value)}
+          />
         </div>
       </div>
     )

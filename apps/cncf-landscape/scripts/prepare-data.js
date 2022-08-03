@@ -14,6 +14,12 @@ const categoriesHash = settings.big_picture.main.elements
 
 const categoryNames = Object.keys(categoriesHash);
 
+const members = landscape.landscape
+  .find((category) => category.name === "CNCF Members")
+  .subcategories.flatMap((subcategory) => {
+    return subcategory.items.flatMap((item) => item.crunchbase);
+  });
+
 const destPath = resolve("assets", "landscape.json");
 
 const prepareCategory = (category) => {
@@ -46,8 +52,10 @@ const prepareItem = (item, categoryName) => {
   const logoName = item.image_data.fileName;
   const logo = `logos/${logoName}`;
   const id = logoName.split(".")[0];
-  const license = (github_data && github_data.license) || "Not Open Source"
-  return { id, name, logo, license };
+  const license = (github_data && github_data.license) || "Not Open Source";
+  const relation =
+    item.project || (members.includes(item.crunchbase) ? "member" : "other");
+  return { id, name, logo, license, relation };
 };
 
 const categories = landscape.landscape
@@ -74,21 +82,60 @@ const licenseNames = items.reduce((agg, item) => {
 
 const licenses = [
   {
-    label: "Not Open Source"
+    label: "Not Open Source",
   },
   {
     label: "Open Source",
-    children: Object.keys(licenseNames).map(name => {
-      return { label: name }
-    })
-  }
-]
+    children: Object.keys(licenseNames).map((label) => ({ label })),
+  },
+];
 
 const filters = [
   {
     name: "license",
+    label: "License",
     options: licenses,
+  },
+  {
+    name: "relation",
+    label: "Relation",
+    filterBy: "value",
+    options: [
+      {
+        label: "CNCF Projects",
+        value: "cncf",
+        children: [
+          {
+            value: "graduated",
+            label: "CNCF graduated",
+          },
+          {
+            value: "incubating",
+            label: "CNCF incubating",
+          },
+          {
+            value: "sandbox",
+            label: "CNCF sandbox",
+          },
+          {
+            value: "archived",
+            label: "CNCF archived",
+          },
+        ],
+      },
+      {
+        label: "CNCF Member projects",
+        value: "member",
+      },
+      {
+        label: "Non-CNCF Member projects",
+        value: "other",
+      },
+    ],
   },
 ];
 
-writeFileSync(destPath, JSON.stringify({ header, filters, categories }, undefined, 4));
+writeFileSync(
+  destPath,
+  JSON.stringify({ header, filters, categories }, undefined, 4)
+);

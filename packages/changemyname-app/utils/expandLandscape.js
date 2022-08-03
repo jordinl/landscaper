@@ -3,16 +3,15 @@ const transformOptions = (options) => {
     .map((option) => {
       const children = option.children && transformOptions(option.children);
       const childrenHash = children ? { children } : {};
-      const id = option.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
+      const value = option.value || option.label.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
       return {
         ...option,
-        id,
-        key: id,
+        value,
         ...childrenHash,
       };
     })
-    .sort((a, b) => (a.id <= b.id ? -1 : 1));
+    .sort((a, b) => (a.value <= b.value ? -1 : 1));
 };
 
 const expandLandscape = (landscape) => {

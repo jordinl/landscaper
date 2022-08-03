@@ -6,13 +6,14 @@ import { Slider, CheckTreePicker } from "rsuite";
 import "./App.css";
 import landscapeUrl from "project/landscape.json?url";
 
-const getSelectedFilterValues = (options, values, parentSelected = false) => {
-  return options.flatMap(({ children, id, label }) => {
-    const selected = parentSelected || values.includes(id);
+const getSelectedFilterValues = (filter, options, values, parentSelected = false) => {
+  return options.flatMap(({ children, ...option }) => {
+    const selected = parentSelected || values.includes(option.value);
     const selectedChildren = children
-      ? getSelectedFilterValues(children, values, selected)
+      ? getSelectedFilterValues(filter, children, values, selected)
       : [];
-    return [...(selected ? [label] : []), ...selectedChildren];
+    const valueOrLabel = filter.filterBy ? option[filter.filterBy] : option.label
+    return [...(selected ? [valueOrLabel] : []), ...selectedChildren];
   });
 };
 
@@ -22,32 +23,31 @@ function App() {
   const { categories, header, filters } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
 
-  // TODO: hook up filter
-  const selectedFilters = (filters || []).reduce(
-    (agg, filter) => {
-      const { name, options } = filter;
-      const parsedParams = searchParams.has(name) && searchParams.get(name).split(",");
-      const values =
-        parsedParams && getSelectedFilterValues(options, parsedParams);
-      return [...agg, ...(values ? [{ name, values }] : []) ];
-    },
-    []
-  );
+  const selectedFilters = (filters || []).reduce((agg, filter) => {
+    const { name, options } = filter;
+    const parsedParams =
+      searchParams.has(name) && searchParams.get(name).split(",");
+    const values =
+      parsedParams && getSelectedFilterValues(filter, options, parsedParams);
+    return [...agg, ...(values ? [{ name, values }] : [])];
+  }, []);
 
-  const filteredCategories = categories && categories.map(category => {
-      const subcategories = category.subcategories.map(subcategory => {
-          const items = subcategory.items.map(item => {
-              const hidden = selectedFilters.find(filter => {
-                  return !filter.values.includes(item[filter.name])
-              })
+  const filteredCategories =
+    categories &&
+    categories.map((category) => {
+      const subcategories = category.subcategories.map((subcategory) => {
+        const items = subcategory.items.map((item) => {
+          const hidden = selectedFilters.find((filter) => {
+            return !filter.values.includes(item[filter.name]);
+          });
 
-              return { ...item, hidden }
-          })
-          return { ...subcategory, items }
-      })
+          return { ...item, hidden };
+        });
+        return { ...subcategory, items };
+      });
 
-      return { ...category, subcategories }
-  })
+      return { ...category, subcategories };
+    });
 
   const getFilterValue = (name) => {
     const value = searchParams.has(name) && searchParams.get(name);
@@ -55,12 +55,11 @@ function App() {
   };
 
   const onChangeFilter = (name, values) => {
-    const newSearchParams = Object.entries({
-      ...searchParams,
-      [name]: values.join(","),
-    }).reduce((agg, [key, value]) => {
-      return { ...agg, ...(value ? { [key]: value } : {}) };
-    }, {});
+    const newSearchParams = new URLSearchParams([
+      ...Array.from(searchParams.entries()).filter(([key, _]) => key !== name),
+      ...(values && values.length > 0 ? [[name, values.join(",")]] : []),
+    ]);
+
     setSearchParams(newSearchParams);
   };
 
@@ -81,20 +80,21 @@ function App() {
           />
         </div>
         <div className="sidebar">
-          {filters &&
-            filters.map((filter) => (
-              <CheckTreePicker
-                data={filter.options}
-                onChange={(values) => onChangeFilter(filter.name, values)}
-                defaultExpandAll={true}
-                placeholder="Select Item"
-                key={filter.name}
-                valueKey="id"
-                preventOverflow={true}
-                value={getFilterValue(filter.name)}
-              />
-            ))}
-
+          {filters && (
+            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+              {filters.map((filter) => (
+                <CheckTreePicker
+                  data={filter.options}
+                  onChange={(values) => onChangeFilter(filter.name, values)}
+                  defaultExpandAll={true}
+                  placeholder={`Select ${filter.label}`}
+                  key={filter.name}
+                  preventOverflow={true}
+                  value={getFilterValue(filter.name)}
+                />
+              ))}
+            </div>
+          )}
           <Slider
             min={100}
             max={400}

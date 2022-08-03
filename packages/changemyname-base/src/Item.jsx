@@ -61,7 +61,7 @@ const SmallItem = ({ item }) => {
     border: '1px solid grey',
     borderRadius: '2px',
     padding: '1px',
-    visibility: item.isVisible ? 'visible' : 'hidden',
+    visibility: item.hidden ? 'hidden' : 'visible',
     boxSizing: 'border-box'
   }
   return <>

@@ -6,11 +6,48 @@ import { Slider, CheckTreePicker } from "rsuite";
 import "./App.css";
 import landscapeUrl from "project/landscape.json?url";
 
+const getSelectedFilterValues = (options, values, parentSelected = false) => {
+  return options.flatMap(({ children, id, label }) => {
+    const selected = parentSelected || values.includes(id);
+    const selectedChildren = children
+      ? getSelectedFilterValues(children, values, selected)
+      : [];
+    return [...(selected ? [label] : []), ...selectedChildren];
+  });
+};
+
 function App() {
   const [landscape, setLandscape] = useState();
   const [zoom, setZoom] = useState(100);
   const { categories, header, filters } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
+
+  // TODO: hook up filter
+  const selectedFilters = (filters || []).reduce(
+    (agg, filter) => {
+      const { name, options } = filter;
+      const parsedParams = searchParams.has(name) && searchParams.get(name).split(",");
+      const values =
+        parsedParams && getSelectedFilterValues(options, parsedParams);
+      return [...agg, ...(values ? [{ name, values }] : []) ];
+    },
+    []
+  );
+
+  const filteredCategories = categories && categories.map(category => {
+      const subcategories = category.subcategories.map(subcategory => {
+          const items = subcategory.items.map(item => {
+              const hidden = selectedFilters.find(filter => {
+                  return !filter.values.includes(item[filter.name])
+              })
+
+              return { ...item, hidden }
+          })
+          return { ...subcategory, items }
+      })
+
+      return { ...category, subcategories }
+  })
 
   const getFilterValue = (name) => {
     const value = searchParams.has(name) && searchParams.get(name);
@@ -38,7 +75,7 @@ function App() {
       <div className="App">
         <div className="landscape">
           <Landscape
-            categories={categories}
+            categories={filteredCategories}
             header={header}
             zoom={zoom / 100}
           />

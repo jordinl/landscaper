@@ -53,10 +53,11 @@ const prepareItem = (item, categoryName) => {
   const logo = `logos/${logoName}`;
   const id = logoName.split(".")[0];
   const license = (github_data && github_data.license) || "Not Open Source";
+  const language = github_data && github_data.languages[0] && github_data.languages[0].name
   const relation =
     item.project || (members.includes(item.crunchbase) ? "member" : "other");
   const country = (crunchbase_data || {}).country || 'Unknown';
-  return { id, name, logo, license, relation, country };
+  return { id, name, logo, license, relation, country, language };
 };
 
 const categories = landscape.landscape
@@ -137,6 +138,10 @@ const filters = [
   {
     name: "country",
     label: "Country"
+  },
+  {
+    name: "language",
+    label: "Language"
   }
 ];
 

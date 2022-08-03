@@ -22,7 +22,10 @@ const getDefaultOptions = (landscape, filterName) => {
     });
   });
 
-  return [...new Set(values)].sort().map((label) => ({ label }));
+  return [...new Set(values)]
+      .sort()
+      .filter(_ => _)
+      .map((label) => ({ label }));
 };
 
 const expandLandscape = (landscape) => {

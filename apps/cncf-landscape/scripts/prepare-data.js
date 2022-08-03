@@ -48,14 +48,15 @@ const prepareSubcategory = (subcategory, categoryName) => {
 // return !!categoryAttrs.isLarge || !!relationInfo.big_picture_order;
 
 const prepareItem = (item, categoryName) => {
-  const { name, github_data } = item;
+  const { name, github_data, crunchbase_data } = item;
   const logoName = item.image_data.fileName;
   const logo = `logos/${logoName}`;
   const id = logoName.split(".")[0];
   const license = (github_data && github_data.license) || "Not Open Source";
   const relation =
     item.project || (members.includes(item.crunchbase) ? "member" : "other");
-  return { id, name, logo, license, relation };
+  const country = (crunchbase_data || {}).country || 'Unknown';
+  return { id, name, logo, license, relation, country };
 };
 
 const categories = landscape.landscape
@@ -133,6 +134,10 @@ const filters = [
       },
     ],
   },
+  {
+    name: "country",
+    label: "Country"
+  }
 ];
 
 writeFileSync(

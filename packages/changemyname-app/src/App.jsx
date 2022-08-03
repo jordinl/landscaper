@@ -19,9 +19,10 @@ const getSelectedFilterValues = (filter, options, values, parentSelected = false
 
 function App() {
   const [landscape, setLandscape] = useState();
-  const [zoom, setZoom] = useState(100);
   const { categories, header, filters } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
+
+  const zoom = parseInt(searchParams.get("zoom") || 100)
 
   const selectedFilters = (filters || []).reduce((agg, filter) => {
     const { name, options } = filter;
@@ -54,14 +55,14 @@ function App() {
     return value ? value.split(",") : [];
   };
 
-  const onChangeFilter = (name, values) => {
-    const newSearchParams = new URLSearchParams([
+  const onChangeSearchParam = (name, value) => {
+    const searchParamsArray = [
       ...Array.from(searchParams.entries()).filter(([key, _]) => key !== name),
-      ...(values && values.length > 0 ? [[name, values.join(",")]] : []),
-    ]);
+      ...(value && (!Array.isArray(value) || value.length > 0) ? [[name, value]] : []),
+    ].sort((a, b) => a[0] > b[0]);
 
-    setSearchParams(newSearchParams);
-  };
+    setSearchParams(searchParamsArray);
+  }
 
   useEffect(() => {
     fetch(landscapeUrl)
@@ -85,7 +86,7 @@ function App() {
               {filters.map((filter) => (
                 <CheckTreePicker
                   data={filter.options}
-                  onChange={(values) => onChangeFilter(filter.name, values)}
+                  onChange={(values) => onChangeSearchParam(filter.name, values)}
                   defaultExpandAll={true}
                   placeholder={`Select ${filter.label}`}
                   key={filter.name}
@@ -100,8 +101,9 @@ function App() {
             max={400}
             step={10}
             value={zoom}
+            style={{ margin: "5px 10px" }}
             tooltip={false}
-            onChange={(value) => setZoom(value)}
+            onChange={(value) => onChangeSearchParam("zoom", value > 100 && value)}
           />
         </div>
       </div>

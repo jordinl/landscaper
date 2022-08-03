@@ -64,6 +64,13 @@ function App() {
     setSearchParams(searchParamsArray);
   }
 
+  const resetFilters = (e) => {
+    e.preventDefault()
+    const filterNames = filters.map(filter => filter.name)
+    const searchParamsArray = Array.from(searchParams.entries()).filter(([key, _]) => !filterNames.includes(key))
+    setSearchParams(searchParamsArray);
+  }
+
   useEffect(() => {
     fetch(landscapeUrl)
       .then((response) => response.json())
@@ -82,11 +89,13 @@ function App() {
         </div>
         <div className="sidebar">
           {filters && (
-            <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
               {filters.map((filter) => (
                 <CheckTreePicker
                   data={filter.options}
-                  onChange={(values) => onChangeSearchParam(filter.name, values)}
+                  onChange={(values) =>
+                    onChangeSearchParam(filter.name, values)
+                  }
                   defaultExpandAll={true}
                   placeholder={`Select ${filter.label}`}
                   key={filter.name}
@@ -94,6 +103,12 @@ function App() {
                   value={getFilterValue(filter.name)}
                 />
               ))}
+
+              {selectedFilters.length > 0 && (
+                <a onClick={resetFilters} href="#" style={{ textAlign: "right" }}>
+                  Reset Filters
+                </a>
+              )}
             </div>
           )}
           <Slider
@@ -103,7 +118,9 @@ function App() {
             value={zoom}
             style={{ margin: "5px 10px" }}
             tooltip={false}
-            onChange={(value) => onChangeSearchParam("zoom", value > 100 && value)}
+            onChange={(value) =>
+              onChangeSearchParam("zoom", value > 100 && value)
+            }
           />
         </div>
       </div>

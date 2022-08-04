@@ -11,7 +11,6 @@ const Landscape = ({
   LinkComponent = "a",
 }) => {
   const sizes = calculateSize(categories);
-  // TODO: Move this to calculations
   const width = sizes.width;
   const height = sizes.height + (header ? headerHeight + 10 : 0);
 
@@ -49,7 +48,6 @@ const Landscape = ({
     marginBottom: padding,
   };
 
-  // TODO: get rid of inline styles
   return (
     <div style={style}>
       {header && (

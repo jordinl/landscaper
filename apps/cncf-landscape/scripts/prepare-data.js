@@ -51,10 +51,6 @@ const prepareSubcategory = (subcategory, categoryName) => {
   return { name, items };
 };
 
-// TODO: add large
-// const relationInfo = fields.relation.valuesMap[relation]
-// const relationInfo = {}
-
 const prepareItem = (item, categoryName) => {
   const { name, github_data, crunchbase_data } = item;
   const logoName = item.image_data.fileName;

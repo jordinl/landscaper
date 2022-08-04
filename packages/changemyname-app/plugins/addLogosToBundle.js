@@ -14,7 +14,6 @@ function addLogosToBundle(srcPath) {
     });
   });
 
-  // TODO: consider if it's best to have everything in one file or break it up.
   const header = landscape.header || {};
 
   return {
@@ -67,7 +66,6 @@ function addLogosToBundle(srcPath) {
         categories,
       });
 
-      // TODO: find way of updating chunk hash, rollup 3 should take care of this
       landscapeChunk.source = JSON.stringify(newLandscape);
 
       return bundle;

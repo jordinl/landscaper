@@ -7,7 +7,6 @@ import {
 } from "./utils/landscapeCalculations";
 
 const LargeItem = ({ item }) => {
-  // TODO: fix relation stuff
   // const relationInfo = fields.relation.valuesMap[item.relation]
   // const color = relationInfo.big_picture_color;
   // const label = relationInfo.big_picture_label;
@@ -89,7 +88,6 @@ const SmallItem = ({ item }) => {
 
 const Item = (props) => {
   const { large, oss, id } = props.item;
-  // TODO: react router link expects "to" instead of "href"
   const { LinkComponent } = props;
 
   const style = {

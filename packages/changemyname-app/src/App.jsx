@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Landscape } from "changemyname-base";
-// TODO: see if we can import this only if necessary
 import { Slider, CheckTreePicker } from "rsuite";
 import "./App.css";
 import landscapeUrl from "project/landscape.json?url";

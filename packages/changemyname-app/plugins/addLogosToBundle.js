@@ -37,7 +37,6 @@ function addLogosToBundle(srcPath) {
       refs[header.logo] = header.logo && emitAsset(header.logo);
     },
     generateBundle(options, bundle) {
-      // TODO: expand filters
       const landscapeChunk = Object.values(bundle).find(
         ({ name }) => name.indexOf("assets/landscape.json") >= 0
       );
@@ -57,7 +56,6 @@ function addLogosToBundle(srcPath) {
 
       const headerLogo = landscape.header && landscape.header.logo;
 
-      // TODO: get rid of right logo
       const header = {
         ...landscape.header,
         ...(headerLogo ? { logo: this.getFileName(refs[headerLogo]) } : null),

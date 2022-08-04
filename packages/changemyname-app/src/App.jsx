@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, Link } from "react-router-dom";
 import { Landscape } from "changemyname-base";
 // TODO: see if we can import this only if necessary
 import { Slider, CheckTreePicker } from "rsuite";
 import "./App.css";
 import landscapeUrl from "project/landscape.json?url";
+import Modal from "./Modal.jsx";
 
-const getSelectedFilterValues = (filter, options, values, parentSelected = false) => {
+const getSelectedFilterValues = (
+  filter,
+  options,
+  values,
+  parentSelected = false
+) => {
   return options.flatMap(({ children, ...option }) => {
     const selected = parentSelected || values.includes(option.value);
     const selectedChildren = children
       ? getSelectedFilterValues(filter, children, values, selected)
       : [];
-    const valueOrLabel = filter.filterBy ? option[filter.filterBy] : option.label
+    const valueOrLabel = filter.filterBy
+      ? option[filter.filterBy]
+      : option.label;
     return [...(selected ? [valueOrLabel] : []), ...selectedChildren];
   });
 };
@@ -22,7 +30,22 @@ function App() {
   const { categories, header, filters } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
 
-  const zoom = parseInt(searchParams.get("zoom") || 100)
+  const itemsMap =
+    landscape &&
+    landscape.categories
+      .flatMap((category) => {
+        return category.subcategories.flatMap(
+          (subcategory) => subcategory.items
+        );
+      })
+      .reduce((agg, item) => ({ ...agg, [item.id]: item }), {});
+
+  const selectedItem =
+    landscape &&
+    searchParams.get("selected") &&
+    itemsMap[searchParams.get("selected")];
+
+  const zoom = parseInt(searchParams.get("zoom") || 100);
 
   const selectedFilters = (filters || []).reduce((agg, filter) => {
     const { name, options } = filter;
@@ -58,18 +81,22 @@ function App() {
   const onChangeSearchParam = (name, value) => {
     const searchParamsArray = [
       ...Array.from(searchParams.entries()).filter(([key, _]) => key !== name),
-      ...(value && (!Array.isArray(value) || value.length > 0) ? [[name, value]] : []),
+      ...(value && (!Array.isArray(value) || value.length > 0)
+        ? [[name, value]]
+        : []),
     ].sort((a, b) => a[0] > b[0]);
 
     setSearchParams(searchParamsArray);
-  }
+  };
 
   const resetFilters = (e) => {
-    e.preventDefault()
-    const filterNames = filters.map(filter => filter.name)
-    const searchParamsArray = Array.from(searchParams.entries()).filter(([key, _]) => !filterNames.includes(key))
+    e.preventDefault();
+    const filterNames = filters.map((filter) => filter.name);
+    const searchParamsArray = Array.from(searchParams.entries()).filter(
+      ([key, _]) => !filterNames.includes(key)
+    );
     setSearchParams(searchParamsArray);
-  }
+  };
 
   useEffect(() => {
     fetch(landscapeUrl)
@@ -80,11 +107,18 @@ function App() {
   return (
     landscape && (
       <div className="App">
+        {selectedItem && (
+          <Modal
+            item={selectedItem}
+            onClose={(e) => onChangeSearchParam("selected", null)}
+          />
+        )}
         <div className="landscape">
           <Landscape
             categories={filteredCategories}
             header={header}
             zoom={zoom / 100}
+            LinkComponent={Link}
           />
         </div>
         <div className="sidebar">
@@ -105,7 +139,11 @@ function App() {
               ))}
 
               {selectedFilters.length > 0 && (
-                <a onClick={resetFilters} href="#" style={{ textAlign: "right" }}>
+                <a
+                  onClick={resetFilters}
+                  href="#"
+                  style={{ textAlign: "right" }}
+                >
                   Reset Filters
                 </a>
               )}

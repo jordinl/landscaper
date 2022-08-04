@@ -35,19 +35,19 @@ const prepareCategory = (category) => {
 };
 
 const compareItems = (a, b) => {
-  if (a.large && b.large) {
-    return 0
+  if ((a.large && b.large) || (!a.large && !b.large)) {
+    return 0;
   } else if (a.large) {
-    return -1
+    return -1;
   }
-  return 1
-}
+  return 1;
+};
 
 const prepareSubcategory = (subcategory, categoryName) => {
   const { name } = subcategory;
-  const items = subcategory.items.map((item) =>
-    prepareItem(item, categoryName)
-  ).sort(compareItems);
+  const items = subcategory.items
+    .map((item) => prepareItem(item, categoryName))
+    .sort(compareItems);
   return { name, items };
 };
 
@@ -61,6 +61,10 @@ const prepareItem = (item, categoryName) => {
   const logo = `logos/${logoName}`;
   const id = logoName.split(".")[0];
   const license = (github_data && github_data.license) || "Not Open Source";
+  const description =
+    item.description ||
+    (github_data && github_data.description) ||
+    (crunchbase_data && crunchbase_data.description);
   const language =
     github_data && github_data.languages[0] && github_data.languages[0].name;
   const relation =
@@ -77,6 +81,7 @@ const prepareItem = (item, categoryName) => {
     relation,
     country,
     language,
+    description,
     ...largeOptions,
   };
 };

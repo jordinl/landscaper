@@ -34,8 +34,10 @@ function App() {
     landscape &&
     landscape.categories
       .flatMap((category) => {
-        return category.subcategories.flatMap(
-          (subcategory) => subcategory.items
+        return category.subcategories.flatMap((subcategory) =>
+          subcategory.items.map((item) => {
+            return { ...item, category, subcategory };
+          })
         );
       })
       .reduce((agg, item) => ({ ...agg, [item.id]: item }), {});

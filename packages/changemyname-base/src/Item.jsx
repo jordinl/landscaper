@@ -89,6 +89,7 @@ const SmallItem = ({ item }) => {
 
 const Item = (props) => {
   const { large, oss, id } = props.item;
+  // TODO: react router link expects "to" instead of "href"
   const { LinkComponent } = props;
 
   const style = {

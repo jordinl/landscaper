@@ -6,6 +6,9 @@ const imgStyle = {
 };
 
 const Modal = ({ item, onClose }) => {
+  const path = [item.category.name, item.subcategory && item.subcategory.name]
+    .filter((_) => _)
+    .join(" / ");
   return (
     <RSuiteModal size="lg" open={true} onClose={onClose}>
       <RSuiteModal.Header />
@@ -16,6 +19,7 @@ const Modal = ({ item, onClose }) => {
         <div>
           <div>
             <h1>{item.name}</h1>
+            <h5>{path}</h5>
           </div>
           <div>{item.description}</div>
         </div>

@@ -1,55 +1,54 @@
 import React from 'react'
 import {
-  largeItemHeight,
-  largeItemWidth,
-  smallItemHeight,
-  smallItemWidth
+    largeItemHeight,
+    largeItemWidth,
+    smallItemHeight,
+    smallItemWidth
 } from "./utils/landscapeCalculations";
 
-const LargeItem = ({ item }) => {
-  // TODO: fix relation stuff
-  // const relationInfo = fields.relation.valuesMap[item.relation]
-  // const color = relationInfo.big_picture_color;
-  // const label = relationInfo.big_picture_label;
-  const label = null;
-  const color = 'grey';
-  const textHeight = label ? 10 : 0
-  const padding = 2
+const LargeItem = ({item}) => {
+    // TODO: fix relation stuff
+    // const relationInfo = fields.relation.valuesMap[item.relation]
+    // const color = relationInfo.big_picture_color;
+    // const label = relationInfo.big_picture_label;
+    const label = null;
+    const color = 'grey';
+    const textHeight = label ? 10 : 0
+    const padding = 2
 
-  return <div className="large-item item">
-    {/*<style jsx>{`*/}
-    {/*  .large-item {*/}
-    {/*    cursor: pointer;*/}
-    {/*    position: relative;*/}
-    {/*    background: ${color};*/}
-    {/*    visibility: ${item.isVisible ? 'visible' : 'hidden'};*/}
-    {/*    width: ${largeItemWidth}px;*/}
-    {/*    height: ${largeItemHeight}px;*/}
-    {/*  }*/}
+    const wrapperStyle = {
+        cursor: 'pointer',
+        position: 'relative',
+        background: color,
+        visibility: item.hidden ? 'hidden' : 'visible',
+        width: largeItemWidth,
+        height: largeItemHeight,
+    }
 
-    {/*  .large-item img {*/}
-    {/*    width: calc(100% - ${2 * padding}px);*/}
-    {/*    height: calc(100% - ${2 * padding + textHeight}px);*/}
-    {/*    padding: 5px;*/}
-    {/*    margin: ${padding}px ${padding}px 0 ${padding}px;*/}
-    {/*  }*/}
+    const imgStyle = {
+        width: `calc(100% - ${2 * padding}px)`,
+        height: `calc(100% - ${2 * padding + textHeight}px)`,
+        padding: 5,
+        margin: `${padding}px ${padding}px 0 ${padding}px`,
+        background: 'white'
+  }
 
-    {/*  .large-item .label {*/}
-    {/*    position: absolute;*/}
-    {/*    bottom: 0;*/}
-    {/*    width: 100%;*/}
-    {/*    height: ${textHeight + padding}px;*/}
-    {/*    text-align: center;*/}
-    {/*    vertical-align: middle;*/}
-    {/*    background: ${color};*/}
-    {/*    color: white;*/}
-    {/*    font-size: 6.7px;*/}
-    {/*    line-height: 13px;*/}
-    {/*  }*/}
-    {/*`}</style>*/}
+    const labelStyle = {
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      height: textHeight + padding,
+      textAlign: "center",
+      verticalAlign: "middle",
+      background: color,
+      color: "white",
+      fontSize: "6.7px",
+      lineHeight: "13px",
+    };
 
-    <img loading="lazy" src={item.logo} data-href={item.id} alt={item.name} />
-    <div className="label">{label}</div>
+  return <div className="large-item item" style={wrapperStyle} >
+    <img loading="lazy" src={item.logo} data-href={item.id} alt={item.name} style={imgStyle} />
+    <div className="label" style={labelStyle}>{label}</div>
   </div>;
 }
 

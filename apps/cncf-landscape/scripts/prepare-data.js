@@ -34,18 +34,26 @@ const prepareCategory = (category) => {
   return { name, style, subcategories };
 };
 
+const compareItems = (a, b) => {
+  if (a.large && b.large) {
+    return 0
+  } else if (a.large) {
+    return -1
+  }
+  return 1
+}
+
 const prepareSubcategory = (subcategory, categoryName) => {
   const { name } = subcategory;
   const items = subcategory.items.map((item) =>
     prepareItem(item, categoryName)
-  );
+  ).sort(compareItems);
   return { name, items };
 };
 
 // TODO: add large
 // const relationInfo = fields.relation.valuesMap[relation]
 // const relationInfo = {}
-// return !!categoryAttrs.isLarge || !!relationInfo.big_picture_order;
 
 const prepareItem = (item, categoryName) => {
   const { name, github_data, crunchbase_data } = item;
@@ -53,11 +61,24 @@ const prepareItem = (item, categoryName) => {
   const logo = `logos/${logoName}`;
   const id = logoName.split(".")[0];
   const license = (github_data && github_data.license) || "Not Open Source";
-  const language = github_data && github_data.languages[0] && github_data.languages[0].name
+  const language =
+    github_data && github_data.languages[0] && github_data.languages[0].name;
   const relation =
     item.project || (members.includes(item.crunchbase) ? "member" : "other");
-  const country = (crunchbase_data || {}).country || 'Unknown';
-  return { id, name, logo, license, relation, country, language };
+  const country = (crunchbase_data || {}).country || "Unknown";
+  const largeOptions = ["graduated", "incubating"].includes(relation)
+    ? { large: true }
+    : {};
+  return {
+    id,
+    name,
+    logo,
+    license,
+    relation,
+    country,
+    language,
+    ...largeOptions,
+  };
 };
 
 const categories = landscape.landscape
@@ -66,7 +87,7 @@ const categories = landscape.landscape
 
 const header = {
   title: "CNCF Cloud Native Landscape",
-  logo: "logo.svg"
+  logo: "logo.svg",
 };
 
 const items = landscape.landscape.flatMap((category) => {
@@ -136,12 +157,12 @@ const filters = [
   },
   {
     name: "country",
-    label: "Country"
+    label: "Country",
   },
   {
     name: "language",
-    label: "Language"
-  }
+    label: "Language",
+  },
 ];
 
 writeFileSync(

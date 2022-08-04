@@ -1,3 +1,3 @@
-import Landscape from './Landscape'
+import Landscape from "./Landscape";
 
-export { Landscape }
+export { Landscape };

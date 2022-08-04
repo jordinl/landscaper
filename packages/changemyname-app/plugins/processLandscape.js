@@ -7,7 +7,7 @@ const processLandscape = () => ({
     server.middlewares.use((req, res, next) => {
       if (req.url.match(/landscape\.json$/)) {
         const landscape = loadLandscape();
-        const expandedLandscape = expandLandscape(landscape)
+        const expandedLandscape = expandLandscape(landscape);
         res.setHeader("Content-Type", "application/json");
         res.write(JSON.stringify(expandedLandscape));
         res.end();

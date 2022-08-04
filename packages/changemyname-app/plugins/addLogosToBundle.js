@@ -61,7 +61,11 @@ function addLogosToBundle(srcPath) {
         ...(headerLogo ? { logo: this.getFileName(refs[headerLogo]) } : null),
       };
 
-      const newLandscape = expandLandscape({ ...landscape, header, categories });
+      const newLandscape = expandLandscape({
+        ...landscape,
+        header,
+        categories,
+      });
 
       // TODO: find way of updating chunk hash, rollup 3 should take care of this
       landscapeChunk.source = JSON.stringify(newLandscape);

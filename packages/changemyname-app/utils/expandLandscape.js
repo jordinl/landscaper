@@ -4,14 +4,16 @@ const transformOptions = (options) => {
       const children = option.children && transformOptions(option.children);
       const childrenHash = children ? { children } : {};
       const value =
-        option.value || option.label.toLowerCase()
-              .replace(/\+/g, '-plus-')
-              .replace(/#/g, '-sharp-')
-              .replace(/&/g, '-and-')
-              .replace(/[^a-z0-9]+/g, "-")
-              .replace(/-+/g, "-")
-              .replace(/-$/, "")
-              .replace(/^-/, "");
+        option.value ||
+        option.label
+          .toLowerCase()
+          .replace(/\+/g, "-plus-")
+          .replace(/#/g, "-sharp-")
+          .replace(/&/g, "-and-")
+          .replace(/[^a-z0-9]+/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/-$/, "")
+          .replace(/^-/, "");
 
       return {
         ...option,
@@ -30,9 +32,9 @@ const getDefaultOptions = (landscape, filterName) => {
   });
 
   return [...new Set(values)]
-      .sort()
-      .filter(_ => _)
-      .map((label) => ({ label }));
+    .sort()
+    .filter((_) => _)
+    .map((label) => ({ label }));
 };
 
 const expandLandscape = (landscape) => {

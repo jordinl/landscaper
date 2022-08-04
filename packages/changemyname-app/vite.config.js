@@ -14,10 +14,15 @@ const extraAlias = process.env.MONOREPO
 const srcPath = resolve("assets");
 const distPath = resolve("dist");
 
-const debugOptions = process.env.DEBUG ? { minify: false } : {}
+const debugOptions = process.env.DEBUG ? { minify: false } : {};
 
 export default defineConfig(({ command }) => ({
-  plugins: [react(), addLogosToBundle(srcPath), injectTitle(srcPath), processLandscape()],
+  plugins: [
+    react(),
+    addLogosToBundle(srcPath),
+    injectTitle(srcPath),
+    processLandscape(),
+  ],
   publicDir: command !== "build" && srcPath,
   clearScreen: false,
   server: {
@@ -27,7 +32,7 @@ export default defineConfig(({ command }) => ({
   build: {
     outDir: distPath,
     emptyOutDir: true,
-    ...debugOptions
+    ...debugOptions,
   },
   preview: {
     port: 4000,

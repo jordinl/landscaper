@@ -6,10 +6,9 @@ import {calculateSize, headerHeight} from "./utils/landscapeCalculations";
 
 const Landscape = ({zoom = 1, header = {}, padding = 10, categories }) => {
     const sizes = calculateSize(categories)
-    // TODO: this should be done based on header height
-    // TODO: header needs to have padding top and bottom
-    const width = header ? sizes.fullscreenWidth : sizes.width
-    const height = header ? sizes.fullscreenHeight : sizes.height
+    // TODO: Move this to calculations
+    const width = sizes.width
+    const height = sizes.height + (header ? headerHeight + 10 : 0)
 
     const elements = categories.map((category, idx) => {
         const subcategories = category.subcategories.map(subcategory => {
@@ -34,16 +33,16 @@ const Landscape = ({zoom = 1, header = {}, padding = 10, categories }) => {
         height: headerHeight,
         display: 'flex',
         color: 'white',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        justifyContent: 'flex-start',
+        alignItems: 'stretch',
+        marginBottom: padding
     }
 
     // TODO: get rid of inline styles
     return <div style={style}>
         { header && <div className="header" style={headerStyle}>
-            <div style={{ height: '100%' }}>{ header.logo && <img style={{ height: '100%' }} src={header.logo} /> }</div>
-            <div style={{ height: '100%', display: 'flex', alignItems: 'center' }}>{ header.title && <h1 style={{ fontSize: 26 }}>{header.title}</h1>}</div>
-            <div style={{ height: '100%' }}>{ header.rightLogo && <img style={{ height: '100%' }} src={header.rightLogo} /> }</div>
+            <div style={{ width: '25%' }}>{ header.logo && <img style={{ height: '100%' }} src={header.logo} /> }</div>
+            <div style={{ width: '50%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>{ header.title && <h1 style={{ fontSize: 26, lineHeight: '26px' }}>{header.title}</h1>}</div>
         </div> }
         <div style={{ position: 'relative' }}>
             {elements}

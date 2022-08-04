@@ -35,9 +35,6 @@ function addLogosToBundle(srcPath) {
       });
 
       refs[header.logo] = header.logo && emitAsset(header.logo);
-
-      // TODO: get rid of right logo
-      refs[header.rightLogo] = header.rightLogo && emitAsset(header.rightLogo);
     },
     generateBundle(options, bundle) {
       // TODO: expand filters
@@ -59,15 +56,11 @@ function addLogosToBundle(srcPath) {
       });
 
       const headerLogo = landscape.header && landscape.header.logo;
-      const rightLogo = landscape.header && landscape.header.rightLogo;
 
       // TODO: get rid of right logo
       const header = {
         ...landscape.header,
         ...(headerLogo ? { logo: this.getFileName(refs[headerLogo]) } : null),
-        ...(rightLogo
-          ? { rightLogo: this.getFileName(refs[rightLogo]) }
-          : null),
       };
 
       const newLandscape = expandLandscape({ ...landscape, header, categories });

@@ -24,16 +24,9 @@ if (lstatSync(logosDir, { throwIfNoEntry: false })) {
 
 symlinkSync(resolve(srcDir, "cached_logos"), logosDir);
 
-const originalLeftLogo = readFileSync(
-  resolve(srcDir, "images", "left-logo.svg"),
-  "utf-8"
-);
-const modifiedLeftLogo = originalLeftLogo.replace("#333333", "white");
-writeFileSync(resolve(destDir, "left-logo.svg"), modifiedLeftLogo);
-
-const rightLogoUrl =
+const logoUrl =
   "https://raw.githubusercontent.com/cncf/artwork/master/other/cncf/horizontal/color-whitetext/cncf-color-whitetext.svg";
 
-fetch(rightLogoUrl)
+fetch(logoUrl)
   .then((response) => response.text())
-  .then((logo) => writeFileSync(resolve(destDir, "right-logo.svg"), logo));
+  .then((logo) => writeFileSync(resolve(destDir, "logo.svg"), logo));

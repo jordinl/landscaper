@@ -66,8 +66,7 @@ const categories = landscape.landscape
 
 const header = {
   title: "CNCF Cloud Native Landscape",
-  logo: "left-logo.svg",
-  rightLogo: "right-logo.svg",
+  logo: "logo.svg"
 };
 
 const items = landscape.landscape.flatMap((category) => {

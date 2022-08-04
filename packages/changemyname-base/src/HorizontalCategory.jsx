@@ -96,7 +96,7 @@ const HorizontalCategory = ({
         >
           {subcategoriesWithCalculations.map((subcategory, index) => {
             const lastSubcategory = index !== subcategories.length - 1;
-            const { allItems, columns, width, name, href } = subcategory;
+            const { items, columns, width, name, href } = subcategory;
             const padding = fitWidth ? 0 : `${subcategoryMargin}px 0`;
             const style = {
               display: "grid",
@@ -137,7 +137,7 @@ const HorizontalCategory = ({
                     </InternalLink>
                   </div>
                   <div style={{ ...style, ...extraStyle }}>
-                    {allItems.map((item) => (
+                    {items.map((item) => (
                       <Item
                         item={item}
                         key={item.name}

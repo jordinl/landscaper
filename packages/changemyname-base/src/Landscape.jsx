@@ -16,14 +16,6 @@ const Landscape = ({
   const height = sizes.height + (header ? headerHeight + 10 : 0);
 
   const elements = categories.map((category, idx) => {
-    const subcategories = category.subcategories.map((subcategory) => {
-      const allItems = subcategory.items.map((item) => ({
-        ...item,
-        categoryAttrs: category,
-      }));
-      return { ...subcategory, allItems };
-    });
-
     const Component =
       category.style.layout === "horizontal"
         ? HorizontalCategory
@@ -32,7 +24,7 @@ const Landscape = ({
       <Component
         {...category}
         {...category.style}
-        subcategories={subcategories}
+        subcategories={category.subcategories}
         key={idx}
         LinkComponent={LinkComponent}
       />

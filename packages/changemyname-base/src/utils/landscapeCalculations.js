@@ -18,24 +18,16 @@ export const headerHeight = 50;
 // Count number of large items.
 const computeItems = (subcategories) => {
   return subcategories.map((subcategory) => {
-    const filteredItems = subcategory.items.reduce(
-      (acc, { id }) => ({ ...acc, [id]: true }),
-      {}
-    );
-    const allItems = subcategory.allItems.map((item) => ({
-      ...item,
-      isVisible: filteredItems[item.id],
-    }));
-    const itemsCount = allItems.reduce(
+    const itemsCount = subcategory.items.reduce(
       (count, item) => count + (item.large ? 4 : 1),
       0
     );
-    const largeItemsCount = allItems.reduce(
+    const largeItemsCount = subcategory.items.reduce(
       (count, item) => count + (item.large ? 1 : 0),
       0
     );
 
-    return { ...subcategory, allItems, itemsCount, largeItemsCount };
+    return { ...subcategory, itemsCount, largeItemsCount };
   });
 };
 
@@ -225,7 +217,7 @@ export const calculateVerticalCategory = ({
 
   return subcategoriesWithCalculations.map((subcategory) => {
     let columns = fitWidth
-      ? Math.min(maxColumns, subcategory.allItems.length)
+      ? Math.min(maxColumns, subcategory.items.length)
       : maxColumns;
     if (
       columns % 2 === 1 &&

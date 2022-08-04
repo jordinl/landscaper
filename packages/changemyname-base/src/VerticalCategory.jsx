@@ -100,7 +100,7 @@ const VerticalCategory = ({
                     ...extraStyle,
                   }}
                 >
-                  {subcategory.allItems.map((item) => (
+                  {subcategory.items.map((item) => (
                     <Item
                       item={item}
                       key={item.name}

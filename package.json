@@ -23,11 +23,6 @@
     "prettier": "^2.7.1",
     "vite": "^3.0.0"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "lint-staged": {
     "packages/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"

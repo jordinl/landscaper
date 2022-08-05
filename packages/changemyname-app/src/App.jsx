@@ -24,10 +24,34 @@ const getSelectedFilterValues = (
   });
 };
 
+const compareItems = (a, b) => {
+  if ((a.large && b.large) || (!a.large && !b.large)) {
+    return 0;
+  } else if (a.large) {
+    return -1;
+  }
+  return 1;
+};
+
 function App() {
   const [landscape, setLandscape] = useState();
-  const { categories, header, filters } = landscape || {};
+  const { header, filters, itemTypes } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
+
+  const categories =
+    landscape &&
+    landscape.categories.map((category) => {
+      const subcategories = category.subcategories.map((subcategory) => {
+        const items = subcategory.items
+          .map((item) => {
+            const itemType = item.type && itemTypes && itemTypes[item.type];
+            return { ...item, ...itemType };
+          })
+          .sort(compareItems);
+        return { ...subcategory, items };
+      });
+      return { ...category, subcategories };
+    });
 
   const itemsMap =
     landscape &&

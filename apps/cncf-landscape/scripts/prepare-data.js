@@ -35,9 +35,13 @@ const prepareCategory = (category) => {
 };
 
 const compareItems = (a, b) => {
-  if ((a.large && b.large) || (!a.large && !b.large)) {
+  if (a.type === b.type) {
     return 0;
-  } else if (a.large) {
+  } else if (a.type === 'graduated') {
+    return -1;
+  } else if (b.type === 'graduated') {
+    return 1;
+  } else if (a.type === 'incubating') {
     return -1;
   }
   return 1;
@@ -66,8 +70,8 @@ const prepareItem = (item, categoryName) => {
   const relation =
     item.project || (members.includes(item.crunchbase) ? "member" : "other");
   const country = (crunchbase_data || {}).country || "Unknown";
-  const largeOptions = ["graduated", "incubating"].includes(relation)
-    ? { large: true }
+  const typeOptions = ["graduated", "incubating"].includes(relation)
+    ? { type: relation }
     : {};
   return {
     id,
@@ -78,7 +82,7 @@ const prepareItem = (item, categoryName) => {
     country,
     language,
     description,
-    ...largeOptions,
+    ...typeOptions,
   };
 };
 
@@ -166,7 +170,20 @@ const filters = [
   },
 ];
 
+const itemTypes = {
+  graduated: {
+    large: true,
+    label: "CNCF Graduated",
+    borderColor: "rgb(24,54,114)",
+  },
+  incubating: {
+    large: true,
+    label: "CNCF Incubating",
+    borderColor: "rgb(83, 113, 189)",
+  },
+};
+
 writeFileSync(
   destPath,
-  JSON.stringify({ header, filters, categories }, undefined, 4)
+  JSON.stringify({ header, filters, categories, itemTypes }, undefined, 4)
 );

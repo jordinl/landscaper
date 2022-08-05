@@ -7,11 +7,7 @@ import {
 } from "./utils/landscapeCalculations";
 
 const LargeItem = ({ item }) => {
-  // const relationInfo = fields.relation.valuesMap[item.relation]
-  // const color = relationInfo.big_picture_color;
-  // const label = relationInfo.big_picture_label;
-  const label = null;
-  const color = "grey";
+  const { label, borderColor: color } = item;
   const textHeight = label ? 10 : 0;
   const padding = 2;
 

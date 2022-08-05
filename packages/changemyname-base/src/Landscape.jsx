@@ -1,18 +1,14 @@
 import React from "react";
 import HorizontalCategory from "./HorizontalCategory";
 import VerticalCategory from "./VerticalCategory";
-import { calculateSize, headerHeight } from "./utils/landscapeCalculations";
+import {
+  calculateSize,
+  headerHeight,
+  outerPadding,
+} from "./utils/landscapeCalculations";
 
-const Landscape = ({
-  zoom = 1,
-  header = {},
-  padding = 10,
-  categories,
-  LinkComponent = "a",
-}) => {
-  const sizes = calculateSize(categories);
-  const width = sizes.width;
-  const height = sizes.height + (header ? headerHeight + 10 : 0);
+const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
+  const { width, height } = calculateSize(categories, header);
 
   const elements = categories.map((category, idx) => {
     const Component =
@@ -31,9 +27,9 @@ const Landscape = ({
   });
 
   const style = {
-    padding,
-    width: width + 2 * padding,
-    height: height + 2 * padding,
+    padding: outerPadding,
+    width: width + 2 * outerPadding,
+    height: height + 2 * outerPadding,
     transform: `scale(${zoom})`,
     transformOrigin: "0 0",
     boxSizing: "border-box",
@@ -45,7 +41,7 @@ const Landscape = ({
     color: "white",
     justifyContent: "flex-start",
     alignItems: "stretch",
-    marginBottom: padding,
+    marginBottom: outerPadding,
   };
 
   return (

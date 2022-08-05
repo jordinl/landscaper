@@ -32,17 +32,18 @@ const computeItems = (subcategories) => {
 };
 
 // Calculate width and height of a given landscape
-export const calculateSize = (categories) => {
-  const width = Math.max(
+export const calculateSize = (categories, header) => {
+  const innerWidth = Math.max(
     ...categories.map(({ style }) => style.left + style.width)
   );
-  const height = Math.max(
+  const innerHeight = Math.max(
     ...categories.map(({ style }) => style.top + style.height)
   );
-  const fullscreenWidth = width + 2 * outerPadding;
-  const fullscreenHeight = height + headerHeight + 2 * outerPadding;
 
-  return { width, height, fullscreenWidth, fullscreenHeight };
+  const width = innerWidth;
+  const height = innerHeight + (header ? headerHeight + outerPadding : 0);
+
+  return { width, height };
 };
 
 // Calculate each subcategory width and the disposition of its items, assuming fixed padding for each item.

@@ -37,11 +37,11 @@ const prepareCategory = (category) => {
 const compareItems = (a, b) => {
   if (a.type === b.type) {
     return 0;
-  } else if (a.type === 'graduated') {
+  } else if (a.type === "graduated") {
     return -1;
-  } else if (b.type === 'graduated') {
+  } else if (b.type === "graduated") {
     return 1;
-  } else if (a.type === 'incubating') {
+  } else if (a.type === "incubating") {
     return -1;
   }
   return 1;
@@ -53,6 +53,54 @@ const prepareSubcategory = (subcategory, categoryName) => {
     .map((item) => prepareItem(item, categoryName))
     .sort(compareItems);
   return { name, items };
+};
+
+const itemLinks = (item) => {
+  const { crunchbase_data, github_data, github_start_commit_data } = item;
+  const website = { label: "Website", url: item.homepage_url };
+  const repo = item.repo_url && { label: "Repository", url: item.repo_url };
+  const crunchbase = item.crunchbase && {
+    label: "Crunchbase",
+    url: item.crunchbase,
+  };
+  const twitter = item.hasOwnProperty("twitter")
+    ? item.twitter
+    : crunchbase_data && crunchbase_data.twitter;
+  const twitterUrl = twitter && {
+    label: "Twitter",
+    url: twitter,
+    text: `@${twitter.split("/").pop()}`,
+  };
+  const country = crunchbase_data && {
+    label: "Country",
+    text: crunchbase_data.country,
+  };
+  const firstCommitDate =
+    github_start_commit_data && github_start_commit_data.start_date;
+
+  const firstCommit = firstCommitDate && {
+    label: "First Commit",
+    text: firstCommitDate,
+    format: "date",
+  };
+
+  const latestCommitDate = github_data && github_data.latest_commit_date;
+
+  const latestCommit = latestCommitDate && {
+    label: "Latest Commit",
+    text: latestCommitDate,
+    format: "date",
+  };
+
+  return [
+    website,
+    repo,
+    crunchbase,
+    twitterUrl,
+    country,
+    firstCommit,
+    latestCommit,
+  ].filter((_) => _);
 };
 
 const prepareItem = (item, categoryName) => {
@@ -73,6 +121,8 @@ const prepareItem = (item, categoryName) => {
   const typeOptions = ["graduated", "incubating"].includes(relation)
     ? { type: relation }
     : {};
+  const info = itemLinks(item);
+
   return {
     id,
     name,
@@ -83,6 +133,7 @@ const prepareItem = (item, categoryName) => {
     language,
     description,
     ...typeOptions,
+    info,
   };
 };
 

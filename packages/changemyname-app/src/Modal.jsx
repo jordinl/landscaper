@@ -5,6 +5,10 @@ const imgStyle = {
   maxWidth: 250,
 };
 
+const formatDate = (date) => {
+  return new Date(date).toLocaleDateString();
+};
+
 const Modal = ({ item, onClose }) => {
   const path = [item.category.name, item.subcategory && item.subcategory.name]
     .filter((_) => _)
@@ -22,6 +26,29 @@ const Modal = ({ item, onClose }) => {
             <h5>{path}</h5>
           </div>
           <div>{item.description}</div>
+          {item.info &&
+            item.info.map(({ text, url, label, format }) => {
+              const textOrUrl =
+                text ||
+                (url &&
+                  url.replace(/https?:\/\/(www\.)?/, "").replace(/\/$/, ""));
+              const formattedText =
+                format === "date" ? formatDate(textOrUrl) : textOrUrl;
+              return (
+                <div key={label}>
+                  <span>{label}:</span>
+                  <span>
+                    {url ? (
+                      <a href={url} target="_blank" rel="noreferrer noopener">
+                        {formattedText}
+                      </a>
+                    ) : (
+                      formattedText
+                    )}
+                  </span>
+                </div>
+              );
+            })}
         </div>
       </RSuiteModal.Body>
     </RSuiteModal>

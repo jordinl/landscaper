@@ -37,7 +37,7 @@ function addLogosToBundle(srcPath) {
     },
     generateBundle(options, bundle) {
       const landscapeChunk = Object.values(bundle).find(
-        ({ name }) => name.indexOf("assets/landscape.json") >= 0
+        ({ name }) => name && name.indexOf("assets/landscape.json") >= 0
       );
 
       const categories = landscape.categories.map((category) => {

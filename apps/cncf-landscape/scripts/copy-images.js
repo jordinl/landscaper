@@ -3,7 +3,7 @@ import {
   symlinkSync,
   unlinkSync,
   mkdirSync,
-  readFileSync,
+  copyFileSync,
   writeFileSync,
   existsSync,
   lstatSync,
@@ -30,3 +30,8 @@ const logoUrl =
 fetch(logoUrl)
   .then((response) => response.text())
   .then((logo) => writeFileSync(resolve(destDir, "logo.svg"), logo));
+
+copyFileSync(
+  resolve(srcDir, "images", "favicon.png"),
+  resolve(destDir, "favicon.png")
+);

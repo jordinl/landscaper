@@ -4,6 +4,7 @@ import { resolve } from "path";
 import addLogosToBundle from "./plugins/addLogosToBundle.js";
 import injectTitle from "./plugins/injectTitle.js";
 import processLandscape from "./plugins/processLandscape.js";
+import injectFavicon from "./plugins/injectFavicon.js";
 
 const extraAlias = process.env.MONOREPO
   ? {
@@ -22,6 +23,7 @@ export default defineConfig(({ command }) => ({
     addLogosToBundle(srcPath),
     injectTitle(srcPath),
     processLandscape(),
+    injectFavicon(),
   ],
   publicDir: command !== "build" && srcPath,
   clearScreen: false,

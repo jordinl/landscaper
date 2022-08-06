@@ -29,8 +29,10 @@ body {
 }
 
 .sidebar {
-  background-color: white;
-  width: 250px;
+  width: 300px;
+  background: var(--rs-sidenav-default-bg);
+  box-shadow: var(--rs-drawer-shadow);
+  border-left: 1px solid var(--rs-border-primary);
   padding: 20px;
   display: flex;
   flex-direction: column;

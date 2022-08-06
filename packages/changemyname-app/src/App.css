@@ -28,15 +28,40 @@ body {
   flex-direction: row;
 }
 
+.expand-sidebar {
+  padding: 8px 5px;
+  border: 1px solid var(--rs-divider-border);
+  display: flex;
+  justify-content: center;
+}
+
 .sidebar {
-  width: 300px;
   background: var(--rs-sidenav-default-bg);
   box-shadow: var(--rs-drawer-shadow);
   border-left: 1px solid var(--rs-border-primary);
-  padding: 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+}
+
+.sidebar.expanded {
+  width: 300px;
+  padding: 20px;
+}
+
+.sidebar.collapsed {
+  width: 60px;
+  padding: 8px 8px 20px;
+  align-items: center;
+}
+
+.sidebar .collapse-sidebar {
+  text-align: right;
+  color: var(--rs-btn-default-text);
+}
+
+.sidebar.collapsed .rs-slider {
+  max-height: 200px;
 }
 
 .landscape {

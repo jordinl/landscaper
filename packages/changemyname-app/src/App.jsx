@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Landscape } from "changemyname-base";
-import { Slider, CheckTreePicker } from "rsuite";
 import "./App.css";
 import landscapeUrl from "project/landscape.json?url";
 import Modal from "./Modal.jsx";
+import Sidebar from "./Sidebar.jsx";
 
 const getSelectedFilterValues = (
   filter,
@@ -98,11 +98,6 @@ function App() {
       return { ...category, subcategories };
     });
 
-  const getFilterValue = (name) => {
-    const value = searchParams.has(name) && searchParams.get(name);
-    return value ? value.split(",") : [];
-  };
-
   const onChangeSearchParam = (name, value) => {
     const searchParamsArray = [
       ...Array.from(searchParams.entries()).filter(([key, _]) => key !== name),
@@ -146,46 +141,14 @@ function App() {
             LinkComponent={Link}
           />
         </div>
-        <div className="sidebar">
-          {filters && (
-            <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
-              {filters.map((filter) => (
-                <CheckTreePicker
-                  data={filter.options}
-                  onChange={(values) =>
-                    onChangeSearchParam(filter.name, values)
-                  }
-                  defaultExpandAll={true}
-                  placeholder={`Select ${filter.label}`}
-                  key={filter.name}
-                  preventOverflow={true}
-                  value={getFilterValue(filter.name)}
-                />
-              ))}
-
-              {selectedFilters.length > 0 && (
-                <a
-                  onClick={resetFilters}
-                  href="#"
-                  style={{ textAlign: "right" }}
-                >
-                  Reset Filters
-                </a>
-              )}
-            </div>
-          )}
-          <Slider
-            min={100}
-            max={400}
-            step={10}
-            value={zoom}
-            style={{ margin: "5px 10px" }}
-            tooltip={false}
-            onChange={(value) =>
-              onChangeSearchParam("zoom", value > 100 && value)
-            }
-          />
-        </div>
+        <Sidebar
+          filters={filters}
+          zoom={zoom}
+          resetFilters={resetFilters}
+          searchParams={searchParams}
+          selectedFilters={selectedFilters}
+          onChangeSearchParam={onChangeSearchParam}
+        />
       </div>
     )
   );

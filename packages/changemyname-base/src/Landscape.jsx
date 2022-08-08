@@ -1,24 +1,22 @@
 import React from "react";
-import HorizontalCategory from "./HorizontalCategory";
 import VerticalCategory from "./VerticalCategory";
 import {
-  calculateSize,
   headerHeight,
   outerPadding,
+  calculateVerticalCategory,
 } from "./utils/landscapeCalculations";
 
 const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
-  const { width, height } = calculateSize(categories, header);
+  const verticalCategories = calculateVerticalCategory({ categories });
+  const width =
+    verticalCategories.reduce((sum, { width }) => sum + width, 0) +
+    (verticalCategories.length + 1) * outerPadding;
 
-  const elements = categories.map((category, idx) => {
-    const Component =
-      category.style.layout === "horizontal"
-        ? HorizontalCategory
-        : VerticalCategory;
+  const elements = verticalCategories.map((category, idx) => {
     return (
-      <Component
-        {...category}
+      <VerticalCategory
         {...category.style}
+        {...category}
         subcategories={category.subcategories}
         key={idx}
         LinkComponent={LinkComponent}
@@ -28,11 +26,13 @@ const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
 
   const style = {
     padding: outerPadding,
-    width: width + 2 * outerPadding,
-    height: height + 2 * outerPadding,
     transform: `scale(${zoom})`,
     transformOrigin: "0 0",
     boxSizing: "border-box",
+    display: "flex",
+    flexDirection: "column",
+    gap: outerPadding,
+    width,
   };
 
   const headerStyle = {
@@ -41,7 +41,6 @@ const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
     color: "white",
     justifyContent: "flex-start",
     alignItems: "stretch",
-    marginBottom: outerPadding,
   };
 
   return (
@@ -69,7 +68,14 @@ const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
           </div>
         </div>
       )}
-      <div style={{ position: "relative" }}>{elements}</div>
+      <div
+        style={{
+          display: "flex",
+          gap: outerPadding,
+        }}
+      >
+        {elements}
+      </div>
     </div>
   );
 };

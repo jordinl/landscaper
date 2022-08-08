@@ -42,6 +42,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  flex: none;
 }
 
 .sidebar.expanded {
@@ -66,8 +67,7 @@ body {
 
 .landscape {
   background-color: #1b446c;
-  flex: 1;
-  overflow: scroll;
+  overflow: auto;
   font-size: 12px;
   line-height: 1.1;
 }

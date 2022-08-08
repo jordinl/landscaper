@@ -1,5 +1,3 @@
-// import fields from "../types/fields";
-
 export const itemMargin = 3;
 export const smallItemWidth = 34;
 export const smallItemHeight = 30;
@@ -10,7 +8,7 @@ export const subcategoryTitleHeight = 20;
 export const dividerWidth = 2;
 export const categoryBorder = 1;
 export const categoryTitleHeight = 30;
-export const outerPadding = 20;
+export const outerPadding = 15;
 export const headerHeight = 50;
 
 // Compute if items are large and/or visible.
@@ -46,191 +44,72 @@ export const calculateSize = (categories, header) => {
   return { width, height };
 };
 
-// Calculate each subcategory width and the disposition of its items, assuming fixed padding for each item.
-const calculateHorizontalFixedWidth = ({
-  subcategories,
-  maxColumns,
-  maxRows,
-  fitWidth,
-}) => {
-  let availableColumns = maxColumns;
+const calculateCategorySize = (subcategories, columns) => {
+  const width =
+    columns * smallItemWidth +
+    (columns - 1) * itemMargin +
+    (categoryBorder + itemMargin) * 2;
+  const height =
+    (subcategories.length - 1) * subcategoryMargin +
+    subcategories.reduce((sum, subcategory) => {
+      // TODO: verify this works well with large items
+      const rows = Math.ceil(subcategory.itemsCount / columns);
+      // TODO: this won't work for subcategories without title.
+      // TODO: Title should have padding
+      const subcategoryHeight =
+        rows * smallItemHeight +
+        (rows - 1) * itemMargin +
+        subcategoryTitleHeight;
+      return sum + subcategoryHeight;
+    }, 0);
 
-  subcategories
-    .slice(0)
-    .sort((a, b) => b.itemsCount - a.itemsCount) // Probably this sorting is unnecessary
-    .forEach((subcategory) => {
-      subcategory.columns = Math.ceil(subcategory.itemsCount / maxRows);
-      if (
-        subcategory.columns % 2 === 1 &&
-        subcategory.columns < subcategory.largeItemsCount * 2
-      ) {
-        subcategory.columns += 1;
-      }
-      availableColumns -= subcategory.columns;
-      subcategory.rows = Math.ceil(
-        subcategory.itemsCount / subcategory.columns
-      );
-    });
-
-  // Assign any available columns left to subcategories.
-  // Try to assign first to those subcategories that have more rows,
-  // in case two subcategories have the same number of rows assign it to the one with less columns
-  subcategories
-    .slice(0)
-    .sort((a, b) => a.columns - b.columns)
-    .sort((a, b) => b.rows - a.rows)
-    .forEach((subcategory, idx, collection) => {
-      const nextSubcategory = collection[idx + 1];
-      const nextRows = (nextSubcategory && nextSubcategory.rows) || 0;
-      const { largeItemsCount } = subcategory;
-      while (
-        (availableColumns > 1 ||
-          (availableColumns > 0 &&
-            subcategory.columns >= largeItemsCount * 2)) &&
-        subcategory.rows >= nextRows
-      ) {
-        const additionalColumns =
-          subcategory.columns < largeItemsCount * 2 ? 2 : 1;
-        subcategory.columns += additionalColumns;
-        subcategory.rows = Math.ceil(
-          subcategory.itemsCount / subcategory.columns
-        );
-        availableColumns -= additionalColumns;
-      }
-      subcategory.width =
-        subcategory.columns * (itemMargin + smallItemWidth) - itemMargin;
-    });
-
-  return subcategories;
+  return { width, height };
 };
 
-// Calculate each subcategory width and the disposition of its items,
-// evenly distributing items across the available space
-const calculateHorizontalStretch = ({ subcategories, maxWidth, maxHeight }) => {
-  const totalItems = subcategories.reduce(
-    (acc, { itemsCount }) => acc + itemsCount,
-    0
-  );
-  let totalColumns = 0;
+const calculateVerticalRecursive = ({ categories }) => {
+  const height = Math.max(...categories.map((category) => category.height));
+  const width =
+    categories.reduce((sum, { width }) => sum + width, 0) +
+    (categories.length - 1) * outerPadding;
 
-  subcategories.forEach((subcategory) => {
-    const { itemsCount, largeItemsCount } = subcategory;
-    // Each subcategory gets width proportional to it's number of items
-    const subcategoryMaxWidth = Math.floor(
-      (maxWidth * itemsCount) / totalItems
-    );
-    let difference = Math.max(subcategoryMaxWidth, maxHeight);
-
-    // The goal is to find a combination of rows and columns that minimizes |verticalSpace - horizontalSpace|
-    // where verticalSpace and horizontalSpace are approximately vertical padding and horizontal padding, respectively.
-    for (
-      let rows = 1;
-      rows <= Math.floor(maxHeight / smallItemHeight);
-      rows++
-    ) {
-      let columns = Math.ceil(itemsCount / rows);
-
-      // Check we special case around large items and an odd number of columns
-      if (columns % 2 === 1 && largeItemsCount * 2 > columns) {
-        columns += 1;
-      }
-
-      // Skip we special case around large items and an odd number of rows
-      if (
-        rows % 2 === 1 &&
-        Math.ceil((largeItemsCount * 4) / columns) >= rows
-      ) {
-        continue;
-      }
-
-      const verticalSpace = (maxHeight - rows * smallItemHeight) / rows;
-      const horizontalSpace =
-        (subcategoryMaxWidth - columns * smallItemWidth) / columns;
-
-      if (Math.abs(verticalSpace - horizontalSpace) < difference) {
-        difference = Math.abs(verticalSpace - horizontalSpace);
-        subcategory.rows = rows;
-        subcategory.columns = columns;
-      }
-    }
-
-    totalColumns += subcategory.columns;
-  });
-
-  subcategories.forEach(
-    (subcategory) =>
-      (subcategory.width = Math.floor(
-        (maxWidth * subcategory.columns) / totalColumns
-      ))
-  );
-
-  return subcategories;
-};
-
-export const calculateHorizontalCategory = ({
-  height,
-  width,
-  subcategories,
-  fitWidth,
-}) => {
-  const subcategoriesWithCalculations = computeItems(subcategories);
-  const maxWidth =
-    width -
-    categoryTitleHeight -
-    categoryBorder -
-    (2 * subcategoryMargin - itemMargin + dividerWidth) * subcategories.length +
-    dividerWidth;
-  const maxHeight =
-    height -
-    2 * (subcategoryMargin + categoryBorder) +
-    itemMargin -
-    2 * categoryBorder;
-  const maxColumns = Math.floor(maxWidth / (itemMargin + smallItemWidth));
-  const maxRows = Math.floor(
-    (maxHeight + itemMargin) / (itemMargin + smallItemHeight)
-  );
-
-  if (fitWidth) {
-    return calculateHorizontalStretch({
-      subcategories: subcategoriesWithCalculations,
-      maxWidth,
-      maxHeight,
-    });
-  } else {
-    return calculateHorizontalFixedWidth({
-      subcategories: subcategoriesWithCalculations,
-      maxColumns,
-      maxRows,
-      fitWidth,
-    });
+  if (width / height >= 1600 / 900) {
+    return categories;
   }
+  const maxHeight = Math.max(...categories.map((category) => category.height));
+
+  const newCategories = categories.map((category) => {
+    if (category.height < maxHeight) {
+      return category;
+    }
+
+    const { subcategories } = category;
+
+    const maxLargeItems = Math.max(
+      ...subcategories.map(({ largeItemsCount }) => largeItemsCount)
+    );
+    const columns =
+      category.columns + (category.columns < maxLargeItems * 2 ? 2 : 1);
+
+    const { width, height } = calculateCategorySize(subcategories, columns);
+
+    return { ...category, width, height, columns };
+  });
+
+  return calculateVerticalRecursive({ categories: newCategories });
 };
 
-export const calculateVerticalCategory = ({
-  subcategories,
-  fitWidth,
-  width,
-}) => {
-  const subcategoriesWithCalculations = computeItems(subcategories);
-  const maxColumns = Math.floor(
-    (width - 2 * (categoryBorder + itemMargin)) / (smallItemWidth + itemMargin)
-  );
+export const calculateVerticalCategory = ({ categories }) => {
+  const categoriesWithCalculations = categories.map((category) => {
+    const subcategories = computeItems(category.subcategories);
+    const hasLargeItems = subcategories.find(
+      (subcategory) => subcategory.largeItemsCount > 0
+    );
+    const columns = hasLargeItems ? 2 : 1;
 
-  return subcategoriesWithCalculations.map((subcategory) => {
-    let columns = fitWidth
-      ? Math.min(maxColumns, subcategory.items.length)
-      : maxColumns;
-    if (
-      columns % 2 === 1 &&
-      subcategory.largeItemsCount === subcategory.items.length
-    ) {
-      columns -= 1;
-    }
-    const subWidth = fitWidth
-      ? width - 2 * categoryBorder
-      : maxColumns * (smallItemWidth + itemMargin) - itemMargin;
-    const rows = Math.ceil(subcategory.itemsCount / columns);
+    const { width, height } = calculateCategorySize(subcategories, columns);
 
-    return { ...subcategory, columns, width: subWidth, rows };
+    return { ...category, subcategories, width, height, columns };
   });
+
+  return calculateVerticalRecursive({ categories: categoriesWithCalculations });
 };

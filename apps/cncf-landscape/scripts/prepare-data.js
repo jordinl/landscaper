@@ -24,10 +24,8 @@ const destPath = resolve("assets", "landscape.json");
 
 const prepareCategory = (category) => {
   const { name } = category;
-  const { width, height, top, left, color, fit_width, type } =
-    categoriesHash[name];
-  const layout = type.includes("Horizontal") ? "horizontal" : "vertical";
-  const style = { layout, width, height, top, left, color, fit_width };
+  const { color } = categoriesHash[name];
+  const style = { color };
   const subcategories = category.subcategories.map((subcategory) =>
     prepareSubcategory(subcategory, name)
   );

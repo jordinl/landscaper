@@ -7,7 +7,7 @@ import {
 } from "./utils/landscapeCalculations";
 
 const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
-  const verticalCategories = calculateVerticalCategory({ categories });
+  const verticalCategories = calculateVerticalCategory({ categories, header });
   const width =
     verticalCategories.reduce((sum, { width }) => sum + width, 0) +
     (verticalCategories.length + 1) * outerPadding;

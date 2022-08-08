@@ -66,13 +66,17 @@ const calculateCategorySize = (subcategories, columns) => {
   return { width, height };
 };
 
-const calculateVerticalRecursive = ({ categories }) => {
+const calculateVerticalRecursive = ({
+  categories,
+  additionalHeight,
+  additionalWidth,
+}) => {
   const height = Math.max(...categories.map((category) => category.height));
   const width =
     categories.reduce((sum, { width }) => sum + width, 0) +
     (categories.length - 1) * outerPadding;
 
-  if (width / height >= 1600 / 900) {
+  if ((width + additionalWidth) / (height + additionalHeight) >= 16 / 9) {
     return categories;
   }
   const maxHeight = Math.max(...categories.map((category) => category.height));
@@ -95,10 +99,17 @@ const calculateVerticalRecursive = ({ categories }) => {
     return { ...category, width, height, columns };
   });
 
-  return calculateVerticalRecursive({ categories: newCategories });
+  return calculateVerticalRecursive({
+    categories: newCategories,
+    additionalHeight,
+    additionalWidth,
+  });
 };
 
-export const calculateVerticalCategory = ({ categories }) => {
+export const calculateVerticalCategory = ({ categories, header }) => {
+  const additionalHeight =
+    (header ? headerHeight + outerPadding : 0) + 2 * outerPadding;
+  const additionalWidth = 2 * outerPadding;
   const categoriesWithCalculations = categories.map((category) => {
     const subcategories = computeItems(category.subcategories);
     const hasLargeItems = subcategories.find(
@@ -111,5 +122,9 @@ export const calculateVerticalCategory = ({ categories }) => {
     return { ...category, subcategories, width, height, columns };
   });
 
-  return calculateVerticalRecursive({ categories: categoriesWithCalculations });
+  return calculateVerticalRecursive({
+    categories: categoriesWithCalculations,
+    additionalHeight,
+    additionalWidth,
+  });
 };

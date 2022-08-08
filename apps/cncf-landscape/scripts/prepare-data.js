@@ -24,12 +24,10 @@ const destPath = resolve("assets", "landscape.json");
 
 const prepareCategory = (category) => {
   const { name } = category;
-  const { color } = categoriesHash[name];
-  const style = { color };
   const subcategories = category.subcategories.map((subcategory) =>
     prepareSubcategory(subcategory, name)
   );
-  return { name, style, subcategories };
+  return { name, subcategories };
 };
 
 const compareItems = (a, b) => {

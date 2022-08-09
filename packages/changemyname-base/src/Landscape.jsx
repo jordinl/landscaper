@@ -7,12 +7,20 @@ import {
   footerHeight,
 } from "./utils/landscapeCalculations";
 
+const DefaultLinkComponent = ({ to, children, ...rest }) => {
+  return (
+    <a href={to} {...rest}>
+      {children}
+    </a>
+  );
+};
+
 const Landscape = ({
   zoom = 1,
   header,
   footer,
   categories,
-  LinkComponent = "a",
+  LinkComponent = DefaultLinkComponent,
 }) => {
   const verticalCategories = calculateVerticalCategory({
     categories,

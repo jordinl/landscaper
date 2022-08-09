@@ -1,6 +1,5 @@
 import React from "react";
 import Item from "./Item";
-import InternalLink from "./InternalLink";
 import {
   categoryTitleHeight,
   itemMargin,
@@ -57,7 +56,7 @@ const VerticalCategory = ({
           return (
             <div key={subcategory.name}>
               <div style={{ lineHeight: "15px", textAlign: "center" }}>
-                <InternalLink to={subcategory.href}>{name}</InternalLink>
+                <span>{name}</span>
               </div>
 
               <div

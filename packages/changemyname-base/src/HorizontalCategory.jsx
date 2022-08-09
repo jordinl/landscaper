@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
 import Item from "./Item";
-import InternalLink from "./InternalLink";
 import {
   calculateHorizontalCategory,
   categoryBorder,
@@ -132,9 +131,7 @@ const HorizontalCategory = ({
                       textAlign: "center",
                     }}
                   >
-                    <InternalLink to={href} className="white-link">
-                      {name}
-                    </InternalLink>
+                    <span>{name}</span>
                   </div>
                   <div style={{ ...style, ...extraStyle }}>
                     {items.map((item) => (

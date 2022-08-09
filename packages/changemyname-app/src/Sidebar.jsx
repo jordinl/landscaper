@@ -42,7 +42,7 @@ const Sidebar = ({
         </Button>
       )}
       {expanded && filters && (
-        <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+        <div className="sidebar-body">
           <a
             className="collapse-sidebar"
             href="#"
@@ -63,7 +63,7 @@ const Sidebar = ({
           ))}
 
           {selectedFilters.length > 0 && (
-            <a onClick={resetFilters} href="#" style={{ textAlign: "right" }}>
+            <a onClick={resetFilters} href="#" className="reset-filters">
               Reset Filters
             </a>
           )}
@@ -74,10 +74,10 @@ const Sidebar = ({
         max={400}
         step={10}
         value={zoom}
-        style={{ margin: "5px 10px" }}
         tooltip={false}
         onChange={(value) => onChangeSearchParam("zoom", value > 100 && value)}
         vertical={!expanded}
+        className="zoom-slider"
       />
     </div>
   );

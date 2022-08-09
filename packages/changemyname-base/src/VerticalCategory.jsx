@@ -7,68 +7,49 @@ import {
   subcategoryMargin,
   categoryBorder,
 } from "./utils/landscapeCalculations";
-import CategoryHeader from "./CategoryHeader";
 
 const VerticalCategory = ({
   name,
   subcategories,
-  color,
-  href,
   LinkComponent,
   width,
   columns,
 }) => {
   return (
     <div
-      style={{
-        background: "#0086FF",
-        boxShadow:
-          "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)",
-        padding: categoryBorder,
-        display: "flex",
-        flexDirection: "column",
-        width,
-      }}
-      className="big-picture-section"
+      style={{ padding: categoryBorder, width }}
+      className="landscape--vertical--category"
     >
       <div
-        style={{
-          height: categoryTitleHeight,
-          width: "100%",
-          display: "flex",
-        }}
+        className="landscape--vertical--category--header"
+        style={{ height: categoryTitleHeight }}
       >
-        <CategoryHeader href={href} label={name} background={color} />
+        {name}
       </div>
       <div
+        className="landscape--vertical--category--body"
         style={{
           padding: `${subcategoryMargin}px ${itemMargin}px`,
-          background: "white",
-          flex: 1,
-          display: "flex",
           gap: 2 * itemMargin,
-          flexDirection: "column",
         }}
       >
         {subcategories.map((subcategory) => {
           const { name } = subcategory;
 
           return (
-            <div key={subcategory.name}>
-              <div style={{ lineHeight: "15px", textAlign: "center" }}>
+            <div className="landscape--subcategory" key={subcategory.name}>
+              <div className="landscape--subcategory--title">
                 <span>{name}</span>
               </div>
 
               <div
+                className="landscape--subcategory--body"
                 style={{
-                  overflow: "hidden",
-                  display: "grid",
                   gap: itemMargin,
                   gridTemplateColumns: `repeat(${Math.min(
                     columns,
                     subcategory.itemsCount
                   )}, ${smallItemWidth}px)`,
-                  justifyContent: "center",
                 }}
               >
                 {subcategory.items.map((item) => (

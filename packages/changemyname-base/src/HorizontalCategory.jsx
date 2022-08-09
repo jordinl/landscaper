@@ -11,7 +11,6 @@ import {
   subcategoryMargin,
   subcategoryTitleHeight,
 } from "./utils/landscapeCalculations";
-import CategoryHeader from "./CategoryHeader";
 
 const Divider = ({ color }) => {
   const width = dividerWidth;
@@ -81,8 +80,9 @@ const HorizontalCategory = ({
             alignItems: "center",
             justifyContent: "center",
           }}
+          className="landscape--vertical--category--header"
         >
-          <CategoryHeader href={href} label={name} background={color} />
+          {name}
         </div>
         <div
           style={{

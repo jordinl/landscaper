@@ -1,10 +1,6 @@
 import React from "react";
 import RSuiteModal from "rsuite/Modal";
 
-const imgStyle = {
-  maxWidth: 250,
-};
-
 const formatDate = (date) => {
   return new Date(date).toLocaleDateString();
 };
@@ -16,9 +12,11 @@ const Modal = ({ item, onClose }) => {
   return (
     <RSuiteModal size="lg" open={true} onClose={onClose}>
       <RSuiteModal.Header />
-      <RSuiteModal.Body style={{ minHeight: 500, display: "flex" }}>
-        <div style={{ width: "33%" }}>
-          <img src={item.logo} style={imgStyle} />
+      <RSuiteModal.Body>
+        <div className="modal-left-column">
+          <div className="modal-image">
+            <img src={item.logo} />
+          </div>
         </div>
         <div>
           <div>

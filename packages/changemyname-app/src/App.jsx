@@ -133,7 +133,7 @@ function App() {
             onClose={(e) => onChangeSearchParam("selected", null)}
           />
         )}
-        <div className="landscape">
+        <div className="landscape-wrapper">
           <Landscape
             {...rest}
             categories={filteredCategories}

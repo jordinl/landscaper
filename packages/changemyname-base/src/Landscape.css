@@ -1,0 +1,122 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.landscape {
+  color: #272c36;
+  font-size: 13px;
+  transform-origin: 0 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+}
+
+.landscape--header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.landscape--footer {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.landscape--footer a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.landscape--footer--item {
+  display: flex;
+  align-items: center;
+}
+
+.landscape--vertical--category {
+  background: #087ad1;
+  display: flex;
+  flex-direction: column;
+}
+
+.landscape--vertical--category--header {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  color: #ffffff;
+  background: none;
+}
+
+.landscape--vertical--category--body {
+  background: white;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.landscape--subcategory--body {
+  overflow: hidden;
+  display: grid;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.landscape--subcategory--title {
+  line-height: 15px;
+  text-align: center;
+}
+
+.landscape .landscape--item--wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+}
+
+.landscape--item--wrapper--large {
+  grid-column-end: span 2;
+  grid-row-end: span 2;
+}
+
+.landscape--item--wrapper--hidden {
+  visibility: hidden;
+}
+
+.landscape--small--item {
+  cursor: pointer;
+  border: 1px solid grey;
+  border-radius: 2px;
+  padding: 1px;
+  box-sizing: border-box;
+}
+
+.landscape--large--item {
+  cursor: pointer;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.landscape--large--item--label {
+  color: white;
+  font-size: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.landscape--large--item--image {
+  background: white;
+  min-width: 0;
+  min-height: 0;
+  padding: 2px;
+  margin: 2px 2px 0 2px;
+  flex: 1;
+}

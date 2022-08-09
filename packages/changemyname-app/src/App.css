@@ -12,20 +12,15 @@
 
 /*$spacing: 1em;*/
 
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .App {
   height: 100vh;
   width: 100vw;
   display: flex;
   flex-direction: row;
+}
+
+.landscape-wrapper {
+  overflow: auto;
 }
 
 .expand-sidebar {
@@ -65,25 +60,55 @@ body {
   max-height: 200px;
 }
 
+.sidebar-body {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sidebar .zoom-slider {
+  margin: 5px 10px;
+}
+
+.sidebar .reset-filters {
+  text-align: right;
+}
+
+.rs-modal-body {
+  min-height: 500px;
+  display: flex;
+}
+
+.modal-left-column {
+  width: 33%;
+}
+
+.modal-image {
+  width: 250px;
+  height: 200px;
+  display: flex;
+  margin: 0 auto;
+  justify-content: center;
+}
+
+.modal-image {
+  flex: 1;
+}
+
+/* Landscape overrides */
+body .landscape {
+  color: white;
+}
+
 .landscape {
   background-color: #1b446c;
-  overflow: auto;
-  font-size: 12px;
-  line-height: 1.1;
 }
 
-.footer a {
-  color: white;
-  text-decoration: underline;
+.landscape .landscape--vertical--category {
+  background: #0086ff;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
-.white-link {
-  color: white;
+.landscape .landscape--subcategory--title {
+  color: #272c36;
 }
-
-.hidden {
-  display: none !important;
-}
-
-/*.oss img {background: white;}*/
-/*.nonoss img {background: #E4E4E4;}*/

@@ -1,4 +1,5 @@
 import React from "react";
+import "./Landscape.css";
 import VerticalCategory from "./VerticalCategory";
 import {
   headerHeight,
@@ -46,39 +47,22 @@ const Landscape = ({
   const style = {
     padding: outerPadding,
     transform: `scale(${zoom})`,
-    transformOrigin: "0 0",
-    boxSizing: "border-box",
-    display: "flex",
-    flexDirection: "column",
     gap: outerPadding,
     width,
   };
 
   const headerStyle = {
     height: headerHeight,
-    display: "flex",
-    color: "white",
-    justifyContent: "flex-start",
-    alignItems: "stretch",
   };
 
   const footerStyle = {
     height: footerHeight,
-    display: "flex",
-    color: "white",
-    justifyContent: "center",
-    alignItems: "stretch",
-  };
-
-  const footerItemStyle = {
-    display: "flex",
-    alignItems: "center",
   };
 
   return (
-    <div style={style}>
+    <div style={style} className="landscape">
       {header && (
-        <div className="header" style={headerStyle}>
+        <div className="landscape--header" style={headerStyle}>
           <div style={{ width: "25%" }}>
             {header.logo && (
               <img style={{ height: "100%" }} src={header.logo} />
@@ -109,10 +93,10 @@ const Landscape = ({
         {elements}
       </div>
       {footer && (
-        <div className="footer" style={footerStyle}>
+        <div className="landscape--footer" style={footerStyle}>
           {footer.map((item) => {
             return (
-              <div style={footerItemStyle}>
+              <div className="landscape--footer--item">
                 <div dangerouslySetInnerHTML={{ __html: item.content }}></div>
               </div>
             );

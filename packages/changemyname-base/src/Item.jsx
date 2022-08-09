@@ -12,45 +12,26 @@ const LargeItem = ({ item }) => {
   const padding = 2;
 
   const wrapperStyle = {
-    cursor: "pointer",
-    position: "relative",
     background: color,
-    visibility: item.hidden ? "hidden" : "visible",
     width: largeItemWidth,
     height: largeItemHeight,
   };
 
-  const imgStyle = {
-    width: `calc(100% - ${2 * padding}px)`,
-    height: `calc(100% - ${2 * padding + textHeight}px)`,
-    padding: 5,
-    margin: `${padding}px ${padding}px 0 ${padding}px`,
-    background: "white",
-  };
-
   const labelStyle = {
-    position: "absolute",
-    bottom: 0,
-    width: "100%",
-    height: textHeight + padding,
-    textAlign: "center",
-    verticalAlign: "middle",
+    height: textHeight + 2 * padding,
     background: color,
-    color: "white",
-    fontSize: "6.7px",
-    lineHeight: "13px",
   };
 
   return (
-    <div className="large-item item" style={wrapperStyle}>
+    <div className="landscape--large--item" style={wrapperStyle}>
       <img
         loading="lazy"
         src={item.logo}
         data-href={item.id}
         alt={item.name}
-        style={imgStyle}
+        className="landscape--large--item--image"
       />
-      <div className="label" style={labelStyle}>
+      <div className="landscape--large--item--label" style={labelStyle}>
         {label}
       </div>
     </div>
@@ -59,21 +40,15 @@ const LargeItem = ({ item }) => {
 
 const SmallItem = ({ item }) => {
   const style = {
-    cursor: "pointer",
     width: smallItemWidth,
     height: smallItemHeight,
-    border: "1px solid grey",
-    borderRadius: "2px",
-    padding: "1px",
-    visibility: item.hidden ? "hidden" : "visible",
-    boxSizing: "border-box",
   };
   return (
     <>
       <img
         data-href={item.id}
         loading="lazy"
-        className="item"
+        className="landscape--small--item"
         src={item.logo}
         alt={item.name}
         style={style}
@@ -83,21 +58,14 @@ const SmallItem = ({ item }) => {
 };
 
 const Item = (props) => {
-  const { large, oss, id } = props.item;
+  const { large, id, hidden } = props.item;
   const { LinkComponent } = props;
-
-  const style = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gridColumnEnd: `span ${large ? 2 : 1}`,
-    gridRowEnd: `span ${large ? 2 : 1}`,
-  };
+  const largeClass = large ? "landscape--item--wrapper--large" : "";
+  const hiddenClass = hidden ? "landscape--item--wrapper--hidden" : "";
 
   return (
     <LinkComponent
-      className={oss ? "oss" : "nonoss"}
-      style={style}
+      className={`landscape--item--wrapper ${largeClass} ${hiddenClass}`}
       to={`/?selected=${id}`}
     >
       {large ? <LargeItem {...props} /> : <SmallItem {...props} />}

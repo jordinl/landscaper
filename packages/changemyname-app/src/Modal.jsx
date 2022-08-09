@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal as RSuiteModal } from "rsuite";
+import RSuiteModal from "rsuite/Modal";
 
 const imgStyle = {
   maxWidth: 250,

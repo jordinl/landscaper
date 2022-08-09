@@ -1,6 +1,9 @@
 import React, { useState } from "react";
-import { CheckTreePicker, Slider, Button } from "rsuite";
-import { Gear as GearIcon, Close as CloseIcon } from "@rsuite/icons";
+import CheckTreePicker from "rsuite/CheckTreePicker";
+import Slider from "rsuite/Slider";
+import Button from "rsuite/Button";
+import GearIcon from "@rsuite/icons/Gear";
+import CloseIcon from "@rsuite/icons/Close";
 
 const Sidebar = ({
   filters,

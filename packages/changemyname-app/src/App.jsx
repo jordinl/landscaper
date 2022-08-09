@@ -135,10 +135,10 @@ function App() {
         )}
         <div className="landscape">
           <Landscape
+            {...rest}
             categories={filteredCategories}
             zoom={zoom / 100}
             LinkComponent={Link}
-            {...rest}
           />
         </div>
         <Sidebar

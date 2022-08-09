@@ -10,6 +10,7 @@ export const categoryBorder = 2;
 export const categoryTitleHeight = 30;
 export const outerPadding = 15;
 export const headerHeight = 50;
+export const footerHeight = 20;
 
 // Compute if items are large and/or visible.
 // Count number of items, large items count for 4 small items.
@@ -106,9 +107,11 @@ const calculateVerticalRecursive = ({
   });
 };
 
-export const calculateVerticalCategory = ({ categories, header }) => {
+export const calculateVerticalCategory = ({ categories, header, footer }) => {
   const additionalHeight =
-    (header ? headerHeight + outerPadding : 0) + 2 * outerPadding;
+    (header ? headerHeight + outerPadding : 0) +
+    (footer ? footerHeight + outerPadding : 0) +
+    +2 * outerPadding;
   const additionalWidth = 2 * outerPadding;
   const categoriesWithCalculations = categories.map((category) => {
     const subcategories = computeItems(category.subcategories);

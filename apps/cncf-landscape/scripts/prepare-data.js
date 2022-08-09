@@ -142,6 +142,12 @@ const header = {
   logo: "logo.svg",
 };
 
+const footer = [
+  {
+    content: "This landscape is just an example of changemyname and is not associated with the CNCF. The official CNCF Landscape can be found at <a href=\"https://landscape.cncf.io\">landscape.cncf.io</a>"
+  }
+]
+
 const items = landscape.landscape.flatMap((category) => {
   return category.subcategories.flatMap((subcategory) => {
     return subcategory.items;
@@ -232,5 +238,5 @@ const itemTypes = {
 
 writeFileSync(
   destPath,
-  JSON.stringify({ header, filters, categories, itemTypes }, undefined, 4)
+  JSON.stringify({ header, footer, filters, categories, itemTypes }, undefined, 4)
 );

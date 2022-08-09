@@ -4,10 +4,21 @@ import {
   headerHeight,
   outerPadding,
   calculateVerticalCategory,
+  footerHeight,
 } from "./utils/landscapeCalculations";
 
-const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
-  const verticalCategories = calculateVerticalCategory({ categories, header });
+const Landscape = ({
+  zoom = 1,
+  header,
+  footer,
+  categories,
+  LinkComponent = "a",
+}) => {
+  const verticalCategories = calculateVerticalCategory({
+    categories,
+    header,
+    footer,
+  });
   const width =
     verticalCategories.reduce((sum, { width }) => sum + width, 0) +
     (verticalCategories.length + 1) * outerPadding;
@@ -43,6 +54,19 @@ const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
     alignItems: "stretch",
   };
 
+  const footerStyle = {
+    height: footerHeight,
+    display: "flex",
+    color: "white",
+    justifyContent: "center",
+    alignItems: "stretch",
+  };
+
+  const footerItemStyle = {
+    display: "flex",
+    alignItems: "center",
+  };
+
   return (
     <div style={style}>
       {header && (
@@ -76,6 +100,17 @@ const Landscape = ({ zoom = 1, header, categories, LinkComponent = "a" }) => {
       >
         {elements}
       </div>
+      {footer && (
+        <div className="footer" style={footerStyle}>
+          {footer.map((item) => {
+            return (
+              <div style={footerItemStyle}>
+                <div dangerouslySetInnerHTML={{ __html: item.content }}></div>
+              </div>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 };

@@ -35,7 +35,7 @@ const compareItems = (a, b) => {
 
 function App() {
   const [landscape, setLandscape] = useState();
-  const { header, filters, itemTypes } = landscape || {};
+  const { filters, itemTypes, ...rest } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
 
   const categories =
@@ -136,9 +136,9 @@ function App() {
         <div className="landscape">
           <Landscape
             categories={filteredCategories}
-            header={header}
             zoom={zoom / 100}
             LinkComponent={Link}
+            {...rest}
           />
         </div>
         <Sidebar

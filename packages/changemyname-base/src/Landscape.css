@@ -22,6 +22,23 @@ body {
   align-items: stretch;
 }
 
+.landscape--header--item {
+  display: flex;
+  align-items: center;
+}
+
+.landscape--header--item--image {
+  width: 25%;
+}
+
+.landscape--header--item--image img {
+  height: 100%;
+}
+
+.landscape--header--item--html {
+  width: 50%;
+}
+
 .landscape--footer {
   display: flex;
   justify-content: center;

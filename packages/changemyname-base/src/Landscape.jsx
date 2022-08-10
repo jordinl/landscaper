@@ -1,8 +1,8 @@
 import React from "react";
 import "./Landscape.css";
+import Header from "./Header.jsx";
 import VerticalCategory from "./VerticalCategory";
 import {
-  headerHeight,
   outerPadding,
   calculateVerticalCategory,
   footerHeight,
@@ -51,39 +51,13 @@ const Landscape = ({
     width,
   };
 
-  const headerStyle = {
-    height: headerHeight,
-  };
-
   const footerStyle = {
     height: footerHeight,
   };
 
   return (
     <div style={style} className="landscape">
-      {header && (
-        <div className="landscape--header" style={headerStyle}>
-          <div style={{ width: "25%" }}>
-            {header.logo && (
-              <img style={{ height: "100%" }} src={header.logo} />
-            )}
-          </div>
-          <div
-            style={{
-              width: "50%",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            {header.title && (
-              <h1 style={{ fontSize: 26, lineHeight: "26px" }}>
-                {header.title}
-              </h1>
-            )}
-          </div>
-        </div>
-      )}
+      {header && <Header header={header} />}
       <div
         style={{
           display: "flex",

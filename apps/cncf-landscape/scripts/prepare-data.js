@@ -137,16 +137,25 @@ const categories = landscape.landscape
   .filter(({ name }) => categoryNames.indexOf(name) >= 0)
   .map((category) => prepareCategory(category));
 
-const header = {
-  title: "CNCF Cloud Native Landscape",
-  logo: "logo.svg",
-};
+const title = "CNCF Cloud Native Landscape";
+
+const header = [
+  {
+    type: "image",
+    src: "logo.svg",
+  },
+  {
+    type: "html",
+    content: `<h1>${title}</h1>`,
+  },
+];
 
 const footer = [
   {
-    content: "This landscape is just an example of changemyname and is not associated with the CNCF. The official CNCF Landscape can be found at <a href=\"https://landscape.cncf.io\">landscape.cncf.io</a>"
-  }
-]
+    content:
+      'This landscape is just an example of changemyname and is not associated with the CNCF. The official CNCF Landscape can be found at <a href="https://landscape.cncf.io">landscape.cncf.io</a>',
+  },
+];
 
 const items = landscape.landscape.flatMap((category) => {
   return category.subcategories.flatMap((subcategory) => {
@@ -238,5 +247,9 @@ const itemTypes = {
 
 writeFileSync(
   destPath,
-  JSON.stringify({ header, footer, filters, categories, itemTypes }, undefined, 4)
+  JSON.stringify(
+    { title, header, footer, filters, categories, itemTypes },
+    undefined,
+    4
+  )
 );

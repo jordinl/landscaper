@@ -3,7 +3,7 @@ import loadLandscape from "../utils/loadLandscape.js";
 function injectTitle() {
   const landscape = loadLandscape();
 
-  const title = (landscape.header && landscape.header.title) || "Landscape";
+  const title = landscape.title || "Landscape";
 
   return {
     name: "html-transform",

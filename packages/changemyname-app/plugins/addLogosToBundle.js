@@ -14,26 +14,22 @@ function addLogosToBundle(srcPath) {
     });
   });
 
-  const header = landscape.header || {};
+  const headerLogos = (landscape.header || [])
+    .filter((item) => item.type === "image")
+    .map((item) => item.src);
 
   return {
     name: "add-logos-to-bundle",
     apply: "build",
 
     buildStart: function () {
-      const emitAsset = (name) => {
-        return this.emitFile({
+      [...logos, ...headerLogos].forEach((logo) => {
+        refs[logo] = this.emitFile({
           type: "asset",
-          name: basename(name),
-          source: readFileSync(`${srcPath}/${name}`, "utf-8"),
+          name: basename(logo),
+          source: readFileSync(`${srcPath}/${logo}`, "utf-8"),
         });
-      };
-
-      logos.forEach((logo) => {
-        refs[logo] = emitAsset(logo);
       });
-
-      refs[header.logo] = header.logo && emitAsset(header.logo);
     },
     generateBundle(options, bundle) {
       const landscapeChunk = Object.values(bundle).find(
@@ -53,12 +49,15 @@ function addLogosToBundle(srcPath) {
         return { ...category, subcategories };
       });
 
-      const headerLogo = landscape.header && landscape.header.logo;
+      const header = landscape.header
+        ? landscape.header.map((item) => {
+            if (item.type !== "image") {
+              return item;
+            }
 
-      const header = {
-        ...landscape.header,
-        ...(headerLogo ? { logo: this.getFileName(refs[headerLogo]) } : null),
-      };
+            return { ...item, src: this.getFileName(refs[item.src]) };
+          })
+        : null;
 
       const newLandscape = expandLandscape({
         ...landscape,

@@ -153,7 +153,7 @@ const header = [
 const footer = [
   {
     content:
-      'This landscape is just an example of changemyname and is not associated with the CNCF. The official CNCF Landscape can be found at <a href="https://landscape.cncf.io">landscape.cncf.io</a>',
+      '<span>This landscape is just an example of changemyname and is not associated with the CNCF. The official CNCF Landscape can be found at <a href="https://landscape.cncf.io">landscape.cncf.io</a></span>',
   },
 ];
 

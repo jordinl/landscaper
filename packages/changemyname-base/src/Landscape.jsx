@@ -70,9 +70,10 @@ const Landscape = ({
         <div className="landscape--footer" style={footerStyle}>
           {footer.map((item) => {
             return (
-              <div className="landscape--footer--item">
-                <div dangerouslySetInnerHTML={{ __html: item.content }}></div>
-              </div>
+              <div
+                className="landscape--footer--item"
+                dangerouslySetInnerHTML={{ __html: item.content }}
+              />
             );
           })}
         </div>

@@ -37,6 +37,7 @@ body {
 
 .landscape--header--item--html {
   width: 50%;
+  justify-content: center;
 }
 
 .landscape--footer {

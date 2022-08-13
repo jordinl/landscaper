@@ -64,10 +64,11 @@ body {
 
 .landscape--vertical--category--header {
   width: 100%;
+  font-size: 16px;
+  font-weight: 500;
   display: flex;
   justify-content: center;
   align-items: center;
-  text-align: center;
   color: #ffffff;
   background: none;
 }

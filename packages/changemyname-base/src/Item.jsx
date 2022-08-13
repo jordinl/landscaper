@@ -8,8 +8,7 @@ import {
 
 const LargeItem = ({ item }) => {
   const { label, borderColor: color } = item;
-  const textHeight = label ? 10 : 0;
-  const padding = 2;
+  const textHeight = label ? 12 : 0;
 
   const wrapperStyle = {
     background: color,
@@ -18,7 +17,7 @@ const LargeItem = ({ item }) => {
   };
 
   const labelStyle = {
-    height: textHeight + 2 * padding,
+    minHeight: textHeight,
     background: color,
   };
 

@@ -21,6 +21,22 @@ const Sidebar = ({
     return value ? value.split(",") : [];
   };
 
+  const zoomToValue = (zoom) => {
+    console.log({
+      zoom,
+      value: (zoom - 100) / 5 / Math.floor((zoom + 50) / 100),
+    });
+    return (zoom - 100) / 5 / Math.floor((zoom + 50) / 100);
+  };
+
+  const valueToZoom = (value) => {
+    console.log({
+      value,
+      zoom: value * 5 * Math.floor(1.5 + value / 10) + 100,
+    });
+    return value * 5 * Math.round(1.5 + value / 10) + 100;
+  };
+
   const toggleSidebar = (value, e) => {
     e && e.preventDefault();
     if (value) {
@@ -70,12 +86,14 @@ const Sidebar = ({
         </div>
       )}
       <Slider
-        min={100}
-        max={400}
-        step={10}
-        value={zoom}
+        min={-10}
+        max={10}
+        step={0.5}
+        value={zoomToValue(zoom)}
         tooltip={false}
-        onChange={(value) => onChangeSearchParam("zoom", value > 100 && value)}
+        onChange={(value) =>
+          onChangeSearchParam("zoom", value !== 0 && valueToZoom(value))
+        }
         vertical={!expanded}
         className="zoom-slider"
       />

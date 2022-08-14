@@ -38,9 +38,11 @@ const LargeItem = ({ item }) => {
 };
 
 const SmallItem = ({ item }) => {
+  const { backgroundColor } = item;
   const style = {
     width: smallItemWidth,
     height: smallItemHeight,
+    backgroundColor: backgroundColor || "white",
   };
   return (
     <>

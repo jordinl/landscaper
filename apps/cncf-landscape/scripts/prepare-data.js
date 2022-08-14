@@ -100,11 +100,14 @@ const itemLinks = (item) => {
 };
 
 const prepareItem = (item, categoryName) => {
-  const { name, github_data, crunchbase_data } = item;
+  const { name, github_data, crunchbase_data, open_source } = item;
   const logoName = item.image_data.fileName;
   const logo = `logos/${logoName}`;
   const id = logoName.split(".")[0];
-  const license = (github_data && github_data.license) || "Not Open Source";
+  const not_open_source = open_source === false || !github_data;
+  const license =
+    (!not_open_source && github_data && github_data.license) ||
+    "Not Open Source";
   const description =
     item.description ||
     (github_data && github_data.description) ||
@@ -129,6 +132,7 @@ const prepareItem = (item, categoryName) => {
     language,
     description,
     ...typeOptions,
+    ...(not_open_source && { type: "not_open_source" }),
     info,
   };
 };
@@ -242,6 +246,9 @@ const itemTypes = {
     large: true,
     label: "CNCF Incubating",
     borderColor: "rgb(83, 113, 189)",
+  },
+  not_open_source: {
+    backgroundColor: "#E8E8E8",
   },
 };
 

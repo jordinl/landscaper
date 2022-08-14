@@ -6,7 +6,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.js",
-      name: "changemyname-base",
+      name: "changemyname-react",
     },
     rollupOptions: {
       external: ["react"],

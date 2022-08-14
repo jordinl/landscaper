@@ -8,7 +8,7 @@ import injectFavicon from "./plugins/injectFavicon.js";
 
 const extraAlias = process.env.MONOREPO
   ? {
-      "changemyname-base": "changemyname-base/src/index.js",
+      "changemyname-react": "changemyname-react/src/index.js",
     }
   : {};
 

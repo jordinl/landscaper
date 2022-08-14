@@ -1,6 +1,6 @@
 export const itemMargin = 3;
 export const smallItemWidth = 34;
-export const smallItemHeight = 30;
+export const smallItemHeight = 34;
 export const largeItemWidth = 2 * smallItemWidth + itemMargin;
 export const largeItemHeight = 2 * smallItemHeight + itemMargin;
 export const subcategoryMargin = 6;

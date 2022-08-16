@@ -22,18 +22,10 @@ const Sidebar = ({
   };
 
   const zoomToValue = (zoom) => {
-    console.log({
-      zoom,
-      value: (zoom - 100) / 5 / Math.floor((zoom + 50) / 100),
-    });
     return (zoom - 100) / 5 / Math.floor((zoom + 50) / 100);
   };
 
   const valueToZoom = (value) => {
-    console.log({
-      value,
-      zoom: value * 5 * Math.floor(1.5 + value / 10) + 100,
-    });
     return value * 5 * Math.round(1.5 + value / 10) + 100;
   };
 

@@ -7,13 +7,13 @@ const headerStyle = {
 const Header = ({ header }) => {
   return (
     <div className="landscape--header" style={headerStyle}>
-      {header.map((child) => {
+      {header.map((child, idx) => {
         const baseClassName =
           "landscape--header--item landscape--header--item--";
 
         if (child.type === "image") {
           return (
-            <div className={`${baseClassName}image`}>
+            <div key={idx} className={`${baseClassName}image`}>
               <img src={child.src} />
             </div>
           );
@@ -21,12 +21,17 @@ const Header = ({ header }) => {
           const __html = child.content;
           return (
             <div
+              key={idx}
               dangerouslySetInnerHTML={{ __html }}
               className={`${baseClassName}html`}
             />
           );
         } else {
-          return <div className={`${baseClassName}other`}>{child.content}</div>;
+          return (
+            <div key={idx} className={`${baseClassName}other`}>
+              {child.content}
+            </div>
+          );
         }
       })}
     </div>

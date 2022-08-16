@@ -68,9 +68,10 @@ const Landscape = ({
       </div>
       {footer && (
         <div className="landscape--footer" style={footerStyle}>
-          {footer.map((item) => {
+          {footer.map((item, idx) => {
             return (
               <div
+                key={idx}
                 className="landscape--footer--item"
                 dangerouslySetInnerHTML={{ __html: item.content }}
               />

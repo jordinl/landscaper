@@ -5,6 +5,7 @@ import addLogosToBundle from "./plugins/addLogosToBundle.js";
 import injectTitle from "./plugins/injectTitle.js";
 import processLandscape from "./plugins/processLandscape.js";
 import injectFavicon from "./plugins/injectFavicon.js";
+import injectCss from "./plugins/injectCss.js";
 
 const extraAlias = process.env.MONOREPO
   ? {
@@ -12,7 +13,8 @@ const extraAlias = process.env.MONOREPO
     }
   : {};
 
-const srcPath = resolve("assets");
+const srcPath = resolve();
+const assetsPath = resolve("assets");
 const distPath = resolve("dist");
 
 const debugOptions = process.env.DEBUG ? { minify: false } : {};
@@ -20,12 +22,13 @@ const debugOptions = process.env.DEBUG ? { minify: false } : {};
 export default defineConfig(({ command }) => ({
   plugins: [
     react(),
-    addLogosToBundle(srcPath),
-    injectTitle(srcPath),
+    addLogosToBundle(assetsPath),
+    injectTitle(assetsPath),
     processLandscape(),
     injectFavicon(),
+    injectCss(),
   ],
-  publicDir: command !== "build" && srcPath,
+  publicDir: command !== "build" && assetsPath,
   clearScreen: false,
   server: {
     port: "3000",

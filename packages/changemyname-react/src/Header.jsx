@@ -1,15 +1,10 @@
-import { headerHeight } from "./utils/landscapeCalculations.js";
-
-const headerStyle = {
-  height: headerHeight,
-};
+import React from "react";
 
 const Header = ({ header }) => {
   return (
-    <div className="landscape--header" style={headerStyle}>
+    <div className="landscape-header">
       {header.map((child, idx) => {
-        const baseClassName =
-          "landscape--header--item landscape--header--item--";
+        const baseClassName = "landscape-header-item landscape-header-item-";
 
         if (child.type === "image") {
           return (

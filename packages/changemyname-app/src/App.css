@@ -21,6 +21,8 @@
 
 .landscape-wrapper {
   overflow: auto;
+  display: flex;
+  align-items: flex-start;
 }
 
 .expand-sidebar {
@@ -104,11 +106,11 @@ body .landscape {
   background-color: #1b446c;
 }
 
-.landscape .landscape--vertical--category {
+.landscape .landscape-category {
   background: #0086ff;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2);
 }
 
-.landscape .landscape--subcategory--title {
+.landscape .landscape-subcategory-title {
   color: #272c36;
 }

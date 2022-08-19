@@ -4,6 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import "rsuite/dist/rsuite.min.css";
 import "./App.css";
 import App from "./App.jsx";
+import "virtual:Landscape.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

@@ -80,7 +80,7 @@ const HorizontalCategory = ({
             alignItems: "center",
             justifyContent: "center",
           }}
-          className="landscape--vertical--category--header"
+          className="landscape-vertical-category-header"
         >
           {name}
         </div>

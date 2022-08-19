@@ -1,12 +1,8 @@
 import React from "react";
 import "./Landscape.css";
 import Header from "./Header.jsx";
+import Footer from "./Footer.jsx";
 import VerticalCategory from "./VerticalCategory";
-import {
-  outerPadding,
-  calculateVerticalCategory,
-  footerHeight,
-} from "./utils/landscapeCalculations";
 
 const DefaultLinkComponent = ({ to, children, ...rest }) => {
   return (
@@ -23,62 +19,27 @@ const Landscape = ({
   categories,
   LinkComponent = DefaultLinkComponent,
 }) => {
-  const verticalCategories = calculateVerticalCategory({
-    categories,
-    header,
-    footer,
-  });
-  const width =
-    verticalCategories.reduce((sum, { width }) => sum + width, 0) +
-    (verticalCategories.length + 1) * outerPadding;
-
-  const elements = verticalCategories.map((category, idx) => {
+  const elements = categories.map((category, idx) => {
     return (
       <VerticalCategory
-        {...category.style}
         {...category}
         subcategories={category.subcategories}
         key={idx}
+        className={`landscape-category-${idx}`}
         LinkComponent={LinkComponent}
       />
     );
   });
 
   const style = {
-    padding: outerPadding,
     transform: `scale(${zoom})`,
-    gap: outerPadding,
-    width,
-  };
-
-  const footerStyle = {
-    height: footerHeight,
   };
 
   return (
     <div style={style} className="landscape">
       {header && <Header header={header} />}
-      <div
-        style={{
-          display: "flex",
-          gap: outerPadding,
-        }}
-      >
-        {elements}
-      </div>
-      {footer && (
-        <div className="landscape--footer" style={footerStyle}>
-          {footer.map((item, idx) => {
-            return (
-              <div
-                key={idx}
-                className="landscape--footer--item"
-                dangerouslySetInnerHTML={{ __html: item.content }}
-              />
-            );
-          })}
-        </div>
-      )}
+      <div className="landscape-categories">{elements}</div>
+      {footer && <Footer footer={footer} />}
     </div>
   );
 };

@@ -1,16 +1,147 @@
-export const itemMargin = 3;
-export const smallItemWidth = 34;
-export const smallItemHeight = 34;
-export const largeItemWidth = 2 * smallItemWidth + itemMargin;
-export const largeItemHeight = 2 * smallItemHeight + itemMargin;
-export const subcategoryMargin = 6;
-export const subcategoryTitleHeight = 20;
-export const dividerWidth = 2;
-export const categoryBorder = 2;
-export const categoryTitleHeight = 40;
-export const outerPadding = 15;
-export const headerHeight = 50;
-export const footerHeight = 20;
+const defaultTheme = {
+  layout: {
+    gap: 15,
+    item: {
+      width: 34,
+      height: 34,
+      gap: 3,
+    },
+    subcategory: {
+      header: {
+        fontSize: 14,
+      },
+    },
+    category: {
+      borderSize: 2,
+      header: {
+        height: 40,
+      },
+    },
+    header: {
+      height: 50,
+    },
+    footer: {
+      height: 20,
+    },
+  },
+};
+
+const deepMerge = (obj, defaultObj = defaultTheme) => {
+  if (!obj) {
+    return defaultObj;
+  }
+
+  return Object.entries(defaultObj).reduce((agg, [key, value]) => {
+    const newValue =
+      typeof value === "object"
+        ? deepMerge(obj[key], value)
+        : obj[key] || value;
+    return { ...agg, [key]: newValue };
+  }, {});
+};
+
+const extractTheme = (theme) => {
+  const { layout } = deepMerge(theme);
+  const { item, subcategory, category, header, footer } = layout;
+  const smallItemWidth = item.width;
+  const smallItemHeight = item.height;
+  const itemMargin = item.gap;
+
+  return {
+    smallItemWidth,
+    smallItemHeight,
+    itemMargin,
+    largeItemWidth: 2 * smallItemWidth + itemMargin,
+    largeItemHeight: 2 * smallItemHeight + itemMargin,
+    subcategoryMargin: 2 * itemMargin,
+    subcategoryTitleHeight: subcategory.header.fontSize,
+    categoryBorder: category.borderSize,
+    categoryTitleHeight: category.header.height,
+    headerHeight: header.height,
+    footerHeight: footer.height,
+    outerPadding: layout.gap,
+  };
+};
+
+export const generateCss = (theme, landscape) => {
+  const {
+    itemMargin,
+    smallItemWidth,
+    smallItemHeight,
+    largeItemHeight,
+    largeItemWidth,
+    categoryBorder,
+    categoryTitleHeight,
+    subcategoryMargin,
+    subcategoryTitleHeight,
+    outerPadding,
+    headerHeight,
+    footerHeight,
+  } = extractTheme(theme);
+
+  const calculatedCategories = calculateVerticalCategory({
+    ...landscape,
+    theme,
+  });
+
+  return `
+    .landscape {
+      padding: ${outerPadding}px;
+      gap: ${outerPadding}px;  
+    }
+    
+    .landscape-categories {
+      display: flex;
+      gap: ${outerPadding}px; 
+    }
+    
+    ${calculatedCategories
+      .map((category, idx) => {
+        return `
+        .landscape-category-${idx} {
+          width: ${category.width}px;
+        }
+      `;
+      })
+      .join("\n")}    
+    
+    .landscape-header {
+      height: ${headerHeight}px;
+    }
+    
+    .landscape-footer {
+      height: ${footerHeight}px;
+    }
+
+    .landscape-category {
+      padding: ${categoryBorder}px;
+    }
+    
+    .landscape-category-header {
+      height: ${categoryTitleHeight}px;
+    }
+
+    .landscape-category-body {
+      padding: ${itemMargin}px;
+      gap: ${2 * itemMargin}px;
+    }
+
+    .landscape-subcategory-body {
+      gap: ${itemMargin}px;
+      grid-template-columns: repeat(auto-fit, ${smallItemWidth}px);
+    }
+    
+    .landscape-small-item {
+      width: ${smallItemWidth}px;
+      height: ${smallItemHeight}px;
+    }
+    
+    .landscape-large-item {
+      width: ${largeItemWidth}px;
+      height: ${largeItemHeight}px;
+    }
+  `;
+};
 
 // Compute if items are large and/or visible.
 // Count number of items, large items count for 4 small items.
@@ -30,22 +161,15 @@ const computeItems = (subcategories) => {
   });
 };
 
-// Calculate width and height of a given landscape
-export const calculateSize = (categories, header) => {
-  const innerWidth = Math.max(
-    ...categories.map(({ style }) => style.left + style.width)
-  );
-  const innerHeight = Math.max(
-    ...categories.map(({ style }) => style.top + style.height)
-  );
-
-  const width = innerWidth;
-  const height = innerHeight + (header ? headerHeight + outerPadding : 0);
-
-  return { width, height };
-};
-
-const calculateCategorySize = (subcategories, columns) => {
+const calculateCategorySize = (subcategories, columns, extractedTheme) => {
+  const {
+    smallItemWidth,
+    itemMargin,
+    categoryBorder,
+    subcategoryMargin,
+    smallItemHeight,
+    subcategoryTitleHeight,
+  } = extractedTheme;
   const width =
     columns * smallItemWidth +
     (columns - 1) * itemMargin +
@@ -69,9 +193,11 @@ const calculateCategorySize = (subcategories, columns) => {
 
 const calculateVerticalRecursive = ({
   categories,
+  extractedTheme,
   additionalHeight,
   additionalWidth,
 }) => {
+  const { outerPadding } = extractedTheme;
   const height = Math.max(...categories.map((category) => category.height));
   const width =
     categories.reduce((sum, { width }) => sum + width, 0) +
@@ -95,19 +221,31 @@ const calculateVerticalRecursive = ({
     const columns =
       category.columns + (category.columns < maxLargeItems * 2 ? 2 : 1);
 
-    const { width, height } = calculateCategorySize(subcategories, columns);
+    const { width, height } = calculateCategorySize(
+      subcategories,
+      columns,
+      extractedTheme
+    );
 
     return { ...category, width, height, columns };
   });
 
   return calculateVerticalRecursive({
     categories: newCategories,
+    extractedTheme,
     additionalHeight,
     additionalWidth,
   });
 };
 
-export const calculateVerticalCategory = ({ categories, header, footer }) => {
+export const calculateVerticalCategory = ({
+  categories,
+  header,
+  footer,
+  theme,
+}) => {
+  const extractedTheme = extractTheme(theme);
+  const { headerHeight, outerPadding, footerHeight } = extractedTheme;
   const additionalHeight =
     (header ? headerHeight + outerPadding : 0) +
     (footer ? footerHeight + outerPadding : 0) +
@@ -120,13 +258,18 @@ export const calculateVerticalCategory = ({ categories, header, footer }) => {
     );
     const columns = hasLargeItems ? 2 : 1;
 
-    const { width, height } = calculateCategorySize(subcategories, columns);
+    const { width, height } = calculateCategorySize(
+      subcategories,
+      columns,
+      extractedTheme
+    );
 
     return { ...category, subcategories, width, height, columns };
   });
 
   return calculateVerticalRecursive({
     categories: categoriesWithCalculations,
+    extractedTheme,
     additionalHeight,
     additionalWidth,
   });

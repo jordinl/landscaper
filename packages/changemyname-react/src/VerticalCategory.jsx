@@ -16,7 +16,7 @@ const VerticalCategory = ({
 
           return (
             <div className="landscape-subcategory" key={subcategory.name}>
-              <div className="landscape-subcategory-title">
+              <div className="landscape-subcategory-header">
                 <span>{name}</span>
               </div>
 

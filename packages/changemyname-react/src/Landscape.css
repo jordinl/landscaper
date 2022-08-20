@@ -1,21 +1,3 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.landscape {
-  color: #272c36;
-  font-size: 13px;
-  transform-origin: 0 0;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-}
-
 .landscape-header {
   display: flex;
   justify-content: flex-start;
@@ -54,42 +36,6 @@ body {
 .landscape-footer-item {
   display: flex;
   align-items: center;
-}
-
-.landscape-category {
-  background: #087ad1;
-  display: flex;
-  flex-direction: column;
-}
-
-.landscape-category-header {
-  width: 100%;
-  font-size: 16px;
-  font-weight: 500;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #ffffff;
-  background: none;
-}
-
-.landscape-category-body {
-  background: white;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-}
-
-.landscape-subcategory-body {
-  overflow: hidden;
-  display: grid;
-  justify-content: center;
-  flex-direction: column;
-}
-
-.landscape-subcategory-title {
-  line-height: 15px;
-  text-align: center;
 }
 
 .landscape .landscape-item-wrapper {

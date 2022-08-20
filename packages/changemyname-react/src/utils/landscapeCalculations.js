@@ -40,6 +40,20 @@ const deepMerge = (obj, defaultObj = defaultTheme) => {
   }, {});
 };
 
+const kebabCase = (string) => {
+  return string
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .replace(/[\s_]+/g, "-")
+    .toLowerCase();
+};
+
+const injectStyles = (obj) => {
+  return Object.entries(obj || {})
+    .filter(([_, value]) => typeof value !== "object")
+    .map(([key, value]) => `${kebabCase(key)}: ${value};`)
+    .join("\n");
+};
+
 const extractTheme = (theme) => {
   const { layout } = deepMerge(theme);
   const { item, subcategory, category, header, footer } = layout;
@@ -64,6 +78,8 @@ const extractTheme = (theme) => {
 };
 
 export const generateCss = (theme, landscape) => {
+  const style = (theme && theme.style) || {};
+
   const {
     itemMargin,
     smallItemWidth,
@@ -86,8 +102,15 @@ export const generateCss = (theme, landscape) => {
 
   return `
     .landscape {
+      color: black;
+      font-size: 14px;
+      transform-origin: 0 0;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
       padding: ${outerPadding}px;
-      gap: ${outerPadding}px;  
+      gap: ${outerPadding}px;
+      ${injectStyles(style.landscape)}
     }
     
     .landscape-categories {
@@ -114,19 +137,46 @@ export const generateCss = (theme, landscape) => {
     }
 
     .landscape-category {
+      display: flex;
+      flex-direction: column;
       padding: ${categoryBorder}px;
+      ${injectStyles(style.category)}
     }
     
     .landscape-category-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      font-size: 16px;
       height: ${categoryTitleHeight}px;
+      ${injectStyles(style.category && style.category.header)}
     }
 
     .landscape-category-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
       padding: ${itemMargin}px;
       gap: ${2 * itemMargin}px;
+      ${injectStyles(style.category && style.category.body)}
+    }
+    
+    .landscape-subcategory-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: ${itemMargin}px;
+      font-size: 15px;
+      line-height: 105%;
+      text-align: center;
+      ${injectStyles(style.subcategory && style.subcategory.header)}
     }
 
     .landscape-subcategory-body {
+      display: grid;
+      justify-content: center;
+      flex-direction: column;
       gap: ${itemMargin}px;
       grid-template-columns: repeat(auto-fit, ${smallItemWidth}px);
     }

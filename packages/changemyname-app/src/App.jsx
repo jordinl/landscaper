@@ -5,6 +5,7 @@ import "./App.css";
 import landscapeUrl from "project/assets/landscape.json?url";
 import Modal from "./Modal.jsx";
 import Sidebar from "./Sidebar.jsx";
+import HeaderComponent from "./Header.jsx";
 
 const getSelectedFilterValues = (
   filter,
@@ -26,8 +27,10 @@ const getSelectedFilterValues = (
 
 function App() {
   const [landscape, setLandscape] = useState();
-  const { filters, itemTypes, categories, ...rest } = landscape || {};
+  const { filters, itemTypes, categories, header, ...rest } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
+
+  const Header = <HeaderComponent header={header} />;
 
   const itemsMap =
     landscape &&
@@ -114,6 +117,7 @@ function App() {
             {...rest}
             categories={filteredCategories}
             zoom={zoom / 100}
+            Header={Header}
             LinkComponent={Link}
           />
         </div>

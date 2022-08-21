@@ -18,7 +18,7 @@ const defaultTheme = {
       },
     },
     header: {
-      height: 50,
+      height: 0,
     },
     footer: {
       height: 20,
@@ -288,16 +288,11 @@ const calculateVerticalRecursive = ({
   });
 };
 
-export const calculateVerticalCategory = ({
-  categories,
-  header,
-  footer,
-  theme,
-}) => {
+export const calculateVerticalCategory = ({ categories, footer, theme }) => {
   const extractedTheme = extractTheme(theme);
   const { headerHeight, outerPadding, footerHeight } = extractedTheme;
   const additionalHeight =
-    (header ? headerHeight + outerPadding : 0) +
+    (headerHeight > 0 ? headerHeight + outerPadding : 0) +
     (footer ? footerHeight + outerPadding : 0) +
     +2 * outerPadding;
   const additionalWidth = 2 * outerPadding;

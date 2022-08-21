@@ -25,6 +25,31 @@
   align-items: flex-start;
 }
 
+.landscape-header-body {
+  height: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.landscape-header-item {
+  display: flex;
+  align-items: center;
+}
+
+.landscape-header-item-image {
+  width: 25%;
+}
+
+.landscape-header-item-image img {
+  height: 100%;
+}
+
+.landscape-header-item-html {
+  width: 50%;
+  justify-content: center;
+}
+
 .expand-sidebar {
   padding: 8px 5px;
   border: 1px solid var(--rs-divider-border);

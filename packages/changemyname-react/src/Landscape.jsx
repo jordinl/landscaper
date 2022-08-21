@@ -13,8 +13,8 @@ const DefaultLinkComponent = ({ to, children, ...rest }) => {
 const Landscape = ({
   zoom = 1,
   categories,
-  Header,
-  Footer,
+  header,
+  footer,
   LinkComponent = DefaultLinkComponent,
 }) => {
   const elements = categories.map((category, idx) => {
@@ -35,9 +35,9 @@ const Landscape = ({
 
   return (
     <div style={style} className="landscape">
-      {Header && <div className="landscape-header">{Header}</div>}
+      {header && <div className="landscape-header">{header}</div>}
       <div className="landscape-categories">{elements}</div>
-      {Footer && <div className="landscape-footer">{Footer}</div>}
+      {footer && <div className="landscape-footer">{footer}</div>}
     </div>
   );
 };

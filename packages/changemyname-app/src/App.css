@@ -50,6 +50,22 @@
   justify-content: center;
 }
 
+.landscape-footer-body {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+.landscape-footer-body a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+.landscape-footer-item {
+  display: flex;
+  align-items: center;
+}
+
 .expand-sidebar {
   padding: 8px 5px;
   border: 1px solid var(--rs-divider-border);

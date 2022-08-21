@@ -1,6 +1,5 @@
 import React from "react";
 import "./Landscape.css";
-import Footer from "./Footer.jsx";
 import VerticalCategory from "./VerticalCategory";
 
 const DefaultLinkComponent = ({ to, children, ...rest }) => {
@@ -13,9 +12,9 @@ const DefaultLinkComponent = ({ to, children, ...rest }) => {
 
 const Landscape = ({
   zoom = 1,
-  footer,
   categories,
   Header,
+  Footer,
   LinkComponent = DefaultLinkComponent,
 }) => {
   const elements = categories.map((category, idx) => {
@@ -38,7 +37,7 @@ const Landscape = ({
     <div style={style} className="landscape">
       {Header && <div className="landscape-header">{Header}</div>}
       <div className="landscape-categories">{elements}</div>
-      {footer && <Footer footer={footer} />}
+      {Footer && <div className="landscape-footer">{Footer}</div>}
     </div>
   );
 };

@@ -5,7 +5,6 @@ import loadLandscape from "../utils/loadLandscape.js";
 
 const landscape = loadLandscape();
 const themePath = resolve("theme.config.js");
-const { default: theme } = existsSync(themePath) ? await import(themePath) : {};
 
 export default function injectCss() {
   const virtualModuleId = "virtual:Landscape.css";
@@ -13,13 +12,27 @@ export default function injectCss() {
 
   return {
     name: "inject-css",
+    buildStart() {
+      this.addWatchFile(themePath);
+    },
+    handleHotUpdate(ctx) {
+      const { server, file } = ctx;
+      if (file === themePath) {
+        const mod = server.moduleGraph.getModuleById(resolvedVirtualModuleId);
+        server.moduleGraph.invalidateModule(mod);
+        return [mod];
+      }
+    },
     resolveId(id) {
-      if (id === virtualModuleId) {
+      if (id.indexOf(virtualModuleId) >= 0) {
         return resolvedVirtualModuleId;
       }
     },
-    load(id) {
+    async load(id) {
       if (id === resolvedVirtualModuleId) {
+        const { default: theme } = existsSync(themePath)
+          ? await import(`${themePath}?v=${Date.now()}`)
+          : {};
         return { code: generateCss(theme, landscape) };
       }
     },

@@ -181,12 +181,12 @@ export const generateCss = (theme, landscape) => {
       grid-template-columns: repeat(auto-fit, ${smallItemWidth}px);
     }
     
-    .landscape-small-item {
+    .landscape-item-body {
       width: ${smallItemWidth}px;
       height: ${smallItemHeight}px;
     }
     
-    .landscape-large-item {
+    .landscape-item-large .landscape-item-body {
       width: ${largeItemWidth}px;
       height: ${largeItemHeight}px;
     }

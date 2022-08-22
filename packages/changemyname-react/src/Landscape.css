@@ -1,35 +1,29 @@
-.landscape .landscape-item-wrapper {
+.landscape .landscape-item {
   display: flex;
   justify-content: center;
   align-items: center;
   text-decoration: none;
+  cursor: pointer;
 }
 
-.landscape-item-wrapper-large {
+.landscape-item-large {
   grid-column-end: span 2;
   grid-row-end: span 2;
 }
 
-.landscape-item-wrapper-hidden {
+.landscape-item-hidden {
   visibility: hidden;
 }
 
-.landscape-small-item {
+.landscape-item-body {
   cursor: pointer;
-  border: 1px solid grey;
-  border-radius: 2px;
-  padding: 1px;
+  display: flex;
+  flex-direction: column;
+  background-color: grey;
   box-sizing: border-box;
 }
 
-.landscape-large-item {
-  cursor: pointer;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.landscape-large-item-label {
+.landscape-item-label {
   color: white;
   font-size: 8px;
   display: flex;
@@ -37,11 +31,15 @@
   align-items: center;
 }
 
-.landscape-large-item-image {
-  background: white;
+.landscape-item-body img {
   min-width: 0;
   min-height: 0;
+  flex: 1;
+  padding: 1px;
+  margin: 1px;
+}
+
+.landscape-item-large img {
   padding: 2px;
   margin: 2px 2px 0 2px;
-  flex: 1;
 }

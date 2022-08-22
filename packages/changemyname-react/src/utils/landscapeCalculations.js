@@ -181,14 +181,66 @@ export const generateCss = (theme, landscape) => {
       grid-template-columns: repeat(auto-fit, ${smallItemWidth}px);
     }
     
+    .landscape-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+    }
+    
+    .landscape-item,
+    .landscape-item:hover,
+    .landscape-item:active,
+    .landscape-item:focus {
+      text-decoration: none;
+    }
+    
+    .landscape-item-large {
+      grid-column-end: span 2;
+      grid-row-end: span 2;
+    }
+    
+    .landscape-item-hidden {
+      visibility: hidden;
+    }
+    
     .landscape-item-body {
       width: ${smallItemWidth}px;
       height: ${smallItemHeight}px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      background-color: grey;
+      box-sizing: border-box;
     }
     
     .landscape-item-large .landscape-item-body {
       width: ${largeItemWidth}px;
       height: ${largeItemHeight}px;
+    }
+    
+    .landscape-item-label {
+      color: white;
+      font-size: 8px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      
+    }
+    
+
+    
+    .landscape-item-body img {
+      min-width: 0;
+      min-height: 0;
+      flex: 1;
+      padding: 1px;
+      margin: 1px;
+    }
+    
+    .landscape-item-large img {
+      padding: 2px;
+      margin: 2px 2px 0 2px;
     }
   `;
 };

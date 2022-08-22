@@ -1,5 +1,4 @@
 import React from "react";
-import "./Landscape.css";
 import VerticalCategory from "./VerticalCategory";
 
 const DefaultLinkComponent = ({ to, children, ...rest }) => {

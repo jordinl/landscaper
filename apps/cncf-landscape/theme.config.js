@@ -65,11 +65,9 @@ export default {
             padding: "1px"
           }
         },
-        Graduated: {
-          border: "2px solid rgb(24,54,114)",
+        Large: {
           borderBottom: 0,
           Label: {
-            backgroundColor: "rgb(24,54,114)",
             paddingTop: "2px",
             color: "white",
             fontSize: "8px"
@@ -78,17 +76,18 @@ export default {
             padding: "2px"
           }
         },
+        Graduated: {
+          extend: "Large",
+          border: "2px solid rgb(24,54,114)",
+          Label: {
+            backgroundColor: "rgb(24,54,114)",
+          },
+        },
         Incubating: {
+          extend: "Large",
           border: "2px solid rgb(83, 113, 189)",
-          borderBottom: 0,
           Label: {
             backgroundColor: "rgb(83, 113, 189)",
-            paddingTop: "2px",
-            color: "white",
-            fontSize: "8px"
-          },
-          Image: {
-            padding: "2px"
           }
         }
       }

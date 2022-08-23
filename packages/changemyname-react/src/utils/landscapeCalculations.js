@@ -26,16 +26,23 @@ const defaultTheme = {
   },
 };
 
-const deepMerge = (obj, defaultObj = defaultTheme) => {
-  if (!obj) {
-    return defaultObj;
+const deepMerge = (left, right) => {
+  if (!left) {
+    return right || {};
+  }
+  if (!right) {
+    return left || {};
   }
 
-  return Object.entries(defaultObj).reduce((agg, [key, value]) => {
+  const keys = Object.keys({ ...left, ...right });
+
+  return keys.reduce((agg, key) => {
+    const rightValue = right && right[key];
+    const leftValue = left[key] && left[key];
     const newValue =
-      typeof value === "object"
-        ? deepMerge(obj[key], value)
-        : obj[key] || value;
+      typeof leftValue === "object" || typeof rightValue === "object"
+        ? deepMerge(leftValue, rightValue)
+        : leftValue || rightValue;
     return { ...agg, [key]: newValue };
   }, {});
 };
@@ -55,7 +62,7 @@ const injectStyles = (obj) => {
 };
 
 const extractTheme = (theme) => {
-  const { layout } = deepMerge(theme);
+  const { layout } = deepMerge(theme, defaultTheme);
   const { item, subcategory, category, header, footer } = layout;
   const smallItemWidth = item.width;
   const smallItemHeight = item.height;
@@ -77,8 +84,27 @@ const extractTheme = (theme) => {
   };
 };
 
+const unpackVariants = (hash) => {
+  return Object.entries(hash).reduce((agg, [key, value]) => {
+    if (key === "variants") {
+      const variants = Object.entries(value).reduce(
+        (agg, [key, { extend, ...rest }]) => {
+          const otherVariant = (extend && value[extend]) || {};
+          return { ...agg, [key]: deepMerge(rest, otherVariant) };
+        },
+        {}
+      );
+      return { ...agg, variants };
+    } else {
+      const newValue =
+        typeof value === "object" ? unpackVariants(value) : value;
+      return { ...agg, [key]: newValue };
+    }
+  }, {});
+};
+
 export const generateCss = (theme, landscape) => {
-  const style = (theme && theme.style) || {};
+  const style = unpackVariants((theme && theme.style) || {});
 
   const {
     itemMargin,

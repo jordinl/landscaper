@@ -121,6 +121,7 @@ const prepareItem = (item, categoryName) => {
     ? { type: relation }
     : {};
   const info = itemLinks(item);
+  const relationText = ["graduated", "incubating"].includes(relation) && relation.replace(/^[a-z]/, x => x.toUpperCase())
 
   return {
     id,
@@ -132,7 +133,8 @@ const prepareItem = (item, categoryName) => {
     language,
     description,
     ...typeOptions,
-    ...(not_open_source && { type: "not_open_source" }),
+    ...(not_open_source && { variant: "Gray" }),
+    ...(relationText && { variant: relationText, label: `CNCF ${relationText}` }),
     info,
   };
 };
@@ -239,17 +241,10 @@ const filters = [
 const itemTypes = {
   graduated: {
     large: true,
-    label: "CNCF Graduated",
-    borderColor: "rgb(24,54,114)",
   },
   incubating: {
     large: true,
-    label: "CNCF Incubating",
-    borderColor: "rgb(83, 113, 189)",
-  },
-  not_open_source: {
-    backgroundColor: "#E8E8E8",
-  },
+  }
 };
 
 writeFileSync(

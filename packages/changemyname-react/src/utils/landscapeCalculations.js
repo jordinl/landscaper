@@ -210,8 +210,8 @@ export const generateCss = (theme, landscape) => {
       cursor: pointer;
       display: flex;
       flex-direction: column;
-      background-color: grey;
       box-sizing: border-box;
+      ${injectStyles(style.Item)}
     }
     
     .landscape-item-large .landscape-item-body {
@@ -220,28 +220,33 @@ export const generateCss = (theme, landscape) => {
     }
     
     .landscape-item-label {
-      color: white;
-      font-size: 8px;
       display: flex;
       justify-content: center;
       align-items: center;
-      
+      text-align: center;
     }
-    
-
     
     .landscape-item-body img {
       min-width: 0;
       min-height: 0;
       flex: 1;
-      padding: 1px;
-      margin: 1px;
     }
     
-    .landscape-item-large img {
-      padding: 2px;
-      margin: 2px 2px 0 2px;
-    }
+    ${Object.entries((style.Item || {}).variants || {})
+      .map(([name, values]) => {
+        return `.landscape-item-variant-${name} .landscape-item-body {
+          ${injectStyles(values)}
+        }
+        
+        .landscape-item-variant-${name} .landscape-item-label {
+          ${injectStyles(values.Label)}
+        }
+        
+        .landscape-item-variant-${name} .landscape-item-body img {
+          ${injectStyles(values.Image)}
+        }`;
+      })
+      .join("\n")} 
   `;
 };
 

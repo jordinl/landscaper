@@ -4,15 +4,7 @@ export default {
     Item: {
       width: 34,
       height: 34,
-      gap: 3,
-      // variants: {
-      //   graduated: {
-      //     extend: "Large"
-      //   },
-      //   incubating: {
-      //     extend: "Large"
-      //   }
-      // }
+      gap: 3
     },
     Subcategory: {
       Header: {
@@ -92,17 +84,5 @@ export default {
         }
       }
     },
-  },
-  // Item: {
-  //   width: 34,
-  //   height: 34,
-  //   border: "1px solid grey",
-  //   borderRadius: "2px",
-  //   variants: {
-  //     large: {
-  //       padding: "2px",
-  //       margin: "2px 2px 0 2px"
-  //     }
-  //   }
-  // },
+  }
 };

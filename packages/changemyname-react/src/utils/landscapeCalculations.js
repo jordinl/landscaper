@@ -104,8 +104,6 @@ const unpackVariants = (hash) => {
 };
 
 export const generateCss = (theme, landscape) => {
-  const style = unpackVariants((theme && theme.Style) || {});
-
   const {
     itemMargin,
     smallItemWidth,
@@ -120,6 +118,21 @@ export const generateCss = (theme, landscape) => {
     headerHeight,
     footerHeight,
   } = extractTheme(theme);
+  const largeItemStyle = {
+    Item: {
+      Variants: {
+        Large: {
+          width: `${largeItemWidth}px`,
+          height: `${largeItemHeight}px`,
+          Wrapper: {
+            gridColumnEnd: "span 2",
+            gridRowEnd: "span 2",
+          },
+        },
+      },
+    },
+  };
+  const style = unpackVariants(deepMerge(largeItemStyle, theme && theme.Style));
 
   const calculatedCategories = calculateVerticalCategory({
     ...landscape,
@@ -221,11 +234,6 @@ export const generateCss = (theme, landscape) => {
       text-decoration: none;
     }
     
-    .landscape-item-large {
-      grid-column-end: span 2;
-      grid-row-end: span 2;
-    }
-    
     .landscape-item-hidden {
       visibility: hidden;
     }
@@ -238,11 +246,6 @@ export const generateCss = (theme, landscape) => {
       flex-direction: column;
       box-sizing: border-box;
       ${injectStyles(style.Item)}
-    }
-    
-    .landscape-item-large .landscape-item-body {
-      width: ${largeItemWidth}px;
-      height: ${largeItemHeight}px;
     }
     
     .landscape-item-label {
@@ -261,7 +264,11 @@ export const generateCss = (theme, landscape) => {
     
     ${Object.entries((style.Item || {}).Variants || {})
       .map(([name, values]) => {
-        return `.landscape-item-variant-${name} .landscape-item-body {
+        return `.landscape-item-variant-${name} {
+          ${injectStyles(values.Wrapper)}
+        }
+
+        .landscape-item-variant-${name} .landscape-item-body {
           ${injectStyles(values)}
         }
         

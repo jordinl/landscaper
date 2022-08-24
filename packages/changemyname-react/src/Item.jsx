@@ -2,12 +2,11 @@ import React from "react";
 
 const Item = (props) => {
   const { item } = props;
-  const { large, id, hidden, variant } = item;
+  const { id, hidden, variant } = item;
   const { LinkComponent } = props;
   const className = [
     "landscape-item",
     variant && `landscape-item-variant-${variant}`,
-    large && `landscape-item-large`,
     hidden && `landscape-item-hidden`,
   ]
     .filter((_) => _)

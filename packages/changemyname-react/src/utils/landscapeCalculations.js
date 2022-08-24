@@ -256,6 +256,7 @@ export const generateCss = (theme, landscape) => {
       min-width: 0;
       min-height: 0;
       flex: 1;
+      ${injectStyles(style.Item && style.Item.Image)}
     }
     
     ${Object.entries((style.Item || {}).variants || {})

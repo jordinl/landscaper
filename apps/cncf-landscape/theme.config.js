@@ -58,12 +58,12 @@ export default {
     Item: {
       border: "1px solid gray",
       backgroundColor: "white",
+      Image: {
+        padding: "1px"
+      },
       variants: {
         Gray: {
           backgroundColor: "#E8E8E8",
-          Image: {
-            padding: "1px"
-          }
         },
         Large: {
           borderBottom: 0,

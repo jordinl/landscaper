@@ -1,7 +1,7 @@
 export default {
-  layout: {
+  Layout: {
     gap: 15,
-    item: {
+    Item: {
       width: 34,
       height: 34,
       gap: 3,
@@ -14,44 +14,44 @@ export default {
       //   }
       // }
     },
-    subcategory: {
-      header: {
+    Subcategory: {
+      Header: {
         fontSize: 14,
       },
     },
-    category: {
+    Category: {
       borderSize: 2,
-      header: {
+      Header: {
         height: 40,
       },
     },
-    header: {
+    Header: {
       height: 50,
     },
-    footer: {
+    Footer: {
       height: 20,
     },
   },
-  style: {
-    landscape: {
+  Style: {
+    Landscape: {
       fontSize: "14px",
       background: "#1b446c",
       color: "white",
     },
-    category: {
+    Category: {
       backgroundColor: "#0086ff",
       boxShadow:
         "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)",
       padding: "0 2px 2px",
-      body: {
+      Body: {
         backgroundColor: "white",
       },
-      header: {
+      Header: {
         fontWeight: 500,
       },
     },
-    subcategory: {
-      header: {
+    Subcategory: {
+      Header: {
         color: "#272c36",
       },
     },
@@ -61,7 +61,7 @@ export default {
       Image: {
         padding: "1px"
       },
-      variants: {
+      Variants: {
         Gray: {
           backgroundColor: "#E8E8E8",
         },

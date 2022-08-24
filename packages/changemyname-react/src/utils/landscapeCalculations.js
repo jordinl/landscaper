@@ -1,26 +1,26 @@
 const defaultTheme = {
-  layout: {
+  Layout: {
     gap: 15,
-    item: {
+    Item: {
       width: 34,
       height: 34,
       gap: 3,
     },
-    subcategory: {
-      header: {
+    Subcategory: {
+      Header: {
         fontSize: 14,
       },
     },
-    category: {
+    Category: {
       borderSize: 2,
-      header: {
+      Header: {
         height: 40,
       },
     },
-    header: {
+    Header: {
       height: 0,
     },
-    footer: {
+    Footer: {
       height: 20,
     },
   },
@@ -62,11 +62,11 @@ const injectStyles = (obj) => {
 };
 
 const extractTheme = (theme) => {
-  const { layout } = deepMerge(theme, defaultTheme);
-  const { item, subcategory, category, header, footer } = layout;
-  const smallItemWidth = item.width;
-  const smallItemHeight = item.height;
-  const itemMargin = item.gap;
+  const { Layout } = deepMerge(theme, defaultTheme);
+  const { Item, Subcategory, Category, Header, Footer } = Layout;
+  const smallItemWidth = Item.width;
+  const smallItemHeight = Item.height;
+  const itemMargin = Item.gap;
 
   return {
     smallItemWidth,
@@ -75,26 +75,26 @@ const extractTheme = (theme) => {
     largeItemWidth: 2 * smallItemWidth + itemMargin,
     largeItemHeight: 2 * smallItemHeight + itemMargin,
     subcategoryMargin: 2 * itemMargin,
-    subcategoryTitleHeight: subcategory.header.fontSize,
-    categoryBorder: category.borderSize,
-    categoryTitleHeight: category.header.height,
-    headerHeight: header.height,
-    footerHeight: footer.height,
-    outerPadding: layout.gap,
+    subcategoryTitleHeight: Subcategory.Header.fontSize,
+    categoryBorder: Category.borderSize,
+    categoryTitleHeight: Category.Header.height,
+    headerHeight: Header.height,
+    footerHeight: Footer.height,
+    outerPadding: Layout.gap,
   };
 };
 
 const unpackVariants = (hash) => {
   return Object.entries(hash).reduce((agg, [key, value]) => {
-    if (key === "variants") {
-      const variants = Object.entries(value).reduce(
+    if (key === "Variants") {
+      const Variants = Object.entries(value).reduce(
         (agg, [key, { extend, ...rest }]) => {
           const otherVariant = (extend && value[extend]) || {};
           return { ...agg, [key]: deepMerge(rest, otherVariant) };
         },
         {}
       );
-      return { ...agg, variants };
+      return { ...agg, Variants };
     } else {
       const newValue =
         typeof value === "object" ? unpackVariants(value) : value;
@@ -104,7 +104,7 @@ const unpackVariants = (hash) => {
 };
 
 export const generateCss = (theme, landscape) => {
-  const style = unpackVariants((theme && theme.style) || {});
+  const style = unpackVariants((theme && theme.Style) || {});
 
   const {
     itemMargin,
@@ -136,7 +136,7 @@ export const generateCss = (theme, landscape) => {
       flex-direction: column;
       padding: ${outerPadding}px;
       gap: ${outerPadding}px;
-      ${injectStyles(style.landscape)}
+      ${injectStyles(style.Landscape)}
     }
     
     .landscape-categories {
@@ -166,7 +166,7 @@ export const generateCss = (theme, landscape) => {
       display: flex;
       flex-direction: column;
       padding: ${categoryBorder}px;
-      ${injectStyles(style.category)}
+      ${injectStyles(style.Category)}
     }
     
     .landscape-category-header {
@@ -176,7 +176,7 @@ export const generateCss = (theme, landscape) => {
       width: 100%;
       font-size: 16px;
       height: ${categoryTitleHeight}px;
-      ${injectStyles(style.category && style.category.header)}
+      ${injectStyles(style.Category && style.Category.Header)}
     }
 
     .landscape-category-body {
@@ -185,7 +185,7 @@ export const generateCss = (theme, landscape) => {
       flex-direction: column;
       padding: ${itemMargin}px;
       gap: ${2 * itemMargin}px;
-      ${injectStyles(style.category && style.category.body)}
+      ${injectStyles(style.Category && style.Category.Body)}
     }
     
     .landscape-subcategory-header {
@@ -196,7 +196,7 @@ export const generateCss = (theme, landscape) => {
       font-size: 15px;
       line-height: 105%;
       text-align: center;
-      ${injectStyles(style.subcategory && style.subcategory.header)}
+      ${injectStyles(style.Subcategory && style.Subcategory.Header)}
     }
 
     .landscape-subcategory-body {
@@ -259,7 +259,7 @@ export const generateCss = (theme, landscape) => {
       ${injectStyles(style.Item && style.Item.Image)}
     }
     
-    ${Object.entries((style.Item || {}).variants || {})
+    ${Object.entries((style.Item || {}).Variants || {})
       .map(([name, values]) => {
         return `.landscape-item-variant-${name} .landscape-item-body {
           ${injectStyles(values)}

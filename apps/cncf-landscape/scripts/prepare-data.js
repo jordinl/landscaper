@@ -31,13 +31,11 @@ const prepareCategory = (category) => {
 };
 
 const compareItems = (a, b) => {
-  if (a.type === b.type) {
+  if (a.relation === b.relation) {
     return 0;
-  } else if (a.type === "graduated") {
+  } else if (a.relation === "graduated") {
     return -1;
-  } else if (b.type === "graduated") {
-    return 1;
-  } else if (a.type === "incubating") {
+  } else if (a.relation === "incubating") {
     return -1;
   }
   return 1;
@@ -48,6 +46,7 @@ const prepareSubcategory = (subcategory, categoryName) => {
   const items = subcategory.items
     .map((item) => prepareItem(item, categoryName))
     .sort(compareItems);
+  console.log(items[0])
   return { name, items };
 };
 

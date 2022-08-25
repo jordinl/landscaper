@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { generateCss } from "changemyname-react/src/utils/landscapeCalculations.js";
+import { generateCss } from "changemyname-react";
 import loadTheme from "../utils/loadTheme.js";
 import loadLandscape from "../utils/loadLandscape.js";
 

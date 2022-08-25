@@ -1,3 +1,4 @@
 import Landscape from "./Landscape";
+import { generateCss, sortBySize } from "./utils/landscapeCalculations.js";
 
-export { Landscape };
+export { Landscape, generateCss, sortBySize };

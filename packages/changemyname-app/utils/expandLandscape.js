@@ -1,6 +1,5 @@
 import loadTheme from "./loadTheme.js";
-import loadLandscape from "./loadLandscape.js";
-import { sortBySize } from "changemyname-react/src/utils/landscapeCalculations.js";
+import { sortBySize } from "changemyname-react";
 
 const transformOptions = (options) => {
   return options

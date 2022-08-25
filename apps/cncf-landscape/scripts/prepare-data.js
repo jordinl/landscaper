@@ -117,9 +117,6 @@ const prepareItem = (item, categoryName) => {
   const relation =
     item.project || (members.includes(item.crunchbase) ? "member" : "other");
   const country = (crunchbase_data || {}).country || "Unknown";
-  const typeOptions = ["graduated", "incubating"].includes(relation)
-    ? { type: relation }
-    : {};
   const info = itemLinks(item);
   const relationText = ["graduated", "incubating"].includes(relation) && relation.replace(/^[a-z]/, x => x.toUpperCase())
 
@@ -132,7 +129,6 @@ const prepareItem = (item, categoryName) => {
     country,
     language,
     description,
-    ...typeOptions,
     ...(not_open_source && { variant: "Gray" }),
     ...(relationText && { variant: relationText, label: `CNCF ${relationText}` }),
     info,
@@ -238,19 +234,10 @@ const filters = [
   },
 ];
 
-const itemTypes = {
-  graduated: {
-    large: true,
-  },
-  incubating: {
-    large: true,
-  }
-};
-
 writeFileSync(
   destPath,
   JSON.stringify(
-    { title, header, footer, filters, categories, itemTypes },
+    { title, header, footer, filters, categories },
     undefined,
     4
   )

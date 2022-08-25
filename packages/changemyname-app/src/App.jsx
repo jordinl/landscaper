@@ -28,8 +28,7 @@ const getSelectedFilterValues = (
 
 function App() {
   const [landscape, setLandscape] = useState();
-  const { filters, itemTypes, categories, header, footer, ...rest } =
-    landscape || {};
+  const { filters, categories, header, footer, ...rest } = landscape || {};
   let [searchParams, setSearchParams] = useSearchParams();
 
   const headerContent = header && <Header header={header} />;

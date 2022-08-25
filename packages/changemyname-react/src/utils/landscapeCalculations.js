@@ -147,7 +147,7 @@ export const generateCss = (theme, landscape) => {
 
   const calculatedCategories = calculateVerticalCategory({
     ...landscape,
-    theme,
+    theme: unpackedTheme,
   });
 
   return `
@@ -307,17 +307,16 @@ export const generateCss = (theme, landscape) => {
 // Compute if items are large and/or visible.
 // Count number of items, large items count for 4 small items.
 // Count number of large items.
-const computeItems = (subcategories) => {
+const computeItems = (subcategories, theme) => {
+  const itemLayout = (theme.Layout || {}).Item;
+  const variants = itemLayout.Variants || {};
   return subcategories.map((subcategory) => {
-    const itemsCount = subcategory.items.reduce(
-      (count, item) => count + (item.large ? 4 : 1),
-      0
-    );
-    const largeItemsCount = subcategory.items.reduce(
-      (count, item) => count + (item.large ? 1 : 0),
-      0
-    );
+    const largeItemsCount = subcategory.items.reduce((count, item) => {
+      const variant = (item.variant && variants[item.variant]) || itemLayout;
+      return count + (variant.height > itemLayout.height ? 1 : 0);
+    }, 0);
 
+    const itemsCount = subcategory.items.length + largeItemsCount * 3;
     return { ...subcategory, itemsCount, largeItemsCount };
   });
 };
@@ -408,7 +407,7 @@ export const calculateVerticalCategory = ({ categories, footer, theme }) => {
     +2 * outerPadding;
   const additionalWidth = 2 * outerPadding;
   const categoriesWithCalculations = categories.map((category) => {
-    const subcategories = computeItems(category.subcategories);
+    const subcategories = computeItems(category.subcategories, theme);
     const hasLargeItems = subcategories.find(
       (subcategory) => subcategory.largeItemsCount > 0
     );

@@ -112,6 +112,27 @@ const injectSize = (size) => {
     .join("\n");
 };
 
+export const sortBySize = (theme, landscape) => {
+  const { Layout } = extractTheme(theme);
+  const variants = Layout.Item.Variants || {};
+  const compareFn = (left, right) => {
+    const leftVariant = (left.variant && variants[left.variant]) || Layout.Item;
+    const rightVariant =
+      (right.variant && variants[right.variant]) || Layout.Item;
+    return rightVariant.height - leftVariant.height;
+  };
+
+  const categories = landscape.categories.map((category) => {
+    const subcategories = category.subcategories.map((subcategory) => {
+      const items = subcategory.items.sort(compareFn);
+      return { ...subcategory, items };
+    });
+    return { ...category, subcategories };
+  });
+
+  return { ...landscape, categories };
+};
+
 export const generateCss = (theme, landscape) => {
   const extractedTheme = extractTheme(theme);
   const style = extractedTheme.Style || {};

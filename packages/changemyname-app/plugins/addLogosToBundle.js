@@ -31,7 +31,7 @@ function addLogosToBundle(srcPath) {
         });
       });
     },
-    generateBundle(options, bundle) {
+    async generateBundle(options, bundle) {
       const landscapeChunk = Object.values(bundle).find(
         ({ name }) => name && name.indexOf("assets/landscape.json") >= 0
       );
@@ -59,7 +59,7 @@ function addLogosToBundle(srcPath) {
           })
         : null;
 
-      const newLandscape = expandLandscape({
+      const newLandscape = await expandLandscape({
         ...landscape,
         header,
         categories,

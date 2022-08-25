@@ -46,7 +46,6 @@ const prepareSubcategory = (subcategory, categoryName) => {
   const items = subcategory.items
     .map((item) => prepareItem(item, categoryName))
     .sort(compareItems);
-  console.log(items[0])
   return { name, items };
 };
 

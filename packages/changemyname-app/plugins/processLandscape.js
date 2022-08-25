@@ -4,10 +4,10 @@ import expandLandscape from "../utils/expandLandscape.js";
 const processLandscape = () => ({
   name: "process-landscape",
   configureServer(server) {
-    server.middlewares.use((req, res, next) => {
+    server.middlewares.use(async (req, res, next) => {
       if (req.url.match(/landscape\.json$/)) {
         const landscape = loadLandscape();
-        const expandedLandscape = expandLandscape(landscape);
+        const expandedLandscape = await expandLandscape(landscape);
         res.setHeader("Content-Type", "application/json");
         res.write(JSON.stringify(expandedLandscape));
         res.end();

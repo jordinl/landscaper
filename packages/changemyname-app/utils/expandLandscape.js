@@ -1,3 +1,7 @@
+import loadTheme from "./loadTheme.js";
+import loadLandscape from "./loadLandscape.js";
+import { sortBySize } from "changemyname-react/src/utils/landscapeCalculations.js";
+
 const transformOptions = (options) => {
   return options
     .map((option) => {
@@ -37,7 +41,7 @@ const getDefaultOptions = (landscape, filterName) => {
     .map((label) => ({ label }));
 };
 
-const expandLandscape = (landscape) => {
+const expandFilters = (landscape) => {
   const filters =
     landscape.filters &&
     landscape.filters.map((filter) => {
@@ -48,6 +52,11 @@ const expandLandscape = (landscape) => {
     });
   const filtersHash = filters ? { filters } : {};
   return { ...landscape, ...filtersHash };
+};
+
+const expandLandscape = async (landscape) => {
+  const theme = await loadTheme();
+  return sortBySize(theme, expandFilters(landscape));
 };
 
 export default expandLandscape;

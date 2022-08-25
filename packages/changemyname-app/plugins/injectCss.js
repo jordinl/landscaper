@@ -1,6 +1,6 @@
 import { resolve } from "path";
-import { existsSync } from "fs";
 import { generateCss } from "changemyname-react/src/utils/landscapeCalculations.js";
+import loadTheme from "../utils/loadTheme.js";
 import loadLandscape from "../utils/loadLandscape.js";
 
 const landscape = loadLandscape();
@@ -30,9 +30,7 @@ export default function injectCss() {
     },
     async load(id) {
       if (id === resolvedVirtualModuleId) {
-        const { default: theme } = existsSync(themePath)
-          ? await import(`${themePath}?v=${Date.now()}`)
-          : {};
+        const theme = await loadTheme();
         return { code: generateCss(theme, landscape) };
       }
     },

@@ -154,6 +154,7 @@ export const generateCss = (theme, landscape) => {
     .landscape {
       color: black;
       font-size: 14px;
+      line-height: 1.2;
       transform-origin: 0 0;
       box-sizing: border-box;
       display: flex;
@@ -197,9 +198,10 @@ export const generateCss = (theme, landscape) => {
       display: flex;
       justify-content: center;
       align-items: center;
+      text-align: center;
       width: 100%;
       font-size: 16px;
-      height: ${categoryTitleHeight}px;
+      min-height: ${categoryTitleHeight}px;
       ${injectStyles(style.Category && style.Category.Header)}
     }
 
@@ -218,7 +220,6 @@ export const generateCss = (theme, landscape) => {
       align-items: center;
       margin-bottom: ${itemMargin}px;
       font-size: 15px;
-      line-height: 105%;
       text-align: center;
       ${injectStyles(style.Subcategory && style.Subcategory.Header)}
     }

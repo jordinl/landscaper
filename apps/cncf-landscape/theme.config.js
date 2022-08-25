@@ -4,7 +4,15 @@ export default {
     Item: {
       width: 34,
       height: 34,
-      gap: 3
+      gap: 3,
+      Variants: {
+        Graduated: {
+          extend: "Large"
+        },
+        Incubating: {
+          extend: "Large"
+        }
+      }
     },
     Subcategory: {
       Header: {

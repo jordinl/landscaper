@@ -103,6 +103,13 @@ const unpackVariants = (hash) => {
   }, {});
 };
 
+const injectSize = (size) => {
+  return Object.entries(size)
+    .filter(([key, _]) => ["width", "height"].includes(key))
+    .map(([key, value]) => `${key}: ${value}px;`)
+    .join("\n");
+};
+
 export const generateCss = (theme, landscape) => {
   const {
     itemMargin,
@@ -119,20 +126,24 @@ export const generateCss = (theme, landscape) => {
     footerHeight,
   } = extractTheme(theme);
   const largeItemStyle = {
-    Item: {
-      Variants: {
-        Large: {
-          width: `${largeItemWidth}px`,
-          height: `${largeItemHeight}px`,
-          Wrapper: {
-            gridColumnEnd: "span 2",
-            gridRowEnd: "span 2",
+    Layout: {
+      Item: {
+        Variants: {
+          Large: {
+            width: largeItemWidth,
+            height: largeItemHeight,
+            Wrapper: {
+              gridColumnEnd: "span 2",
+              gridRowEnd: "span 2",
+            },
           },
         },
       },
     },
   };
-  const style = unpackVariants(deepMerge(largeItemStyle, theme && theme.Style));
+  const unpackedTheme = unpackVariants(deepMerge(largeItemStyle, theme));
+  const style = unpackedTheme.Style || {};
+  const layout = unpackedTheme.Layout || {};
 
   const calculatedCategories = calculateVerticalCategory({
     ...landscape,
@@ -239,13 +250,12 @@ export const generateCss = (theme, landscape) => {
     }
     
     .landscape-item-body {
-      width: ${smallItemWidth}px;
-      height: ${smallItemHeight}px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       box-sizing: border-box;
       ${injectStyles(style.Item)}
+      ${injectSize(layout.Item)}
     }
     
     .landscape-item-label {
@@ -264,11 +274,7 @@ export const generateCss = (theme, landscape) => {
     
     ${Object.entries((style.Item || {}).Variants || {})
       .map(([name, values]) => {
-        return `.landscape-item-variant-${name} {
-          ${injectStyles(values.Wrapper)}
-        }
-
-        .landscape-item-variant-${name} .landscape-item-body {
+        return `.landscape-item-variant-${name} .landscape-item-body {
           ${injectStyles(values)}
         }
         
@@ -281,6 +287,19 @@ export const generateCss = (theme, landscape) => {
         }`;
       })
       .join("\n")} 
+      
+      ${Object.entries((layout.Item || {}).Variants || {})
+        .map(([name, values]) => {
+          return `.landscape-item-variant-${name} {
+              ${injectStyles(values.Wrapper)}
+            }
+            
+            .landscape-item-variant-${name} .landscape-item-body {
+              ${injectSize(values)};
+            }
+        `;
+        })
+        .join("\n")} 
   `;
 };
 

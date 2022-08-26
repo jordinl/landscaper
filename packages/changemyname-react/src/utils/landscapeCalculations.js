@@ -12,7 +12,7 @@ const defaultTheme = {
       },
     },
     Category: {
-      borderSize: 2,
+      borderWidth: 2,
       Header: {
         height: 40,
       },
@@ -183,7 +183,7 @@ export const generateCss = (theme, landscape) => {
     .landscape-category {
       display: flex;
       flex-direction: column;
-      padding: ${layout.Category.borderSize}px;
+      padding: ${layout.Category.borderWidth}px;
       ${injectStyles(style.Category)}
     }
     
@@ -317,7 +317,7 @@ const calculateCategorySize = (subcategories, columns, layout) => {
   const width =
     columns * layout.Item.width +
     (columns - 1) * layout.Item.gap +
-    (layout.Category.borderSize + layout.Item.gap) * 2;
+    (layout.Category.borderWidth + layout.Item.gap) * 2;
   const height =
     (subcategories.length - 1) * 2 * layout.Item.gap +
     subcategories.reduce((sum, subcategory) => {

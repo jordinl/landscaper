@@ -20,7 +20,7 @@ export default {
       },
     },
     Category: {
-      borderSize: 2,
+      borderWidth: 2,
       Header: {
         height: 40,
       },

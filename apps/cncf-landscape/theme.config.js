@@ -66,7 +66,6 @@ export default {
           backgroundColor: "#E8E8E8",
         },
         Large: {
-          borderBottomWidth: 0,
           Label: {
             paddingTop: "2px",
             color: "white",

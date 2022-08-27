@@ -9,13 +9,21 @@ const Modal = ({ item, onClose }) => {
   const path = [item.category.name, item.subcategory && item.subcategory.name]
     .filter((_) => _)
     .join(" / ");
+  const className = [
+    "modal-image",
+    item.variant && `landscape-item-variant-${item.variant}`,
+  ]
+    .filter((_) => _)
+    .join(" ");
   return (
     <RSuiteModal size="lg" open={true} onClose={onClose}>
       <RSuiteModal.Header />
       <RSuiteModal.Body>
         <div className="modal-left-column">
-          <div className="modal-image">
-            <img src={item.logo} />
+          <div className={className}>
+            <div className="landscape-item-body">
+              <img src={item.logo} />
+            </div>
           </div>
         </div>
         <div>

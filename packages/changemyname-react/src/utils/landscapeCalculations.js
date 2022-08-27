@@ -249,6 +249,9 @@ export const generateCss = (theme, landscape) => {
       flex-direction: column;
       box-sizing: border-box;
       ${injectStyles(style.Item)}
+    }
+    
+    .landscape-item .landscape-item-body {
       ${injectSize(layout.Item)}
     }
     
@@ -284,11 +287,11 @@ export const generateCss = (theme, landscape) => {
       
       ${Object.entries((layout.Item || {}).Variants || {})
         .map(([name, values]) => {
-          return `.landscape-item-variant-${name} {
+          return `.landscape-item.landscape-item-variant-${name} {
               ${injectStyles(values.Wrapper)}
             }
             
-            .landscape-item-variant-${name} .landscape-item-body {
+            .landscape-item.landscape-item-variant-${name} .landscape-item-body {
               ${injectSize(values)};
             }
         `;

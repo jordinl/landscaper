@@ -120,20 +120,27 @@
 .rs-modal-body {
   min-height: 500px;
   display: flex;
+  gap: 20px;
 }
 
 .modal-left-column {
   width: 33%;
 }
 
-.modal-image {
+.rs-modal-body .modal-image {
   width: 250px;
   height: 200px;
   display: flex;
   margin: 0 auto;
   justify-content: center;
+  cursor: default;
 }
 
-.modal-image {
-  flex: 1;
+.rs-modal-body .modal-image .landscape-item-body {
+  width: 100%;
+  height: 100%;
+}
+
+.rs-modal-body .modal-image .landscape-item-body img {
+  padding: 5px;
 }

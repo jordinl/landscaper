@@ -640,9 +640,9 @@ eastasianwidth@^0.2.0:
   integrity sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==
 
 electron-to-chromium@^1.4.202:
-  version "1.4.230"
-  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.230.tgz#666909fdf5765acb1348b69752ee9955dc1664b7"
-  integrity sha512-3pwjAK0qHSDN9+YAF4fJknsSruP7mpjdWzUSruIJD/JCH77pEh0SorEyb3xVaKkfwk2tzjOt2D8scJ0KAdfXLA==
+  version "1.4.233"
+  resolved "https://registry.yarnpkg.com/electron-to-chromium/-/electron-to-chromium-1.4.233.tgz#aa142e45468bda111b88abc9cc59d573b75d6a60"
+  integrity sha512-ejwIKXTg1wqbmkcRJh9Ur3hFGHFDZDw1POzdsVrB2WZjgRuRMHIQQKNpe64N/qh3ZtH2otEoRoS+s6arAAuAAw==
 
 emoji-regex@^8.0.0:
   version "8.0.0"
@@ -1383,7 +1383,7 @@ rfdc@^1.3.0:
   optionalDependencies:
     fsevents "~2.3.2"
 
-rsuite-table@^5.6.0:
+rsuite-table@^5.7.0:
   version "5.7.0"
   resolved "https://registry.yarnpkg.com/rsuite-table/-/rsuite-table-5.7.0.tgz#a7490b8e02a70116519a08dcd3e3f749ae031c7a"
   integrity sha512-SfWOikM0m2cII4iInnSv05gCymSRQgegV9DpV8CBxP9u+dE/nd3fUvG+JMmyEEhBI2jJlf0IyLZq/b6jSZD4wQ==
@@ -1397,9 +1397,9 @@ rsuite-table@^5.6.0:
     react-is "^17.0.2"
 
 rsuite@^5.16.3:
-  version "5.16.6"
-  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-5.16.6.tgz#379f483524a1c15f836decc4593b6e4a66543b16"
-  integrity sha512-fRTuZHwaznmkbq4A54hP0bAW00GPo+NLKm6R68RpmP8uZDspudeMDeygwSzbM4hVjtZ0y9WmyF6bbd/uc7a2zw==
+  version "5.17.0"
+  resolved "https://registry.yarnpkg.com/rsuite/-/rsuite-5.17.0.tgz#274c2ad6ef4a28bbb40baa39540168015353c094"
+  integrity sha512-SwLK7O0B2A5UneQ3mOOVQNk6zV3aEQIxKWodTloyNY+gwY98rOKqfqSr66BxHYiQecclgHg3/v1MmObqJcwEeQ==
   dependencies:
     "@babel/runtime" "^7.8.4"
     "@juggle/resize-observer" "^3.3.1"
@@ -1414,7 +1414,7 @@ rsuite@^5.16.3:
     lodash "^4.17.11"
     prop-types "^15.7.2"
     react-virtualized "^9.22.3"
-    rsuite-table "^5.6.0"
+    rsuite-table "^5.7.0"
     schema-typed "^2.0.3"
 
 rxjs@^7.0.0, rxjs@^7.5.5:

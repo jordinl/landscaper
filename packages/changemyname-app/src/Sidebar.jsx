@@ -38,6 +38,24 @@ const Sidebar = ({
     }
     setExpanded(value);
   };
+
+  const ZoomSlider = ({ vertical, className }) => {
+    return (
+      <Slider
+        min={-10}
+        max={10}
+        step={0.5}
+        value={zoomToValue(zoom)}
+        tooltip={false}
+        onChange={(value) =>
+          onChangeSearchParam("zoom", value !== 0 && valueToZoom(value))
+        }
+        vertical={vertical}
+        className={className}
+      />
+    );
+  };
+
   return (
     <div className={`sidebar ${expanded ? "expanded" : "collapsed"}`}>
       {!expanded && (
@@ -77,17 +95,14 @@ const Sidebar = ({
           )}
         </div>
       )}
-      <Slider
-        min={-10}
-        max={10}
-        step={0.5}
-        value={zoomToValue(zoom)}
-        tooltip={false}
-        onChange={(value) =>
-          onChangeSearchParam("zoom", value !== 0 && valueToZoom(value))
-        }
-        vertical={!expanded}
-        className="zoom-slider"
+
+      <ZoomSlider
+        vertical={true}
+        className="zoom-slider zoom-slider-vertical"
+      />
+      <ZoomSlider
+        vertical={false}
+        className="zoom-slider zoom-slider-horizontal"
       />
     </div>
   );

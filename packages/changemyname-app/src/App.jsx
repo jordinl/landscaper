@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSearchParams, Link } from "react-router-dom";
 import { Landscape } from "changemyname-react";
-import "./App.css";
 import landscapeUrl from "project/assets/landscape.json?url";
 import Modal from "./Modal.jsx";
 import Sidebar from "./Sidebar.jsx";

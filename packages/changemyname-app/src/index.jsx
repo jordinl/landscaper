@@ -1,8 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
-import "rsuite/dist/rsuite.min.css";
-import "./App.css";
+import "./App.less";
 import App from "./App.jsx";
 import "virtual:Landscape.css";
 

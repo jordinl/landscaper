@@ -16,7 +16,7 @@ const Modal = ({ item, onClose }) => {
     .filter((_) => _)
     .join(" ");
   return (
-    <RSuiteModal size="lg" open={true} onClose={onClose}>
+    <RSuiteModal size="lg" overflow={false} open={true} onClose={onClose}>
       <RSuiteModal.Header />
       <RSuiteModal.Body>
         <div className="modal-left-column">

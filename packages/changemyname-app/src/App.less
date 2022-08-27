@@ -1,16 +1,4 @@
-/*$navy: #38404a;*/
-/*$navy-light: #696D70;*/
-/*$blue: #2E67BF;*/
-/*$blue-hover: #1D456B;*/
-
-/*$mobilewidth: 812px;*/
-
-/*$sm-screen: 576px;*/
-/*$md-screen: 768px;*/
-/*$lg-screen: 992px;*/
-/*$xl-screen: 1200px;*/
-
-/*$spacing: 1em;*/
+@import "rsuite/styles/index.less";
 
 .App {
   height: 100vh;
@@ -125,6 +113,33 @@
 
 .modal-left-column {
   width: 33%;
+}
+
+@media screen and (max-width: @screen-md) {
+  .rs-modal-wrapper .rs-modal {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+  }
+
+  .rs-modal-wrapper .rs-modal,
+  .rs-modal-wrapper .rs-modal-dialog,
+  .rs-modal-wrapper .rs-modal-content {
+    height: 100%;
+  }
+
+  .rs-modal-content {
+    border-radius: 0;
+    overflow: auto;
+  }
+
+  .rs-modal-body {
+    flex-direction: column;
+  }
+
+  .modal-left-column {
+    width: 100%;
+  }
 }
 
 .rs-modal-body .modal-image {

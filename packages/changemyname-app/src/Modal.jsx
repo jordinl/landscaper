@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 import RSuiteModal from "rsuite/Modal";
 
 const formatDate = (date) => {
@@ -29,32 +29,36 @@ const Modal = ({ item, onClose }) => {
         <div>
           <div>
             <h1>{item.name}</h1>
-            <h5>{path}</h5>
           </div>
-          <div>{item.description}</div>
-          {item.info &&
-            item.info.map(({ text, url, label, format }) => {
-              const textOrUrl =
-                text ||
-                (url &&
-                  url.replace(/https?:\/\/(www\.)?/, "").replace(/\/$/, ""));
-              const formattedText =
-                format === "date" ? formatDate(textOrUrl) : textOrUrl;
-              return (
-                <div key={label}>
-                  <span>{label}:</span>
-                  <span>
-                    {url ? (
-                      <a href={url} target="_blank" rel="noreferrer noopener">
-                        {formattedText}
-                      </a>
-                    ) : (
-                      formattedText
-                    )}
-                  </span>
-                </div>
-              );
-            })}
+          <div>
+            <h4>{path}</h4>
+          </div>
+          <div className="margin-top description">{item.description}</div>
+          <div className="margin-top links">
+            {item.info &&
+              item.info.map(({ text, url, label, format }) => {
+                const textOrUrl =
+                  text ||
+                  (url &&
+                    url.replace(/https?:\/\/(www\.)?/, "").replace(/\/$/, ""));
+                const formattedText =
+                  format === "date" ? formatDate(textOrUrl) : textOrUrl;
+                return (
+                  <Fragment key={label}>
+                    <span className="item-label">{label}</span>
+                    <span>
+                      {url ? (
+                        <a href={url} target="_blank" rel="noreferrer noopener">
+                          {formattedText}
+                        </a>
+                      ) : (
+                        formattedText
+                      )}
+                    </span>
+                  </Fragment>
+                );
+              })}
+          </div>
         </div>
       </RSuiteModal.Body>
     </RSuiteModal>

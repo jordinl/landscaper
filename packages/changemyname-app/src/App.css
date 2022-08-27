@@ -120,7 +120,7 @@
 .rs-modal-body {
   min-height: 500px;
   display: flex;
-  gap: 20px;
+  gap: 25px;
 }
 
 .modal-left-column {
@@ -143,4 +143,43 @@
 
 .rs-modal-body .modal-image .landscape-item-body img {
   padding: 5px;
+}
+
+.rs-modal-content .rs-modal-header .rs-modal-header-close {
+  font-size: 16px;
+  line-height: 16px;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+}
+
+.rs-modal-body h1,
+.rs-modal-body h2,
+.rs-modal-body h3,
+.rs-modal-body h4,
+.rs-modal-body h5 {
+  line-height: 1.2;
+  margin-bottom: 10px;
+}
+
+.rs-modal-body {
+  font-size: 16px;
+}
+
+.rs-modal-body .description {
+  font-size: 18px;
+}
+
+.rs-modal-body .links {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 5px 10px;
+}
+
+.rs-modal-body .item-label {
+  font-weight: bold;
+}
+
+.margin-top {
+  margin-top: 15px;
 }

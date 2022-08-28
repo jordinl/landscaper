@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { Landscape } from "changemyname-react";
+import "./App.less";
 import Header from "./Header.jsx";
 import Footer from "./Footer.jsx";
 import Modal from "./Modal.jsx";

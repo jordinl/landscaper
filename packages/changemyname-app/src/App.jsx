@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./App.less";
 import "virtual:Landscape.css";
 import landscapeUrl from "project/assets/landscape.json?url";
 import InteractiveLandscape from "./InteractiveLandscape.jsx";

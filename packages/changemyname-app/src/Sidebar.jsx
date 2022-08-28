@@ -5,6 +5,24 @@ import Button from "rsuite/Button";
 import GearIcon from "@rsuite/icons/Gear";
 import CloseIcon from "@rsuite/icons/Close";
 
+const ZoomSlider = ({ vertical, value, onChange, classSuffix }) => {
+  const className = ["zoom-slider", classSuffix && `zoom-slider-${classSuffix}`]
+    .filter((_) => _)
+    .join(" ");
+  return (
+    <Slider
+      min={-10}
+      max={10}
+      step={0.5}
+      value={value}
+      tooltip={false}
+      onChange={onChange}
+      vertical={vertical}
+      className={className}
+    />
+  );
+};
+
 const Sidebar = ({
   filters,
   zoom,
@@ -39,21 +57,10 @@ const Sidebar = ({
     setExpanded(value);
   };
 
-  const ZoomSlider = ({ vertical, className }) => {
-    return (
-      <Slider
-        min={-10}
-        max={10}
-        step={0.5}
-        value={zoomToValue(zoom)}
-        tooltip={false}
-        onChange={(value) =>
-          onChangeSearchParam("zoom", value !== 0 && valueToZoom(value))
-        }
-        vertical={vertical}
-        className={className}
-      />
-    );
+  const sliderProps = {
+    value: zoomToValue(zoom),
+    onChange: (value) =>
+      onChangeSearchParam("zoom", value !== 0 && valueToZoom(value)),
   };
 
   return (
@@ -96,14 +103,8 @@ const Sidebar = ({
         </div>
       )}
 
-      <ZoomSlider
-        vertical={true}
-        className="zoom-slider zoom-slider-vertical"
-      />
-      <ZoomSlider
-        vertical={false}
-        className="zoom-slider zoom-slider-horizontal"
-      />
+      <ZoomSlider vertical={true} classSuffix="vertical" {...sliderProps} />
+      <ZoomSlider vertical={false} classSuffix="horizontal" {...sliderProps} />
     </div>
   );
 };

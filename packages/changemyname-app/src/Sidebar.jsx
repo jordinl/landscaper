@@ -74,7 +74,7 @@ const Sidebar = ({
           <GearIcon fontSize="1.5em" />
         </Button>
       )}
-      {expanded && filters && (
+      {expanded && (
         <div className="sidebar-body">
           <a
             className="collapse-sidebar"
@@ -83,19 +83,20 @@ const Sidebar = ({
           >
             <CloseIcon fontSize="1.25em" />
           </a>
-          {filters.map((filter) => (
-            <CheckTreePicker
-              data={filter.options}
-              onChange={(values) => onChangeSearchParam(filter.name, values)}
-              defaultExpandAll={true}
-              placeholder={`Select ${filter.label}`}
-              key={filter.name}
-              preventOverflow={true}
-              value={getValue(filter.name)}
-            />
-          ))}
+          {filters &&
+            filters.map((filter) => (
+              <CheckTreePicker
+                data={filter.options}
+                onChange={(values) => onChangeSearchParam(filter.name, values)}
+                defaultExpandAll={true}
+                placeholder={`Select ${filter.label}`}
+                key={filter.name}
+                preventOverflow={true}
+                value={getValue(filter.name)}
+              />
+            ))}
 
-          {selectedFilters.length > 0 && (
+          {filters && selectedFilters.length > 0 && (
             <a onClick={resetFilters} href="#" className="reset-filters">
               Reset Filters
             </a>

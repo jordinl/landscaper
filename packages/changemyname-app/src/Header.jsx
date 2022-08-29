@@ -2,7 +2,9 @@ import React from "react";
 
 const Header = ({ header }) => {
   return (
-    <div className="landscape-header-body">
+    <div
+      className={`landscape-header-body landscape-header-items-${header.length}`}
+    >
       {header.map((child, idx) => {
         const baseClassName = "landscape-header-item landscape-header-item-";
 

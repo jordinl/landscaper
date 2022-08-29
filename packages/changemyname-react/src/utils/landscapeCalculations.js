@@ -151,6 +151,7 @@ export const generateCss = (theme, landscape) => {
       transform-origin: 0 0;
       box-sizing: border-box;
       display: flex;
+      flex-shrink: 0;
       flex-direction: column;
       padding: ${layout.gap}px;
       gap: ${layout.gap}px;
@@ -159,6 +160,7 @@ export const generateCss = (theme, landscape) => {
     
     .landscape-categories {
       display: flex;
+      justify-content: center;
       gap: ${layout.gap}px; 
     }
     

@@ -1,5 +1,5 @@
 import loadTheme from "./loadTheme.js";
-import { sortBySize } from "changemyname-react";
+import { sortBySize } from "changemyname-core";
 
 const transformOptions = (options) => {
   return options

@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "storybook-addon-react-router-v6";
 import LandscapeComponent from "changemyname-app/src/InteractiveLandscape";
-import { generateCss } from "changemyname-react/src";
+import { generateCss } from "changemyname-core";
 
 const landscape = {
   header: [

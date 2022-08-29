@@ -1,3 +1,5 @@
+import calculateContrast from "./calculateContrast.js";
+
 const defaultTheme = {
   Layout: {
     gap: 15,
@@ -133,6 +135,10 @@ export const sortBySize = (theme, landscape) => {
   return { ...landscape, categories };
 };
 
+const getFontColor = (backgroundColor) => {
+  return calculateContrast(backgroundColor, "black") > 5 ? "black" : "white";
+};
+
 export const generateCss = (theme, landscape) => {
   const extractedTheme = extractTheme(theme);
   const style = extractedTheme.Style || {};
@@ -143,9 +149,28 @@ export const generateCss = (theme, landscape) => {
     layout,
   });
 
+  const backgroundColor =
+    (style.Landscape && style.Landscape.backgroundColor) || "white";
+  const fontColor = getFontColor(backgroundColor);
+
+  const categoryColor =
+    (style.Category || {}).backgroundColor || backgroundColor;
+  const categoryFontColor = getFontColor(categoryColor);
+
+  const categoryHeaderColor =
+    (style.Category.Header || {}).backgroundColor || categoryColor;
+  const categoryHeaderFontColor = getFontColor(categoryHeaderColor);
+  console.log(categoryHeaderFontColor, categoryHeaderColor);
+
+  const subcategoryColor =
+    (style.Subcategory || {}).backgroundColor ||
+    ((style.Category && style.Category.Body) || {}).backgroundColor ||
+    categoryColor;
+  const subcategoryFontColor = getFontColor(subcategoryColor);
+
   return `
     .landscape {
-      color: black;
+      color: ${fontColor};
       font-size: 14px;
       line-height: 1.2;
       transform-origin: 0 0;
@@ -183,6 +208,7 @@ export const generateCss = (theme, landscape) => {
     }
 
     .landscape-category {
+      color: ${categoryFontColor};
       display: flex;
       flex-direction: column;
       padding: ${layout.Category.borderWidth}px;
@@ -190,6 +216,7 @@ export const generateCss = (theme, landscape) => {
     }
     
     .landscape-category-header {
+      color: ${categoryHeaderFontColor};
       display: flex;
       justify-content: center;
       align-items: center;
@@ -207,6 +234,10 @@ export const generateCss = (theme, landscape) => {
       padding: ${layout.Item.gap}px;
       gap: ${2 * layout.Item.gap}px;
       ${injectStyles(style.Category && style.Category.Body)}
+    }
+    
+    .landscape-subcategory {
+      color: ${subcategoryFontColor};
     }
     
     .landscape-subcategory-header {

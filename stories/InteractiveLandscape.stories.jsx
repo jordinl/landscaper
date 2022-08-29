@@ -3,6 +3,14 @@ import { withRouter } from "storybook-addon-react-router-v6";
 import LandscapeComponent from "changemyname-app/src/InteractiveLandscape";
 import { generateCss } from "changemyname-core";
 
+const createItem = (number, logo) => {
+  return {
+    id: `item-${number}`,
+    name: `item-${name}`,
+    logo: logo,
+  }
+}
+
 const landscape = {
   header: [
     {
@@ -22,11 +30,10 @@ const landscape = {
         {
           name: "Subcategory 1",
           items: [
-            {
-              id: "item-1",
-              name: "Item 1",
-              logo: "assets/colors.svg",
-            },
+              createItem(1, "assets/colors.svg"),
+              createItem(2, "assets/colors.svg"),
+              createItem(3, "assets/colors.svg"),
+              createItem(4, "assets/colors.svg"),
           ],
         },
       ],
@@ -37,11 +44,10 @@ const landscape = {
         {
           name: "Subcategory 2",
           items: [
-            {
-              id: "item-2",
-              name: "Item 2",
-              logo: "assets/direction.svg",
-            },
+            createItem(5, "assets/direction.svg"),
+            createItem(6, "assets/direction.svg"),
+            createItem(7, "assets/direction.svg"),
+            createItem(8, "assets/direction.svg"),
           ],
         },
       ],
@@ -52,11 +58,10 @@ const landscape = {
         {
           name: "Subcategory 3",
           items: [
-            {
-              id: "item-3",
-              name: "Item 3",
-              logo: "assets/flow.svg",
-            },
+            createItem(9, "assets/flow.svg"),
+            createItem(10, "assets/flow.svg"),
+            createItem(11, "assets/flow.svg"),
+            createItem(12, "assets/flow.svg"),
           ],
         },
       ],
@@ -67,11 +72,10 @@ const landscape = {
         {
           name: "Subcategory 4",
           items: [
-            {
-              id: "item-4",
-              name: "Item 4",
-              logo: "assets/stackalt.svg",
-            },
+            createItem(13, "assets/stackalt.svg"),
+            createItem(14, "assets/stackalt.svg"),
+            createItem(15, "assets/stackalt.svg"),
+            createItem(16, "assets/stackalt.svg"),
           ],
         },
       ],
@@ -98,8 +102,7 @@ const theme = {
   },
   Style: {
     Landscape: {
-      background: "#003366",
-      color: "white",
+      backgroundColor: "#003366",
     },
     Category: {
       backgroundColor: "#660066",
@@ -107,7 +110,33 @@ const theme = {
         backgroundColor: "white",
       },
     },
-  },
+    Item: {
+      border: "1px solid #bababa",
+      padding: "5px",
+    },
+  }
+};
+
+const packObj = (obj, path = null) => {
+  return Object.entries(obj).reduce((agg, [k, v]) => {
+    const newPath = path ? `${path}.${k}` : k;
+    const values =
+      typeof v === "object" ? packObj(v, newPath) : { [newPath]: v };
+    return { ...agg, ...values };
+  }, {});
+};
+
+const unpackObj = (obj) => {
+  let result = {};
+  Object.entries(obj).forEach(([k, v]) => {
+    let current = result;
+    const keys = k.split(".");
+    keys.forEach((key, idx) => {
+      current[key] = idx === keys.length - 1 ? v : current[key] || {};
+      current = current[key];
+    });
+  });
+  return result;
 };
 
 export default {
@@ -117,18 +146,12 @@ export default {
   parameters: {
     layout: "fullscreen",
   },
-  // argTypes: {
-  //   theme: {
-  //     control: {
-  //       type: "json",
-  //     },
-  //   },
-  // },
-  args: { theme },
+  args: packObj({ theme }),
 };
 
 export const InteractiveLandscape = (args) => {
-  const css = generateCss(args.theme, landscape);
+  const { theme } = unpackObj(args);
+  const css = generateCss(theme, landscape);
   return (
     <React.Fragment>
       <style dangerouslySetInnerHTML={{ __html: css }} />

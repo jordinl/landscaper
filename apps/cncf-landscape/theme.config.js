@@ -35,11 +35,10 @@ export default {
   Style: {
     Landscape: {
       fontSize: "14px",
-      background: "#1b446c",
-      color: "white",
+      backgroundColor: "#1b446c"
     },
     Category: {
-      backgroundColor: "#0086ff",
+      backgroundColor: "#0079e6",
       boxShadow:
         "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)",
       padding: "0 2px 2px",
@@ -48,11 +47,6 @@ export default {
       },
       Header: {
         fontWeight: 500,
-      },
-    },
-    Subcategory: {
-      Header: {
-        color: "#272c36",
       },
     },
     Item: {

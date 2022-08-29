@@ -13,14 +13,29 @@
     "build:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape build",
     "setup": "concurrently -r -s all yarn:setup:*",
     "setup:cncf-landscape": "yarn workspace cncf-landscape setup",
-    "preview:cncf-landscape": "yarn workspace cncf-landscape preview"
+    "preview:cncf-landscape": "yarn workspace cncf-landscape preview",
+    "storybook": "start-storybook -p 6006",
+    "build:storybook": "build-storybook -o dist",
+    "preview:storybook": "http-server dist -o"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.13",
+    "@storybook/addon-controls": "^6.5.10",
+    "@storybook/addon-links": "^6.5.10",
+    "@storybook/addon-viewport": "^6.5.10",
+    "@storybook/builder-vite": "^0.2.2",
+    "@storybook/builder-webpack4": "^6.5.10",
+    "@storybook/cli": "^6.5.10",
+    "@storybook/manager-webpack4": "^6.5.10",
+    "@storybook/react": "^6.5.10",
     "@vitejs/plugin-react": "^2.0.0",
+    "babel-loader": "^8.2.5",
     "concurrently": "^7.2.2",
+    "http-server": "^14.1.1",
     "husky": "^8.0.1",
     "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
+    "storybook-addon-react-router-v6": "^0.1.14",
     "vite": "^3.0.0"
   },
   "lint-staged": {

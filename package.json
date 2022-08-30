@@ -8,14 +8,15 @@
   "scripts": {
     "start": "concurrently -k -r -s first yarn:start:*",
     "start:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape start",
+    "storybook": "start-storybook -p 6006",
     "build": "concurrently -r -s all yarn:build:*",
     "build:changemyname-react": "yarn workspace changemyname-react build",
     "build:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape build",
+    "build:storybook": "build-storybook -o dist",
     "setup": "concurrently -r -s all yarn:setup:*",
     "setup:cncf-landscape": "yarn workspace cncf-landscape setup",
+    "preview": "concurrently -r -s all yarn:preview:*",
     "preview:cncf-landscape": "yarn workspace cncf-landscape preview",
-    "storybook": "start-storybook -p 6006",
-    "build:storybook": "build-storybook -o dist",
     "preview:storybook": "http-server dist -o"
   },
   "devDependencies": {

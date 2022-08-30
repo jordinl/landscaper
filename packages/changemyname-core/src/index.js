@@ -4,9 +4,9 @@ const defaultTheme = {
   Layout: {
     gap: 15,
     Item: {
-      width: 34,
-      height: 34,
-      gap: 3,
+      width: 100,
+      height: 100,
+      gap: 10,
       Variants: {},
     },
     Subcategory: {

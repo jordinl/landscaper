@@ -94,11 +94,6 @@ const theme = {
     Divider: {
       width: 2,
     },
-    Item: {
-      width: 100,
-      height: 100,
-      gap: 10,
-    },
   },
 };
 

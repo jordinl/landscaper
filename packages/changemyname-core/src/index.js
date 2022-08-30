@@ -7,6 +7,7 @@ const defaultTheme = {
       width: 34,
       height: 34,
       gap: 3,
+      Variants: {},
     },
     Subcategory: {
       Header: {
@@ -27,6 +28,19 @@ const defaultTheme = {
     },
     Footer: {
       height: 20,
+    },
+  },
+  Style: {
+    Landscape: {},
+    Category: {
+      Body: {},
+      Header: {},
+    },
+    Divider: {},
+    Subcategory: {},
+    Item: {
+      Image: {},
+      Variants: {},
     },
   },
 };
@@ -119,7 +133,7 @@ const injectSize = (size) => {
 
 export const sortBySize = (theme, landscape) => {
   const { Layout } = extractTheme(theme);
-  const variants = Layout.Item.Variants || {};
+  const variants = Layout.Item.Variants;
   const compareFn = (left, right) => {
     const leftVariant = (left.variant && variants[left.variant]) || Layout.Item;
     const rightVariant =
@@ -144,29 +158,27 @@ const getFontColor = (backgroundColor) => {
 
 export const generateCss = (theme, landscape) => {
   const extractedTheme = extractTheme(theme);
-  const style = extractedTheme.Style || {};
-  const layout = extractedTheme.Layout || {};
+  const style = extractedTheme.Style;
+  const layout = extractedTheme.Layout;
 
   const calculatedCategories = calculateVerticalCategory({
     ...landscape,
     layout,
   });
 
-  const backgroundColor =
-    (style.Landscape && style.Landscape.backgroundColor) || "white";
+  const backgroundColor = style.Landscape.backgroundColor || "white";
   const fontColor = getFontColor(backgroundColor);
 
-  const categoryColor =
-    (style.Category || {}).backgroundColor || backgroundColor;
+  const categoryColor = style.Category.backgroundColor || backgroundColor;
   const categoryFontColor = getFontColor(categoryColor);
 
   const categoryHeaderColor =
-    ((style.Category || {}).Header || {}).backgroundColor || categoryColor;
+    style.Category.Header.backgroundColor || categoryColor;
   const categoryHeaderFontColor = getFontColor(categoryHeaderColor);
 
   const subcategoryColor =
-    (style.Subcategory || {}).backgroundColor ||
-    ((style.Category || {}).Body || {}).backgroundColor ||
+    style.Subcategory.backgroundColor ||
+    style.Category.Body.backgroundColor ||
     categoryColor;
   const subcategoryFontColor = getFontColor(subcategoryColor);
 
@@ -226,7 +238,7 @@ export const generateCss = (theme, landscape) => {
       width: 100%;
       font-size: 16px;
       min-height: ${layout.Category.Header.height}px;
-      ${injectStyles(style.Category && style.Category.Header)}
+      ${injectStyles(style.Category.Header)}
     }
 
     .landscape-category-body {
@@ -235,7 +247,7 @@ export const generateCss = (theme, landscape) => {
       flex-direction: column;
       padding: ${layout.Item.gap}px;
       gap: ${2 * layout.Item.gap}px;
-      ${injectStyles(style.Category && style.Category.Body)}
+      ${injectStyles(style.Category.Body)}
     }
     
     .landscape-category-divider {
@@ -256,7 +268,7 @@ export const generateCss = (theme, landscape) => {
       margin-bottom: ${layout.Item.gap}px;
       font-size: 15px;
       text-align: center;
-      ${injectStyles(style.Subcategory && style.Subcategory.Header)}
+      ${injectStyles(style.Subcategory.Header)}
     }
 
     .landscape-subcategory-body {
@@ -308,10 +320,10 @@ export const generateCss = (theme, landscape) => {
       min-width: 0;
       min-height: 0;
       flex: 1;
-      ${injectStyles(style.Item && style.Item.Image)}
+      ${injectStyles(style.Item.Image)}
     }
     
-    ${Object.entries((style.Item || {}).Variants || {})
+    ${Object.entries(style.Item.Variants)
       .map(([name, values]) => {
         return `.landscape-item-variant-${name} .landscape-item-body {
           ${injectStyles(values)}
@@ -327,7 +339,7 @@ export const generateCss = (theme, landscape) => {
       })
       .join("\n")} 
       
-      ${Object.entries((layout.Item || {}).Variants || {})
+      ${Object.entries(layout.Item.Variants)
         .map(([name, values]) => {
           return `.landscape-item.landscape-item-variant-${name} {
               ${injectStyles(values.Wrapper)}

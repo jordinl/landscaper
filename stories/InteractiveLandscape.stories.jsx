@@ -100,16 +100,6 @@ const theme = {
       gap: 10,
     },
   },
-  Style: {
-    Landscape: {
-      backgroundColor: "#003366",
-    },
-    Item: {
-      border: "1px solid #bababa",
-      padding: "5px",
-      backgroundColor: "white",
-    },
-  },
 };
 
 const packObj = (obj, path = null) => {

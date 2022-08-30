@@ -18,13 +18,18 @@ const Landscape = ({
 }) => {
   const elements = categories.map((category, idx) => {
     return (
-      <VerticalCategory
-        {...category}
-        subcategories={category.subcategories}
-        key={idx}
-        className={`landscape-category-${idx}`}
-        LinkComponent={LinkComponent}
-      />
+      <>
+        <VerticalCategory
+          {...category}
+          subcategories={category.subcategories}
+          key={idx}
+          className={`landscape-category-${idx}`}
+          LinkComponent={LinkComponent}
+        />
+        {idx < categories.length - 1 && (
+          <div className="landscape-category-divider" />
+        )}
+      </>
     );
   });
 

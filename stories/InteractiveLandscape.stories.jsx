@@ -8,8 +8,8 @@ const createItem = (number, logo) => {
     id: `item-${number}`,
     name: `item-${name}`,
     logo: logo,
-  }
-}
+  };
+};
 
 const landscape = {
   header: [
@@ -30,10 +30,10 @@ const landscape = {
         {
           name: "Subcategory 1",
           items: [
-              createItem(1, "assets/colors.svg"),
-              createItem(2, "assets/colors.svg"),
-              createItem(3, "assets/colors.svg"),
-              createItem(4, "assets/colors.svg"),
+            createItem(1, "assets/colors.svg"),
+            createItem(2, "assets/colors.svg"),
+            createItem(3, "assets/colors.svg"),
+            createItem(4, "assets/colors.svg"),
           ],
         },
       ],
@@ -91,8 +91,8 @@ const theme = {
     Footer: {
       height: 20,
     },
-    Category: {
-      borderWidth: 2,
+    Divider: {
+      width: 2,
     },
     Item: {
       width: 100,
@@ -104,17 +104,12 @@ const theme = {
     Landscape: {
       backgroundColor: "#003366",
     },
-    Category: {
-      backgroundColor: "#660066",
-      Body: {
-        backgroundColor: "white",
-      },
-    },
     Item: {
       border: "1px solid #bababa",
       padding: "5px",
+      backgroundColor: "white",
     },
-  }
+  },
 };
 
 const packObj = (obj, path = null) => {

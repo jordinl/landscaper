@@ -19,6 +19,9 @@ const defaultTheme = {
         height: 40,
       },
     },
+    Divider: {
+      width: 0,
+    },
     Header: {
       height: 0,
     },
@@ -108,7 +111,7 @@ const unpackVariants = (hash) => {
 };
 
 const injectSize = (size) => {
-  return Object.entries(size)
+  return Object.entries(size || {})
     .filter(([key, _]) => ["width", "height"].includes(key))
     .map(([key, value]) => `${key}: ${value}px;`)
     .join("\n");
@@ -158,13 +161,12 @@ export const generateCss = (theme, landscape) => {
   const categoryFontColor = getFontColor(categoryColor);
 
   const categoryHeaderColor =
-    (style.Category.Header || {}).backgroundColor || categoryColor;
+    ((style.Category || {}).Header || {}).backgroundColor || categoryColor;
   const categoryHeaderFontColor = getFontColor(categoryHeaderColor);
-  console.log(categoryHeaderFontColor, categoryHeaderColor);
 
   const subcategoryColor =
     (style.Subcategory || {}).backgroundColor ||
-    ((style.Category && style.Category.Body) || {}).backgroundColor ||
+    ((style.Category || {}).Body || {}).backgroundColor ||
     categoryColor;
   const subcategoryFontColor = getFontColor(subcategoryColor);
 
@@ -234,6 +236,13 @@ export const generateCss = (theme, landscape) => {
       padding: ${layout.Item.gap}px;
       gap: ${2 * layout.Item.gap}px;
       ${injectStyles(style.Category && style.Category.Body)}
+    }
+    
+    .landscape-category-divider {
+      background-color: ${fontColor};
+      ${layout.Divider.width === 0 ? "display: none;" : ""};
+      ${injectStyles(style.Divider)};
+      ${injectSize(layout.Divider)};
     }
     
     .landscape-subcategory {

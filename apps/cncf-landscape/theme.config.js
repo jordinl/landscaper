@@ -7,12 +7,12 @@ export default {
       gap: 3,
       Variants: {
         Graduated: {
-          extend: "Large"
+          extend: "Large",
         },
         Incubating: {
-          extend: "Large"
-        }
-      }
+          extend: "Large",
+        },
+      },
     },
     Subcategory: {
       Header: {
@@ -35,13 +35,11 @@ export default {
   Style: {
     Landscape: {
       fontSize: "14px",
-      backgroundColor: "#1b446c"
+      backgroundColor: "#1b446c",
     },
     Category: {
+      borderColor: "#0079e6",
       backgroundColor: "#0079e6",
-      boxShadow:
-        "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.2)",
-      padding: "0 2px 2px",
       Body: {
         backgroundColor: "white",
       },
@@ -53,7 +51,7 @@ export default {
       border: "1px solid gray",
       backgroundColor: "white",
       Image: {
-        padding: "1px"
+        padding: "1px",
       },
       Variants: {
         Gray: {
@@ -63,11 +61,11 @@ export default {
           Label: {
             paddingTop: "2px",
             color: "white",
-            fontSize: "8px"
+            fontSize: "8px",
           },
           Image: {
-            padding: "2px"
-          }
+            padding: "2px",
+          },
         },
         Graduated: {
           extend: "Large",
@@ -81,9 +79,9 @@ export default {
           border: "2px solid rgb(83, 113, 189)",
           Label: {
             backgroundColor: "rgb(83, 113, 189)",
-          }
-        }
-      }
+          },
+        },
+      },
     },
-  }
+  },
 };

@@ -91,9 +91,6 @@ const theme = {
     Footer: {
       height: 20,
     },
-    Divider: {
-      width: 2,
-    },
   },
 };
 

@@ -15,14 +15,11 @@ const defaultTheme = {
       },
     },
     Category: {
-      borderWidth: 2,
       Header: {
         height: 40,
       },
     },
-    Divider: {
-      width: 0,
-    },
+    Divider: {},
     Header: {
       height: 0,
     },
@@ -80,8 +77,30 @@ const injectStyles = (obj) => {
     .join("\n");
 };
 
+const addDynamicDefaults = (theme) => {
+  const { Divider, Category } = theme.Layout;
+  let dividerWidth = 0;
+
+  if (Divider.width === undefined && Category.borderWidth === undefined) {
+    dividerWidth = 2;
+  }
+
+  const dynamicDefaults = {
+    Layout: {
+      Divider: {
+        width: dividerWidth,
+      },
+      Category: {
+        borderWidth: 0,
+      },
+    },
+  };
+
+  return deepMerge(theme, dynamicDefaults);
+};
+
 const extractTheme = (theme) => {
-  const baseTheme = deepMerge(theme, defaultTheme);
+  const baseTheme = addDynamicDefaults(deepMerge(theme, defaultTheme));
   const { Layout } = baseTheme;
   const { Item } = Layout;
 
@@ -225,7 +244,13 @@ export const generateCss = (theme, landscape) => {
       color: ${categoryFontColor};
       display: flex;
       flex-direction: column;
-      padding: ${layout.Category.borderWidth}px;
+      ${
+        layout.Category.borderWidth
+          ? `border: ${layout.Category.borderWidth}px solid ${
+              style.Category.borderColor || fontColor
+            }`
+          : ""
+      };
       ${injectStyles(style.Category)}
     }
     

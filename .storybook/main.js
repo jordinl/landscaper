@@ -1,3 +1,5 @@
+const { mergeConfig } = require("vite");
+
 module.exports = {
   stories: [
     "../stories/**/*.stories.mdx",
@@ -7,7 +9,7 @@ module.exports = {
     "@storybook/addon-links",
     "@storybook/addon-controls",
     "@storybook/addon-viewport",
-    "storybook-addon-react-router-v6"
+    "storybook-addon-react-router-v6",
   ],
   core: {
     builder: "@storybook/builder-vite",
@@ -16,5 +18,12 @@ module.exports = {
   typescript: {
     reactDocgen: "react-docgen",
   },
-  staticDirs: ['../stories'],
+  staticDirs: ["../stories"],
+  async viteFinal(config, { configType }) {
+    return mergeConfig(config, {
+      resolve: {
+        alias: { "changemyname-react": "changemyname-react/src/index.js" },
+      },
+    });
+  },
 };

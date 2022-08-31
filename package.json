@@ -8,7 +8,7 @@
   "scripts": {
     "start": "concurrently -k -r -s first yarn:start:*",
     "start:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape start",
-    "storybook": "start-storybook -p 6006",
+    "start:storybook": "start-storybook -p 6006",
     "build": "concurrently -r -s all yarn:build:*",
     "build:changemyname-react": "yarn workspace changemyname-react build",
     "build:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape build",

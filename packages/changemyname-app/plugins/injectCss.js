@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { generateCss } from "changemyname-core";
+import { prepareLandscape } from "changemyname-core";
 import loadTheme from "../utils/loadTheme.js";
 import loadLandscape from "../utils/loadLandscape.js";
 
@@ -31,7 +31,8 @@ export default function injectCss() {
     async load(id) {
       if (id === resolvedVirtualModuleId) {
         const theme = await loadTheme();
-        return { code: generateCss(theme, landscape) };
+        const { css } = prepareLandscape(theme, landscape);
+        return { code: css };
       }
     },
   };

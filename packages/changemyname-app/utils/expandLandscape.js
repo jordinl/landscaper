@@ -49,13 +49,14 @@ const expandFilters = (landscape) => {
       );
       return { ...filter, options };
     });
-  const filtersHash = filters ? { filters } : {};
-  return { ...landscape, ...filtersHash };
+  return filters;
 };
 
-const expandLandscape = async (landscape) => {
+const expandLandscape = async (originalLandscape) => {
   const theme = await loadTheme();
-  return expandFilters(prepareLandscape(theme, landscape));
+  const { landscape } = prepareLandscape(theme, originalLandscape);
+  const filters = expandFilters(landscape);
+  return { ...landscape, ...(filters && { filters }) };
 };
 
 export default expandLandscape;

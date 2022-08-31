@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "storybook-addon-react-router-v6";
 import LandscapeComponent from "changemyname-app/src/InteractiveLandscape";
-import { generateCss, prepareLandscape } from "changemyname-core";
+import { prepareLandscape } from "changemyname-core";
 
 const createItem = (number, logo) => {
   return {
@@ -11,7 +11,7 @@ const createItem = (number, logo) => {
   };
 };
 
-const landscape = {
+const originalLandscape = {
   header: [
     {
       type: "html",
@@ -99,11 +99,11 @@ export default {
 
 export const InteractiveLandscape = (args) => {
   const { theme } = unpackObj(args);
-  const css = generateCss(theme, landscape);
+  const { css, landscape } = prepareLandscape(theme, originalLandscape);
   return (
     <React.Fragment>
       <style dangerouslySetInnerHTML={{ __html: css }} />
-      <LandscapeComponent landscape={prepareLandscape(theme, landscape)} />;
+      <LandscapeComponent landscape={landscape} />;
     </React.Fragment>
   );
 };

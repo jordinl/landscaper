@@ -182,25 +182,20 @@ const addDefaultSubcategory = (landscape) => {
   return { ...landscape, categories };
 };
 
-export const prepareLandscape = (theme, landscape) => {
-  return sortBySize(theme, addDefaultSubcategory(landscape));
-};
-
 const getFontColor = (backgroundColor) => {
   return calculateContrast(backgroundColor, "black") > 5 ? "black" : "white";
 };
 
-export const generateCss = (theme, landscape) => {
+const generateCss = (theme, landscape) => {
   const extractedTheme = extractTheme(theme, {
     includeHeader: landscape.header,
     includeFooter: landscape.footer,
   });
   const style = extractedTheme.Style;
   const layout = extractedTheme.Layout;
-  const { categories } = addDefaultSubcategory(landscape);
 
   const calculatedCategories = calculateVerticalCategory({
-    categories,
+    ...landscape,
     layout,
   });
 
@@ -515,4 +510,10 @@ const calculateVerticalCategory = ({ categories, layout }) => {
     additionalHeight,
     additionalWidth,
   });
+};
+
+export const prepareLandscape = (theme, originalLandscape) => {
+  const landscape = sortBySize(theme, addDefaultSubcategory(originalLandscape));
+  const css = generateCss(theme, landscape);
+  return { css, landscape };
 };

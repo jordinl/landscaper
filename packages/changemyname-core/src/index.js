@@ -151,7 +151,7 @@ const injectSize = (size) => {
     .join("\n");
 };
 
-export const sortBySize = (theme, landscape) => {
+const sortBySize = (theme, landscape) => {
   const { Layout } = extractTheme(theme);
   const variants = Layout.Item.Variants;
   const compareFn = (left, right) => {
@@ -172,6 +172,20 @@ export const sortBySize = (theme, landscape) => {
   return { ...landscape, categories };
 };
 
+const addDefaultSubcategory = (landscape) => {
+  const categories = landscape.categories.map((category) => {
+    const subcategories = category.subcategories || [{ items: category.items }];
+
+    return { ...category, subcategories };
+  });
+
+  return { ...landscape, categories };
+};
+
+export const prepareLandscape = (theme, landscape) => {
+  return sortBySize(theme, addDefaultSubcategory(landscape));
+};
+
 const getFontColor = (backgroundColor) => {
   return calculateContrast(backgroundColor, "black") > 5 ? "black" : "white";
 };
@@ -183,9 +197,10 @@ export const generateCss = (theme, landscape) => {
   });
   const style = extractedTheme.Style;
   const layout = extractedTheme.Layout;
+  const { categories } = addDefaultSubcategory(landscape);
 
   const calculatedCategories = calculateVerticalCategory({
-    ...landscape,
+    categories,
     layout,
   });
 
@@ -414,7 +429,7 @@ const calculateCategorySize = (subcategories, columns, layout) => {
       const subcategoryHeight =
         rows * layout.Item.height +
         (rows - 1) * layout.Item.gap +
-        layout.Subcategory.Header.fontSize;
+        (subcategory.name ? layout.Subcategory.Header.fontSize : 0);
       return sum + subcategoryHeight;
     }, 0);
 
@@ -467,7 +482,7 @@ const calculateVerticalRecursive = ({
   });
 };
 
-export const calculateVerticalCategory = ({ categories, layout }) => {
+const calculateVerticalCategory = ({ categories, layout }) => {
   const { Header, Footer, gap } = layout;
   const additionalHeight =
     (Header.height > 0 ? Header.height + gap : 0) +
@@ -476,7 +491,10 @@ export const calculateVerticalCategory = ({ categories, layout }) => {
   const additionalWidth = 2 * gap;
 
   const categoriesWithCalculations = categories.map((category) => {
-    const subcategories = computeItems(category.subcategories, layout);
+    const subcategoriesOrItems = category.subcategories || [
+      { items: category.items },
+    ];
+    const subcategories = computeItems(subcategoriesOrItems, layout);
     const hasLargeItems = subcategories.find(
       (subcategory) => subcategory.largeItemsCount > 0
     );

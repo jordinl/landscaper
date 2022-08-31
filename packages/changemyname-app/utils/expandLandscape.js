@@ -1,5 +1,5 @@
 import loadTheme from "./loadTheme.js";
-import { sortBySize } from "changemyname-core";
+import { prepareLandscape } from "changemyname-core";
 
 const transformOptions = (options) => {
   return options
@@ -55,7 +55,7 @@ const expandFilters = (landscape) => {
 
 const expandLandscape = async (landscape) => {
   const theme = await loadTheme();
-  return sortBySize(theme, expandFilters(landscape));
+  return expandFilters(prepareLandscape(theme, landscape));
 };
 
 export default expandLandscape;

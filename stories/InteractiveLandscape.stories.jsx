@@ -83,16 +83,7 @@ const landscape = {
   ],
 };
 
-const theme = {
-  Layout: {
-    Header: {
-      height: 40,
-    },
-    Footer: {
-      height: 20,
-    },
-  },
-};
+const theme = {};
 
 const packObj = (obj, path = null) => {
   return Object.entries(obj).reduce((agg, [k, v]) => {

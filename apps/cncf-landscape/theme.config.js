@@ -25,12 +25,6 @@ export default {
         height: 40,
       },
     },
-    Header: {
-      height: 50,
-    },
-    Footer: {
-      height: 20,
-    },
   },
   Style: {
     Landscape: {

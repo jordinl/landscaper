@@ -20,12 +20,8 @@ const defaultTheme = {
       },
     },
     Divider: {},
-    Header: {
-      height: 0,
-    },
-    Footer: {
-      height: 20,
-    },
+    Header: {},
+    Footer: {},
   },
   Style: {
     Landscape: {},
@@ -42,12 +38,16 @@ const defaultTheme = {
   },
 };
 
-const deepMerge = (left, right) => {
+const deepMerge = (left, right, ...rest) => {
   if (!left) {
     return right || {};
   }
   if (!right) {
     return left || {};
+  }
+
+  if (rest.length > 0) {
+    return deepMerge(deepMerge(left, right), ...rest);
   }
 
   const keys = Object.keys({ ...left, ...right });
@@ -77,15 +77,18 @@ const injectStyles = (obj) => {
     .join("\n");
 };
 
-const addDynamicDefaults = (theme) => {
-  const { Divider, Category } = theme.Layout;
+const extractTheme = (theme, options = {}) => {
+  const { includeHeader, includeFooter } = options;
+  const baseTheme = deepMerge(theme, defaultTheme);
+  const { Layout } = baseTheme;
+  const { Item, Divider, Category } = Layout;
   let dividerWidth = 0;
 
   if (Divider.width === undefined && Category.borderWidth === undefined) {
     dividerWidth = 2;
   }
 
-  const dynamicDefaults = {
+  const extraDefaults = {
     Layout: {
       Divider: {
         width: dividerWidth,
@@ -93,16 +96,14 @@ const addDynamicDefaults = (theme) => {
       Category: {
         borderWidth: 0,
       },
+      Header: {
+        ...(includeHeader && { height: 50 }),
+      },
+      Footer: {
+        ...(includeFooter && { height: 20 }),
+      },
     },
   };
-
-  return deepMerge(theme, dynamicDefaults);
-};
-
-const extractTheme = (theme) => {
-  const baseTheme = addDynamicDefaults(deepMerge(theme, defaultTheme));
-  const { Layout } = baseTheme;
-  const { Item } = Layout;
 
   const largeItemStyle = {
     Layout: {
@@ -121,7 +122,7 @@ const extractTheme = (theme) => {
     },
   };
 
-  return unpackVariants(deepMerge(largeItemStyle, baseTheme));
+  return unpackVariants(deepMerge(largeItemStyle, baseTheme, extraDefaults));
 };
 
 const unpackVariants = (hash) => {
@@ -176,7 +177,10 @@ const getFontColor = (backgroundColor) => {
 };
 
 export const generateCss = (theme, landscape) => {
-  const extractedTheme = extractTheme(theme);
+  const extractedTheme = extractTheme(theme, {
+    includeHeader: landscape.header,
+    includeFooter: landscape.footer,
+  });
   const style = extractedTheme.Style;
   const layout = extractedTheme.Layout;
 

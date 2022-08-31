@@ -2,7 +2,7 @@ import React from "react";
 
 const Footer = ({ footer }) => {
   return (
-    <div className="landscape-footer-body">
+    <>
       {footer.map((item, idx) => {
         return (
           <div
@@ -12,7 +12,7 @@ const Footer = ({ footer }) => {
           />
         );
       })}
-    </div>
+    </>
   );
 };
 

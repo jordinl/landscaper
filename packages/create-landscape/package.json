@@ -1,0 +1,21 @@
+{
+  "name": "create-landscape",
+  "version": "0.1.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordinl/landscaper.git",
+    "directory": "packages/create-landscape"
+  },
+  "bugs": {
+    "url": "https://github.com/jordinl/landscaper/issues"
+  },
+  "homepage": "https://github.com/jordinl/landscaper#readme",
+  "author": "Jordi Noguera",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {},
+  "bin": {
+    "create-landscape": "bin/create-landscape.js"
+  },
+  "type": "module"
+}

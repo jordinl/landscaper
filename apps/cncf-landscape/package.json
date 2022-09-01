@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "changemyname-app": "*",
+    "landscaper": "*",
     "js-yaml": "^4.1.0",
     "node-fetch": "^3.2.9"
   },
   "scripts": {
-    "start": "changemyname-bin",
-    "build": "changemyname-bin build",
-    "preview": "changemyname-bin preview",
+    "start": "landscaper",
+    "build": "landscaper build",
+    "preview": "landscaper preview",
     "setup": "node ./scripts/pull-repo.js && node ./scripts/copy-images.js && node ./scripts/prepare-data.js",
     "prepare-data": "node ./scripts/prepare-data.js"
   },

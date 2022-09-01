@@ -1,5 +1,5 @@
 {
-  "name": "changemyname-app",
+  "name": "landscaper",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -16,7 +16,7 @@
     "vite": "^3.0.0"
   },
   "bin": {
-    "changemyname-bin": "bin/changemyname-bin.js"
+    "landscaper": "bin/landscaper.js"
   },
   "scripts": {
     "build": "vite build"

@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "storybook-addon-react-router-v6";
-import LandscapeComponent from "changemyname-app/src/InteractiveLandscape";
+import LandscapeComponent from "landscaper/src/InteractiveLandscape";
 import { prepareLandscape } from "changemyname-core";
 
 const createItem = (number, logo) => {

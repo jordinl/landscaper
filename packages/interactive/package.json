@@ -1,8 +1,17 @@
 {
   "name": "@landscaper/interactive",
   "version": "0.1.0",
-  "private": false,
-  "repository": "https://github.com/jordinl/landscaper",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jordinl/landscaper.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jordinl/landscaper/issues"
+  },
+  "homepage": "https://github.com/jordinl/landscaper#readme",
+  "author": "Jordi Noguera",
+  "license": "MIT",
+  "description": "",
   "dependencies": {
     "@vitejs/plugin-react": "^2.0.0",
     "@landscaper/core": "*",

@@ -1,15 +1,19 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { resolve } from "path";
+import { dirname, resolve } from "path";
 import addLogosToBundle from "./plugins/addLogosToBundle.js";
 import injectTitle from "./plugins/injectTitle.js";
 import processLandscape from "./plugins/processLandscape.js";
 import injectFavicon from "./plugins/injectFavicon.js";
 import injectCss from "./plugins/injectCss.js";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const extraAlias = process.env.MONOREPO
   ? {
-      "changemyname-react": "changemyname-react/src/index.js",
+      "@landscaper/react": resolve(__dirname, "../react/src"),
     }
   : {};
 

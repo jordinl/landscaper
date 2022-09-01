@@ -10,7 +10,7 @@
     "start:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape start",
     "start:storybook": "start-storybook -p 6006",
     "build": "concurrently -r -s all yarn:build:*",
-    "build:changemyname-react": "yarn workspace changemyname-react build",
+    "build:react": "yarn workspace @landscaper/react build",
     "build:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape build",
     "build:storybook": "build-storybook -o dist",
     "setup": "concurrently -r -s all yarn:setup:*",

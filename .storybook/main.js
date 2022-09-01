@@ -1,4 +1,5 @@
 const { mergeConfig } = require("vite");
+const { resolve } = require("path");
 
 module.exports = {
   stories: [
@@ -22,7 +23,9 @@ module.exports = {
   async viteFinal(config, { configType }) {
     return mergeConfig(config, {
       resolve: {
-        alias: { "changemyname-react": "changemyname-react/src/index.js" },
+        alias: {
+          "@landscaper/react": resolve(__dirname, "../packages/react/src"),
+        },
       },
     });
   },

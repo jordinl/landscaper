@@ -1,7 +1,8 @@
 {
   "name": "@landscaper/interactive",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "repository": "https://github.com/jordinl/landscaper",
   "dependencies": {
     "@vitejs/plugin-react": "^2.0.0",
     "@landscaper/core": "*",

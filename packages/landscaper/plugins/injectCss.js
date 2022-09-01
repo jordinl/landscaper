@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { prepareLandscape } from "changemyname-core";
+import { prepareLandscape } from "@landscaper/core";
 import loadTheme from "../utils/loadTheme.js";
 import loadLandscape from "../utils/loadLandscape.js";
 

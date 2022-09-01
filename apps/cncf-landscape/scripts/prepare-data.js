@@ -116,7 +116,9 @@ const prepareItem = (item, categoryName) => {
     item.project || (members.includes(item.crunchbase) ? "member" : "other");
   const country = (crunchbase_data || {}).country || "Unknown";
   const info = itemLinks(item);
-  const relationText = ["graduated", "incubating"].includes(relation) && relation.replace(/^[a-z]/, x => x.toUpperCase())
+  const relationText =
+    ["graduated", "incubating"].includes(relation) &&
+    relation.replace(/^[a-z]/, (x) => x.toUpperCase());
 
   return {
     id,
@@ -128,7 +130,10 @@ const prepareItem = (item, categoryName) => {
     language,
     description,
     ...(not_open_source && { variant: "Gray" }),
-    ...(relationText && { variant: relationText, label: `CNCF ${relationText}` }),
+    ...(relationText && {
+      variant: relationText,
+      label: `CNCF ${relationText}`,
+    }),
     info,
   };
 };
@@ -153,7 +158,7 @@ const header = [
 const footer = [
   {
     content:
-      '<span>This landscape is just an example of changemyname and is not associated with the CNCF. The official CNCF Landscape can be found at <a href="https://landscape.cncf.io">landscape.cncf.io</a></span>',
+      '<span>This landscape is just an example of Landscaper and is not associated with the CNCF. The official CNCF Landscape can be found at <a href="https://landscape.cncf.io">landscape.cncf.io</a></span>',
   },
 ];
 
@@ -234,9 +239,5 @@ const filters = [
 
 writeFileSync(
   destPath,
-  JSON.stringify(
-    { title, header, footer, filters, categories },
-    undefined,
-    4
-  )
+  JSON.stringify({ title, header, footer, filters, categories }, undefined, 4)
 );

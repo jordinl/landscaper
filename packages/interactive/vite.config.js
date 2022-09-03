@@ -23,6 +23,10 @@ const distPath = resolve("dist");
 
 const debugOptions = process.env.DEBUG ? { minify: false } : {};
 
+if (process.platform === "darwin" && !process.env.BROWSER) {
+  process.env.BROWSER = "open";
+}
+
 export default defineConfig(({ command }) => ({
   plugins: [
     react(),

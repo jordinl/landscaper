@@ -17,7 +17,8 @@
     "setup:cncf-landscape": "yarn workspace cncf-landscape setup",
     "preview": "concurrently -r -s all yarn:preview:*",
     "preview:cncf-landscape": "yarn workspace cncf-landscape preview",
-    "preview:storybook": "http-server dist -o"
+    "preview:storybook": "http-server dist -o",
+    "publish": "npm publish --workspace packages/*"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",
@@ -43,5 +44,6 @@
     "**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
       "prettier --write"
     ]
-  }
+  },
+  "version": "0.0.0"
 }

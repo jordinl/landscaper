@@ -18,7 +18,7 @@
     "preview": "concurrently -r -s all yarn:preview:*",
     "preview:cncf-landscape": "yarn workspace cncf-landscape preview",
     "preview:storybook": "http-server dist -o",
-    "publish": "npm publish --workspace packages/*"
+    "publish-all": "npm version --workspace packages --workspaces-update false patch && yarn && npm publish --workspace packages --access public"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

@@ -45,6 +45,7 @@ export default defineConfig(({ command }) => ({
   build: {
     outDir: distPath,
     emptyOutDir: true,
+    assetsInlineLimit: 0,
     ...debugOptions,
   },
   preview: {

@@ -6,7 +6,7 @@ import { prepareLandscape } from "@landscaper/core";
 const createItem = (number, logo) => {
   return {
     id: `item-${number}`,
-    name: `item-${name}`,
+    name: `Item ${number}`,
     logo: logo,
   };
 };

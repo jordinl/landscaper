@@ -3,7 +3,8 @@
   "private": true,
   "workspaces": [
     "packages/*",
-    "apps/*"
+    "apps/*",
+    "test-apps/*"
   ],
   "scripts": {
     "start": "concurrently -k -r -s first yarn:start:*",

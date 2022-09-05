@@ -9,6 +9,9 @@ function addLogosToBundle(srcPath) {
   const landscape = loadLandscape();
 
   const logos = landscape.categories.flatMap((category) => {
+    if ((category.items || []).length > 0) {
+      return category.items.flatMap((item) => item.logo);
+    }
     return category.subcategories.flatMap((subcategory) => {
       return subcategory.items.flatMap((item) => item.logo);
     });
@@ -36,12 +39,19 @@ function addLogosToBundle(srcPath) {
         ({ name }) => name && name.indexOf("assets/landscape.json") >= 0
       );
 
+      const replaceLogos = (items) => {
+        return items.map((item) => {
+          const logo = this.getFileName(refs[item.logo]);
+          return { ...item, logo };
+        });
+      };
+
       const categories = landscape.categories.map((category) => {
+        if ((category.items || []).length > 0) {
+          return { ...category, items: replaceLogos(category.items) };
+        }
         const subcategories = category.subcategories.map((subcategory) => {
-          const items = subcategory.items.map((item) => {
-            const logo = this.getFileName(refs[item.logo]);
-            return { ...item, logo };
-          });
+          const items = replaceLogos(subcategory.items);
 
           return { ...subcategory, items };
         });

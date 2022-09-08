@@ -22,7 +22,7 @@
     "preview": "concurrently -r -s all pnpm:preview:*",
     "preview:cncf-landscape": "pnpm --filter cncf-landscape preview",
     "preview:storybook": "http-server dist -o",
-    "publish-all": "pnpm --filter \"./packages/**\" --dry-run publish"
+    "publish-all": "pnpm --filter \"./packages/**\" publish"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

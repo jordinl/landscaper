@@ -71,8 +71,8 @@ importers:
       '@rsuite/icons': ^1.0.2
       '@vitejs/plugin-react': ^2.0.0
       less: ^4.1.3
-      react: '>= 15.3.0'
-      react-dom: '>= 15.3.0'
+      react: ^18.2.0
+      react-dom: ^18.2.0
       react-router-dom: ^6.3.0
       rsuite: ^5.18.0
       vite: ^3.0.0
@@ -91,7 +91,7 @@ importers:
   packages/react:
     specifiers:
       '@vitejs/plugin-react': ^2.0.0
-      react: '>= 15.3.0'
+      react: ^18.2.0
       vite: ^3.0.0
     dependencies:
       react: 18.2.0

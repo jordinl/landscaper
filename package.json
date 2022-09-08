@@ -6,20 +6,23 @@
     "apps/*",
     "test-apps/*"
   ],
+  "bin": {
+    "create-test-app": "bin/create-test-app.js"
+  },
   "scripts": {
-    "start": "concurrently -k -r -s first yarn:start:*",
-    "start:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape start",
+    "start": "concurrently -k -r -s first pnpm:start:*",
+    "start:cncf-landscape": "MONOREPO=1 pnpm run --filter cncf-landscape start",
     "start:storybook": "start-storybook -p 6006",
-    "build": "concurrently -r -s all yarn:build:*",
-    "build:react": "yarn workspace @landscaper/react build",
-    "build:cncf-landscape": "MONOREPO=1 yarn workspace cncf-landscape build",
+    "build": "concurrently -r -s all pnpm:build:*",
+    "build:react": "pnpm --filter @landscaper/react build",
+    "build:cncf-landscape": "MONOREPO=1 pnpm --filter cncf-landscape build",
     "build:storybook": "build-storybook -o dist",
-    "setup": "concurrently -r -s all yarn:setup:*",
-    "setup:cncf-landscape": "yarn workspace cncf-landscape setup",
-    "preview": "concurrently -r -s all yarn:preview:*",
-    "preview:cncf-landscape": "yarn workspace cncf-landscape preview",
+    "setup": "concurrently -r -s all pnpm:setup:*",
+    "setup:cncf-landscape": "pnpm --filter cncf-landscape setup",
+    "preview": "concurrently -r -s all pnpm:preview:*",
+    "preview:cncf-landscape": "pnpm --filter cncf-landscape preview",
     "preview:storybook": "http-server dist -o",
-    "publish-all": "npm version --workspace packages --workspaces-update false patch && yarn && npm publish --workspace packages --access public"
+    "publish-all": "pnpm --filter \"./packages/**\" --dry-run publish"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

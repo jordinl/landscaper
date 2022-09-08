@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -eu
+
+command="start"
+
+if [ "$#" -eq 2 ];
+then
+  command=$1
+  name=$2
+else
+  name=$1
+fi
+
+path="test-apps/$name"
+
+MONOREPO=1 cd "$path" && pnpm $command

@@ -2,6 +2,7 @@ import React from "react";
 import { withRouter } from "storybook-addon-react-router-v6";
 import LandscapeComponent from "@landscaper/interactive/src/InteractiveLandscape";
 import { prepareLandscape } from "@landscaper/core";
+import { BrowserRouter } from "react-router-dom";
 
 const createItem = (number, logo) => {
   return {
@@ -103,7 +104,9 @@ export const InteractiveLandscape = (args) => {
   return (
     <React.Fragment>
       <style dangerouslySetInnerHTML={{ __html: css }} />
-      <LandscapeComponent landscape={landscape} />;
+      <BrowserRouter>
+        <LandscapeComponent landscape={landscape} />;
+      </BrowserRouter>
     </React.Fragment>
   );
 };

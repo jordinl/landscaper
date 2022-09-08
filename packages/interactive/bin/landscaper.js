@@ -9,4 +9,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const packageDir = resolve(__dirname, "..");
 
-execSync(`vite ${args.join(" ")} "${packageDir}"`, { stdio: "inherit" });
+let vite = "vite";
+
+try {
+  const binPath = execSync("npm bin", { cwd: packageDir });
+  vite = resolve(binPath.toString().trim(), "vite");
+} catch {}
+
+execSync(`${vite} ${args.join(" ")} "${packageDir}"`, { stdio: "inherit" });

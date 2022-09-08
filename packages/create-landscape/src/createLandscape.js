@@ -12,9 +12,6 @@ const defaultPackage = {
     build: "landscaper build",
     preview: "landscaper preview",
   },
-  ...(process.env.MONOREPO && {
-    dependencies: { "@landscaper/interactive": "*" },
-  }),
 };
 
 const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 100 100">
@@ -66,22 +63,19 @@ const createLandscape = async (directory) => {
     resolve(directory, "package.json"),
     JSON.stringify({ name, ...defaultPackage }, null, 4)
   );
+  if (process.env.MONOREPO) {
+    writeFileSync(resolve(directory, ".npmrc"), "lockfile=false");
+  }
   writeFileSync(
     resolve(assetsPath, "landscape.json"),
     JSON.stringify(defaultLandscape, null, 4)
   );
   writeFileSync(resolve(logosPath, "logo.svg"), svg);
   const packageManager = detectPackageManager();
-  if (process.env.MONOREPO) {
-    execSync(`${packageManager} install`, {
-      stdio: "inherit",
-    });
-  } else {
-    process.chdir(directory);
-    execSync(`${packageManager} add @landscaper/interactive`, {
-      stdio: "inherit",
-    });
-  }
+  process.chdir(directory);
+  execSync(`${packageManager} add @landscaper/interactive`, {
+    stdio: "inherit",
+  });
 };
 
 export default createLandscape;

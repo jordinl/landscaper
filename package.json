@@ -22,7 +22,8 @@
     "preview": "concurrently -r -s all pnpm:preview:*",
     "preview:cncf-landscape": "pnpm --filter cncf-landscape preview",
     "preview:storybook": "http-server dist -o",
-    "publish-all": "pnpm --filter \"./packages/**\" publish"
+    "version-all": "npm version --workspace packages --workspaces-update false patch",
+    "publish-all": "pnpm publish --filter \"./packages/**\" --access public"
   },
   "devDependencies": {
     "@babel/core": "^7.18.13",

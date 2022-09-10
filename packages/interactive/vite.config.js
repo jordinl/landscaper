@@ -57,5 +57,5 @@ export default defineConfig(({ command }) => ({
       project: srcPath,
     },
   },
-  logLevel: process.env.MONOREPO ? "info" : "error",
+  logLevel: process.env.MONOREPO ? "info" : "warn",
 }));

@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { nodeResolve } from "@rollup/plugin-node-resolve";
 import { dirname, resolve } from "path";
 import addLogosToBundle from "./plugins/addLogosToBundle.js";
 import injectTitle from "./plugins/injectTitle.js";
@@ -29,6 +30,7 @@ if (process.platform === "darwin" && !process.env.BROWSER) {
 
 export default defineConfig(({ command }) => ({
   plugins: [
+    nodeResolve({ rootDir: resolve() }),
     react(),
     addLogosToBundle(assetsPath),
     injectTitle(assetsPath),
@@ -45,6 +47,11 @@ export default defineConfig(({ command }) => ({
   build: {
     outDir: distPath,
     emptyOutDir: true,
+    rollupOptions: {
+      input: {
+        index: resolve(__dirname, "index.html"),
+      },
+    },
     assetsInlineLimit: 0,
     ...debugOptions,
   },
@@ -57,5 +64,4 @@ export default defineConfig(({ command }) => ({
       project: srcPath,
     },
   },
-  logLevel: process.env.MONOREPO ? "info" : "warn",
 }));

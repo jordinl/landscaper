@@ -36,16 +36,5 @@
       "react-app"
     ]
   },
-  "pnpm": {
-    "overrides": {
-      "react": "18.2.0"
-    }
-  },
-  "overrides": {
-    "react": "18.2.0"
-  },
-  "resolutions": {
-    "react": "18.2.0"
-  },
   "type": "module"
 }

@@ -13,8 +13,8 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "@landscaper/core": "workspace:*",
-    "@landscaper/react": "workspace:*",
+    "@landscaper/core": "workspace:^",
+    "@landscaper/react": "workspace:^",
     "@rollup/plugin-node-resolve": "^14.0.1",
     "@rsuite/icons": "^1.0.2",
     "@vitejs/plugin-react": "^2.1.0",

@@ -7,7 +7,22 @@ const userAgent = (npm_config_user_agent || "")
     return { ...agg, [key]: value || true };
   }, {});
 
-const packageManagers = ["yarn", "pnpm", "npm"];
+const npm = {
+  name: "npm",
+  installCommand: "npm add --legacy-peer-deps",
+};
+
+const packageManagers = [
+  {
+    name: "yarn",
+    installCommand: "yarn add",
+  },
+  {
+    name: "pnpm",
+    installCommand: "pnpm add",
+  },
+  npm,
+];
 
 const lockFiles = {
   npm: ["package-lock.json", "npm-shrinkwrap.json"],
@@ -16,15 +31,11 @@ const lockFiles = {
 };
 
 const detectPackageManager = () => {
-  const packageManager = packageManagers.find(
-    (packageManager) => userAgent[packageManager]
-  );
+  const packageManager = packageManagers.find(({ name }) => userAgent[name]);
   if (packageManager) {
-    console.log("Package manager detected: ", packageManager);
     return packageManager;
   }
-  console.log("No package manager detected, using npm");
-  return "npm";
+  return npm;
 };
 
 export default detectPackageManager;

@@ -71,9 +71,9 @@ const createLandscape = async (directory) => {
     JSON.stringify(defaultLandscape, null, 4)
   );
   writeFileSync(resolve(logosPath, "logo.svg"), svg);
-  const packageManager = detectPackageManager();
+  const { installCommand } = detectPackageManager();
   process.chdir(directory);
-  execSync(`${packageManager} add @landscaper/interactive`, {
+  execSync(`${installCommand} add @landscaper/interactive`, {
     stdio: "inherit",
   });
 };

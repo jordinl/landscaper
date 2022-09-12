@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "virtual:Landscape.css";
-import landscapeUrl from "project/assets/landscape.json?url";
+import landscapeUrl from "project/landscape.json?url";
 import InteractiveLandscape from "./InteractiveLandscape.jsx";
 
 const App = () => {

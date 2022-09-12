@@ -67,7 +67,7 @@ const createLandscape = async (directory) => {
     writeFileSync(resolve(directory, ".npmrc"), "lockfile=false");
   }
   writeFileSync(
-    resolve(assetsPath, "landscape.json"),
+    resolve(directory, "landscape.json"),
     JSON.stringify(defaultLandscape, null, 4)
   );
   writeFileSync(resolve(logosPath, "logo.svg"), svg);

@@ -20,7 +20,7 @@ const members = landscape.landscape
     return subcategory.items.flatMap((item) => item.crunchbase);
   });
 
-const destPath = resolve("assets", "landscape.json");
+const destPath = resolve("landscape.json");
 
 const prepareCategory = (category) => {
   const { name } = category;

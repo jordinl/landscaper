@@ -36,7 +36,7 @@ function addLogosToBundle(srcPath) {
     },
     async generateBundle(options, bundle) {
       const landscapeChunk = Object.values(bundle).find(
-        ({ name }) => name && name.indexOf("assets/landscape.json") >= 0
+        ({ name }) => name && name.indexOf("landscape.json") >= 0
       );
 
       const replaceLogos = (items) => {

@@ -8,7 +8,7 @@ const defaultPackage = {
   version: "0.1.0",
   private: true,
   scripts: {
-    start: "landscaper",
+    dev: "landscaper",
     build: "landscaper build",
     preview: "landscaper preview",
   },

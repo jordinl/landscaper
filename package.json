@@ -9,9 +9,9 @@
     "create-test-app": "bin/create-test-app.js"
   },
   "scripts": {
-    "start": "concurrently -k -r -s first pnpm:start:*",
-    "start:cncf-landscape": "MONOREPO=1 pnpm run --filter cncf-landscape start",
-    "start:storybook": "start-storybook -p 6006",
+    "dev": "concurrently -k -r -s first pnpm:dev:*",
+    "dev:cncf-landscape": "MONOREPO=1 pnpm run --filter cncf-landscape dev",
+    "dev:storybook": "start-storybook -p 6006",
     "build": "concurrently -r -s all pnpm:build:*",
     "build:react": "pnpm --filter @landscaper/react build",
     "build:cncf-landscape": "MONOREPO=1 pnpm --filter cncf-landscape build",

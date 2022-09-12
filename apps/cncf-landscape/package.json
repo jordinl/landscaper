@@ -8,7 +8,7 @@
     "node-fetch": "^3.2.9"
   },
   "scripts": {
-    "start": "landscaper",
+    "dev": "landscaper",
     "build": "landscaper build",
     "preview": "landscaper preview",
     "prepare": "node ./scripts/pull-repo.js && node ./scripts/copy-images.js && node ./scripts/prepare-data.js",

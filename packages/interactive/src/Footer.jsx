@@ -1,19 +1,8 @@
 import React from "react";
+import ContentColumns from "./ContentColumns.jsx";
 
 const Footer = ({ footer }) => {
-  return (
-    <>
-      {footer.map((item, idx) => {
-        return (
-          <div
-            key={idx}
-            className="landscape-footer-item"
-            dangerouslySetInnerHTML={{ __html: item.content }}
-          />
-        );
-      })}
-    </>
-  );
+  return <ContentColumns items={footer} prefix="footer" />;
 };
 
 export default Footer;

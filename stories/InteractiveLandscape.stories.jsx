@@ -13,17 +13,17 @@ const createItem = (number, logo) => {
 };
 
 const originalLandscape = {
-  header: [
-    {
+  header: {
+    center: {
       type: "html",
       content: "<h1>Demo Landscape</h1>",
     },
-  ],
-  footer: [
-    {
+  },
+  footer: {
+    center: {
       content: "Footer goes here",
     },
-  ],
+  },
   categories: [
     {
       name: "Category 1",

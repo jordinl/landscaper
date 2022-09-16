@@ -19,17 +19,17 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.
 </svg>`;
 
 const defaultLandscape = {
-  header: [
-    {
+  header: {
+    center: {
       type: "html",
       content: "<h1>Demo Landscape</h1>",
     },
-  ],
-  footer: [
-    {
+  },
+  footer: {
+    center: {
       content: "Footer goes here",
     },
-  ],
+  },
   categories: [
     {
       name: "Category 1",

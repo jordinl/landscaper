@@ -3,8 +3,8 @@ import { prepareLandscape } from "@landscaper/core";
 import loadTheme from "../utils/loadTheme.js";
 import loadLandscape from "../utils/loadLandscape.js";
 
-const landscape = loadLandscape();
 const themePath = resolve("theme.config.js");
+const landscapePath = resolve("landscape.json");
 
 export default function injectCss() {
   const virtualModuleId = "virtual:Landscape.css";
@@ -14,13 +14,26 @@ export default function injectCss() {
     name: "inject-css",
     buildStart() {
       this.addWatchFile(themePath);
+      this.addWatchFile(landscapePath);
     },
     handleHotUpdate(ctx) {
       const { server, file } = ctx;
-      if (file === themePath) {
-        const mod = server.moduleGraph.getModuleById(resolvedVirtualModuleId);
-        server.moduleGraph.invalidateModule(mod);
-        return [mod];
+      const landscapeModules =
+        file === landscapePath &&
+        server.moduleGraph.getModulesByFile(landscapePath);
+
+      if (landscapeModules) {
+        landscapeModules.forEach((landscapeModule) => {
+          server.moduleGraph.invalidateModule(landscapeModule);
+        });
+      }
+
+      if (file === themePath || file === landscapePath) {
+        const cssModule = server.moduleGraph.getModuleById(
+          resolvedVirtualModuleId
+        );
+        server.moduleGraph.invalidateModule(cssModule);
+        return [cssModule, ...landscapeModules];
       }
     },
     resolveId(id) {
@@ -31,6 +44,7 @@ export default function injectCss() {
     async load(id) {
       if (id === resolvedVirtualModuleId) {
         const theme = await loadTheme();
+        const landscape = loadLandscape();
         const { css } = prepareLandscape(theme, landscape);
         return { code: css };
       }

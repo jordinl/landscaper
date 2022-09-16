@@ -17,9 +17,10 @@ function addLogosToBundle(srcPath) {
     });
   });
 
-  const headerLogos = (landscape.header || [])
-    .filter((item) => item.type === "image")
-    .map((item) => item.src);
+  const headerLogos = ["left", "center", "right"].reduce((agg, key) => {
+    const item = (landscape.header || {})[key] || {};
+    return [...agg, ...(item.type === "image" ? [item.src] : [])];
+  }, []);
 
   return {
     name: "add-logos-to-bundle",
@@ -59,15 +60,12 @@ function addLogosToBundle(srcPath) {
         return { ...category, subcategories };
       });
 
-      const header = landscape.header
-        ? landscape.header.map((item) => {
-            if (item.type !== "image") {
-              return item;
-            }
-
-            return { ...item, src: this.getFileName(refs[item.src]) };
-          })
-        : null;
+      const header = ["left", "center", "right"].reduce((agg, key) => {
+        const item = (landscape.header || {})[key] || {};
+        const src =
+          item && item.type === "image" && this.getFileName(refs[item.src]);
+        return { ...agg, [key]: { ...item, ...(src && { src }) } };
+      }, {});
 
       const newLandscape = await expandLandscape({
         ...landscape,

@@ -1,12 +1,21 @@
 import React from "react";
 
 const Header = ({ header }) => {
+  const itemsCount = Object.keys(header).length;
+
+  const classes = Object.keys(header)
+    .map((key) => `has-${key}`)
+    .join(" ");
   return (
     <div
-      className={`landscape-header-body landscape-header-items-${header.length}`}
+      className={`landscape-header-body landscape-header-items-${itemsCount} ${classes}`}
     >
-      {header.map((child, idx) => {
-        const baseClassName = "landscape-header-item landscape-header-item-";
+      {["left", "center", "right"].map((key, idx) => {
+        const child = header && header[key];
+        if (!child) {
+          return null;
+        }
+        const baseClassName = `landscape-header-item landscape-header-item-${key} landscape-header-item-`;
 
         if (child.type === "image") {
           return (

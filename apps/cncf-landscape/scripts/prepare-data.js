@@ -144,16 +144,16 @@ const categories = landscape.landscape
 
 const title = "CNCF Cloud Native Landscape";
 
-const header = [
-  {
+const header = {
+  left: {
     type: "image",
     src: "logo.svg",
   },
-  {
+  center: {
     type: "html",
     content: `<h1>${title}</h1>`,
   },
-];
+};
 
 const footer = [
   {

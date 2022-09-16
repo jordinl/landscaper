@@ -2,7 +2,7 @@
 
 set -eu
 
-command="start"
+command="dev"
 
 if [ "$#" -eq 2 ];
 then

@@ -1,13 +1,11 @@
 import { resolve } from "path";
-import { existsSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 
-const loadTheme = async () => {
-  const themePath = resolve("theme.config.js");
-  const { default: theme } = existsSync(themePath)
-    ? await import(`${themePath}?v=${Date.now()}`)
+const loadTheme = () => {
+  const themePath = resolve("theme.json");
+  return existsSync(themePath)
+    ? JSON.parse(readFileSync(themePath, "utf-8"))
     : {};
-
-  return theme;
 };
 
 export default loadTheme;

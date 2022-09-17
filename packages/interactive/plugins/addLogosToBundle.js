@@ -35,7 +35,7 @@ function addLogosToBundle(srcPath) {
         });
       });
     },
-    async generateBundle(options, bundle) {
+    generateBundle(options, bundle) {
       const landscapeChunk = Object.values(bundle).find(
         ({ name }) => name && name.indexOf("landscape.json") >= 0
       );
@@ -67,7 +67,7 @@ function addLogosToBundle(srcPath) {
         return { ...agg, [key]: { ...item, ...(src && { src }) } };
       }, {});
 
-      const newLandscape = await expandLandscape({
+      const newLandscape = expandLandscape({
         ...landscape,
         header,
         categories,

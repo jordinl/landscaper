@@ -52,8 +52,8 @@ const expandFilters = (landscape) => {
   return filters;
 };
 
-const expandLandscape = async (originalLandscape) => {
-  const theme = await loadTheme();
+const expandLandscape = (originalLandscape) => {
+  const theme = loadTheme();
   const { landscape } = prepareLandscape(theme, originalLandscape);
   const filters = expandFilters(landscape);
   return { ...landscape, ...(filters && { filters }) };

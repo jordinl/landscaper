@@ -3,7 +3,7 @@ import { prepareLandscape } from "@landscaper/core";
 import loadTheme from "../utils/loadTheme.js";
 import loadLandscape from "../utils/loadLandscape.js";
 
-const themePath = resolve("theme.config.js");
+const themePath = resolve("theme.json");
 const landscapePath = resolve("landscape.json");
 
 export default function injectCss() {
@@ -41,9 +41,9 @@ export default function injectCss() {
         return resolvedVirtualModuleId;
       }
     },
-    async load(id) {
+    load(id) {
       if (id === resolvedVirtualModuleId) {
-        const theme = await loadTheme();
+        const theme = loadTheme();
         const landscape = loadLandscape();
         const { css } = prepareLandscape(theme, landscape);
         return { code: css };

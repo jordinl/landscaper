@@ -1,5 +1,5 @@
 import { mkdirSync, writeFileSync } from "fs";
-import { resolve } from "path";
+import { resolve, basename } from "path";
 import { execSync } from "child_process";
 
 import detectPackageManager from "./detectPackageManager.js";
@@ -58,7 +58,7 @@ const createLandscape = async (directory) => {
   const assetsPath = resolve(directory, "assets");
   const logosPath = resolve(assetsPath, "logos");
   mkdirSync(logosPath, { recursive: true });
-  const name = directory.split("/").pop();
+  const name = basename(resolve(directory));
   writeFileSync(
     resolve(directory, "package.json"),
     JSON.stringify({ name, ...defaultPackage }, null, 4)

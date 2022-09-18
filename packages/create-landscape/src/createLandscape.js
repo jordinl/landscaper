@@ -114,7 +114,7 @@ const itemLinks = (item) => {
   ].filter((_) => _);
 };
 
-const prepareItem = (item, categoryName) => {
+const prepareItem = (item, relations) => {
   const { name, github_data, crunchbase_data, open_source } = item;
   const logoName = item.image_data.fileName;
   const logo = `logos/${logoName}`;
@@ -130,8 +130,11 @@ const prepareItem = (item, categoryName) => {
   const language =
     github_data && github_data.languages[0] && github_data.languages[0].name;
   const country = (crunchbase_data || {}).country || "Unknown";
-  const relation =
-    item.project && item.project.replace(/^[a-z]/, (x) => x.toUpperCase());
+  const relation = relations[item.project] || {};
+  const label = relation.big_picture_order && relation.big_picture_label;
+  const variant =
+    relation.big_picture_order &&
+    item.project.replace(/^[a-z]/, (x) => x.toUpperCase());
   const info = itemLinks(item);
 
   return {
@@ -143,26 +146,26 @@ const prepareItem = (item, categoryName) => {
     language,
     description,
     ...(not_open_source && { variant: "Gray" }),
-    ...(relation && {
-      variant: relation,
-      label: [relation].filter((_) => _).join(" "),
-    }),
+    ...(label && { label }),
+    ...(variant && { variant }),
     info,
   };
 };
 
-const prepareSubcategory = (subcategory, categoryName) => {
+const prepareSubcategory = (subcategory, relations) => {
+  const sortOrder = (item) =>
+    (relations[item.project] || {}).big_picture_order || Infinity;
   const { name } = subcategory;
-  const items = subcategory.items.map((item) =>
-    prepareItem(item, categoryName)
-  );
+  const items = subcategory.items
+    .sort((a, b) => sortOrder(a) - sortOrder(b))
+    .map((item) => prepareItem(item, relations));
   return { name, items };
 };
 
-const prepareCategory = (category) => {
+const prepareCategory = (category, relations) => {
   const { name } = category;
   const subcategories = category.subcategories.map((subcategory) =>
-    prepareSubcategory(subcategory, name)
+    prepareSubcategory(subcategory, relations)
   );
   return { name, subcategories };
 };
@@ -193,9 +196,17 @@ const migrateLandscape = (directory) => {
 
   const categoryNames = Object.keys(categoriesHash);
 
+  const relations = settings.relation.values
+    .flatMap((relation) => {
+      return [relation, ...(relation.children || [])];
+    })
+    .reduce((agg, relation) => {
+      return { ...agg, [relation.id]: relation };
+    }, {});
+
   const categories = landscape
     .filter(({ name }) => categoryNames.indexOf(name) >= 0)
-    .map((category) => prepareCategory(category));
+    .map((category) => prepareCategory(category, relations));
 
   const title = settings.global.name;
 

@@ -52,6 +52,8 @@
           "backgroundColor": "#E8E8E8"
         },
         "Large": {
+          "borderWidth": "2px",
+          "borderStyle": "solid",
           "Label": {
             "paddingTop": "2px",
             "color": "white",
@@ -63,14 +65,14 @@
         },
         "Graduated": {
           "extend": "Large",
-          "border": "2px solid rgb(24,54,114)",
+          "borderColor": "rgb(24,54,114)",
           "Label": {
             "backgroundColor": "rgb(24,54,114)"
           }
         },
         "Incubating": {
           "extend": "Large",
-          "border": "2px solid rgb(83, 113, 189)",
+          "borderColor": "rgb(83, 113, 189)",
           "Label": {
             "backgroundColor": "rgb(83, 113, 189)"
           }

@@ -225,9 +225,47 @@ const migrateLandscape = (directory) => {
     },
   };
 
+  const items = landscape.flatMap((category) => {
+    return category.subcategories.flatMap((subcategory) => {
+      return subcategory.items;
+    });
+  });
+
+  const licenseNames = items.reduce((agg, item) => {
+    const license = item && item.github_data && item.github_data.license;
+    const extra = license ? { [license]: true } : {};
+    return { ...agg, ...extra };
+  }, {});
+
+  const licenses = [
+    {
+      label: "Not Open Source",
+    },
+    {
+      label: "Open Source",
+      children: Object.keys(licenseNames).map((label) => ({ label })),
+    },
+  ];
+
+  const filters = [
+    {
+      name: "license",
+      label: "License",
+      options: licenses,
+    },
+    {
+      name: "country",
+      label: "Country",
+    },
+    {
+      name: "language",
+      label: "Language",
+    },
+  ];
+
   writeFileSync(
     resolve(directory, "landscape.json"),
-    JSON.stringify({ title, header, categories }, null, 2)
+    JSON.stringify({ title, header, categories, filters }, null, 2)
   );
 
   return Object.values(relations).filter((relation) => relation.order);

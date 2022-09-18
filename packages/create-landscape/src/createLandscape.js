@@ -131,10 +131,8 @@ const prepareItem = (item, relations) => {
     github_data && github_data.languages[0] && github_data.languages[0].name;
   const country = (crunchbase_data || {}).country || "Unknown";
   const relation = relations[item.project] || {};
-  const label = relation.big_picture_order && relation.big_picture_label;
-  const variant =
-    relation.big_picture_order &&
-    item.project.replace(/^[a-z]/, (x) => x.toUpperCase());
+  const label = relation.order && relation.label;
+  const variant = relation.order && relation.name;
   const info = itemLinks(item);
 
   return {
@@ -153,8 +151,7 @@ const prepareItem = (item, relations) => {
 };
 
 const prepareSubcategory = (subcategory, relations) => {
-  const sortOrder = (item) =>
-    (relations[item.project] || {}).big_picture_order || Infinity;
+  const sortOrder = (item) => (relations[item.project] || {}).order || Infinity;
   const { name } = subcategory;
   const items = subcategory.items
     .sort((a, b) => sortOrder(a) - sortOrder(b))
@@ -196,12 +193,19 @@ const migrateLandscape = (directory) => {
 
   const categoryNames = Object.keys(categoriesHash);
 
-  const relations = settings.relation.values
+  const relations = ((settings.relation || {}).values || [])
     .flatMap((relation) => {
       return [relation, ...(relation.children || [])];
     })
     .reduce((agg, relation) => {
-      return { ...agg, [relation.id]: relation };
+      const {
+        id,
+        big_picture_order: order,
+        big_picture_label: label,
+        big_picture_color: color,
+      } = relation;
+      const name = id.toString().replace(/^[a-z]/, (x) => x.toUpperCase());
+      return { ...agg, [relation.id]: { id, order, name, label, color } };
     }, {});
 
   const categories = landscape
@@ -225,6 +229,8 @@ const migrateLandscape = (directory) => {
     resolve(directory, "landscape.json"),
     JSON.stringify({ title, header, categories }, null, 2)
   );
+
+  return Object.values(relations).filter((relation) => relation.order);
 };
 
 const createDefaultLandscape = (directory) => {
@@ -285,16 +291,57 @@ const createLandscape = async (directory, options) => {
     );
   }
 
-  migrate ? migrateLandscape(fullPath) : createDefaultLandscape(fullPath);
+  const variants = migrate
+    ? migrateLandscape(fullPath)
+    : createDefaultLandscape(fullPath);
 
   const includeDefaultTheme = await confirmPrompt(
     "Would you like to include the default theme?"
   );
 
   if (includeDefaultTheme) {
-    copyFileSync(
-      resolve(__filename, "..", "defaultTheme.json"),
-      resolve(fullPath, "theme.json")
+    const theme = JSON.parse(
+      readFileSync(resolve(__filename, "..", "defaultTheme.json"), "utf-8")
+    );
+
+    const layoutVariants = (variants || []).reduce((agg, variant) => {
+      return { ...agg, [variant.name]: { extend: "Large" } };
+    }, {});
+
+    const styleVariants = (variants || []).reduce((agg, variant) => {
+      const variantStyle = {
+        extend: "Large",
+        borderColor: variant.color,
+        Label: {
+          backgroundColor: variant.color,
+        },
+      };
+      return { ...agg, [variant.name]: variantStyle };
+    }, {});
+
+    const finalTheme = {
+      Layout: {
+        ...theme.Layout,
+        Item: {
+          ...theme.Layout.Item,
+          ...(layoutVariants && { Variants: layoutVariants }),
+        },
+      },
+      Style: {
+        ...theme.Style,
+        Item: {
+          ...theme.Style.Item,
+          Variants: {
+            ...theme.Style.Item.Variants,
+            ...styleVariants,
+          },
+        },
+      },
+    };
+
+    writeFileSync(
+      resolve(fullPath, "theme.json"),
+      JSON.stringify(finalTheme, null, 2)
     );
   }
 

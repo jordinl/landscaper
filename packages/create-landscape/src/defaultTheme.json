@@ -4,15 +4,7 @@
     "Item": {
       "width": 34,
       "height": 34,
-      "gap": 3,
-      "Variants": {
-        "Graduated": {
-          "extend": "Large"
-        },
-        "Incubating": {
-          "extend": "Large"
-        }
-      }
+      "gap": 3
     },
     "Subcategory": {
       "Header": {
@@ -61,20 +53,6 @@
           },
           "Image": {
             "padding": "2px"
-          }
-        },
-        "Graduated": {
-          "extend": "Large",
-          "borderColor": "rgb(24,54,114)",
-          "Label": {
-            "backgroundColor": "rgb(24,54,114)"
-          }
-        },
-        "Incubating": {
-          "extend": "Large",
-          "borderColor": "rgb(83, 113, 189)",
-          "Label": {
-            "backgroundColor": "rgb(83, 113, 189)"
           }
         }
       }

@@ -4,4 +4,4 @@ set -eu
 
 path="test-apps/$1"
 
-rm -rf "$path" && MONOREPO=1 pnpm exec packages/create-landscape/bin/create-landscape.js "$path"
+MONOREPO=1 pnpm exec packages/create-landscape/bin/create-landscape.js "$path"

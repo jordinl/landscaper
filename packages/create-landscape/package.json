@@ -14,7 +14,10 @@
   "license": "MIT",
   "description": "",
   "dependencies": {
-    "commander": "^9.4.0"
+    "commander": "^9.4.0",
+    "enquirer": "^2.3.6",
+    "fs-extra": "^10.1.0",
+    "js-yaml": "^4.1.0"
   },
   "bin": {
     "create-landscape": "bin/create-landscape.js"

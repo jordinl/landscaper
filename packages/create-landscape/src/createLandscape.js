@@ -34,7 +34,7 @@ const defaultLandscape = {
   header: {
     center: {
       type: "html",
-      content: "<h1>Demo Landscape</h1>",
+      content: "<h1>My Landscape</h1>",
     },
   },
   footer: {
@@ -141,6 +141,8 @@ const migrateLandscape = (directory) => {
     .filter(({ name }) => categoryNames.indexOf(name) >= 0)
     .map((category) => prepareCategory(category));
 
+  const title = settings.global.name;
+
   const header = {
     left: {
       type: "image",
@@ -148,13 +150,13 @@ const migrateLandscape = (directory) => {
     },
     center: {
       type: "html",
-      content: `<h1>${settings.global.name}</h1>`,
+      content: `<h1>${title}</h1>`,
     },
   };
 
   writeFileSync(
     resolve(directory, "landscape.json"),
-    JSON.stringify({ header, categories }, null, 2)
+    JSON.stringify({ title, header, categories }, null, 2)
   );
 };
 
@@ -163,9 +165,12 @@ const createDefaultLandscape = (directory) => {
   const logosPath = resolve(assetsPath, "logos");
   mkdirSync(logosPath, { recursive: true });
 
+  const title = basename(directory);
+  const landscape = { ...defaultLandscape, title };
+
   writeFileSync(
     resolve(directory, "landscape.json"),
-    JSON.stringify(defaultLandscape, null, 4)
+    JSON.stringify(landscape, null, 2)
   );
   writeFileSync(resolve(logosPath, "logo.svg"), svg);
 };
@@ -233,12 +238,14 @@ const createLandscape = async (directory, options) => {
   if (process.env.MONOREPO) {
     writeFileSync(resolve(directory, ".npmrc"), "lockfile=false");
   }
-
-  const { installCommand } = detectPackageManager();
-  process.chdir(fullPath);
+  const { installCommand, name: pkgName } = detectPackageManager();
   execSync(`${installCommand} @landscaper/interactive`, {
+    cwd: fullPath,
     stdio: "inherit",
   });
+
+  console.log("\nLandscape created!! To open it execute:");
+  console.log(`    cd ${directory} && ${pkgName} run dev\n`);
 };
 
 export default createLandscape;

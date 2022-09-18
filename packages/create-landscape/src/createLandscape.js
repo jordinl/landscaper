@@ -193,8 +193,8 @@ const createLandscape = async (directory, options) => {
     return result === "Yes";
   };
 
-  const name = basename(directory);
   const fullPath = resolve(directory);
+  const name = basename(fullPath);
   if (existsSync(fullPath) && readdirSync(fullPath).length > 0) {
     const overwriteDir = await confirmPrompt(
       "Directory is not empty, do you wish to continue?"

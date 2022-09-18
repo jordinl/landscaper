@@ -61,9 +61,11 @@ function addLogosToBundle(srcPath) {
       });
 
       const header = ["left", "center", "right"].reduce((agg, key) => {
-        const item = (landscape.header || {})[key] || {};
-        const src =
-          item && item.type === "image" && this.getFileName(refs[item.src]);
+        const item = (landscape.header || {})[key];
+        if (!item) {
+          return agg;
+        }
+        const src = item.type === "image" && this.getFileName(refs[item.src]);
         return { ...agg, [key]: { ...item, ...(src && { src }) } };
       }, {});
 

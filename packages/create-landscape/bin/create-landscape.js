@@ -14,8 +14,9 @@ const program = new Command();
 program
   .name("create-landscape")
   .version(version, "-v, --version")
-  .argument("<directory>", "location");
+  .argument("<directory>", "location")
+  .option("-y, --yes", "confirm all prompts");
 
 program.parse(process.argv);
 
-await createLandscape(program.processedArgs[0]);
+await createLandscape(program.processedArgs[0], program.opts());

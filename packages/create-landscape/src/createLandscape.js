@@ -30,24 +30,6 @@ const svg = `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.
   <rect width="100" height="100" style="fill:rgb(255,0,0);" />
 </svg>`;
 
-const confirmPrompt = async (message) => {
-  const result = await Enquirer.select({
-    message: message,
-    choices: [
-      {
-        title: "Yes",
-        value: true,
-      },
-      {
-        title: "No",
-        value: false,
-      },
-    ],
-  });
-
-  return result === "Yes";
-};
-
 const defaultLandscape = {
   header: {
     center: {
@@ -188,7 +170,29 @@ const createDefaultLandscape = (directory) => {
   writeFileSync(resolve(logosPath, "logo.svg"), svg);
 };
 
-const createLandscape = async (directory) => {
+const createLandscape = async (directory, options) => {
+  const confirmPrompt = async (message) => {
+    if (options.yes) {
+      return true;
+    }
+
+    const result = await Enquirer.select({
+      message: message,
+      choices: [
+        {
+          title: "Yes",
+          value: true,
+        },
+        {
+          title: "No",
+          value: false,
+        },
+      ],
+    });
+
+    return result === "Yes";
+  };
+
   const name = basename(directory);
   const fullPath = resolve(directory);
   if (existsSync(fullPath) && readdirSync(fullPath).length > 0) {

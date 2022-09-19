@@ -26,10 +26,7 @@ module.exports = {
         alias: {
           "@landscapist/core": resolve(__dirname, "../packages/core/src"),
           "@landscapist/react": resolve(__dirname, "../packages/react/src"),
-          "@landscaper/interactive": resolve(
-            __dirname,
-            "../packages/interactive"
-          ),
+          landscapist: resolve(__dirname, "../packages/landscapist"),
         },
       },
     });

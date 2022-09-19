@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "storybook-addon-react-router-v6";
-import LandscapeComponent from "@landscaper/interactive/src/InteractiveLandscape";
+import LandscapeComponent from "landscapist/src/InteractiveLandscape";
 import { prepareLandscape } from "@landscapist/core";
 import { BrowserRouter } from "react-router-dom";
 

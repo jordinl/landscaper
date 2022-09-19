@@ -391,7 +391,7 @@ const createLandscape = async (directory, options) => {
     writeFileSync(resolve(directory, ".npmrc"), "lockfile=false");
   }
   const { installCommand, name: pkgName } = detectPackageManager();
-  execSync(`${installCommand} @landscaper/interactive`, {
+  execSync(`${installCommand} landscapist`, {
     cwd: fullPath,
     stdio: "inherit",
   });

@@ -44,11 +44,11 @@ importers:
 
   apps/cncf-landscape:
     specifiers:
-      '@landscaper/interactive': workspace:^
+      'landscapist': workspace:^
       js-yaml: ^4.1.0
       node-fetch: ^3.2.9
     dependencies:
-      '@landscaper/interactive': link:../../packages/interactive
+      'landscapist': link:../../packages/landscapist
       js-yaml: 4.1.0
       node-fetch: 3.2.10
 
@@ -70,7 +70,7 @@ importers:
       fs-extra: 10.1.0
       js-yaml: 4.1.0
 
-  packages/interactive:
+  packages/landscapist:
     specifiers:
       '@landscapist/core': workspace:^
       '@landscapist/react': workspace:^

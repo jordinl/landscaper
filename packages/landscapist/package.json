@@ -26,7 +26,7 @@
     "vite": "^3.1.0"
   },
   "bin": {
-    "landscaper": "bin/landscaper.js"
+    "landscapist": "bin/landscapist.js"
   },
   "scripts": {
     "build": "vite build"

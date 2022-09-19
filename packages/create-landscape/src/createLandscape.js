@@ -20,9 +20,9 @@ const defaultPackage = {
   version: "0.1.0",
   private: true,
   scripts: {
-    dev: "landscaper",
-    build: "landscaper build",
-    preview: "landscaper preview",
+    dev: "landscapist",
+    build: "landscapist build",
+    preview: "landscapist preview",
   },
 };
 

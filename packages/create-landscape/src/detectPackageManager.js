@@ -9,17 +9,17 @@ const userAgent = (npm_config_user_agent || "")
 
 const npm = {
   name: "npm",
-  installCommand: "npm add --legacy-peer-deps",
+  installCommand: "npm add --legacy-peer-deps -D",
 };
 
 const packageManagers = [
   {
     name: "yarn",
-    installCommand: "yarn add",
+    installCommand: "yarn add --dev",
   },
   {
     name: "pnpm",
-    installCommand: "pnpm add",
+    installCommand: "pnpm add -D",
   },
   npm,
 ];

@@ -1,6 +1,11 @@
 # Landscapist
 
-Easily create a Landscape from a collection of images.
+Easily create a Landscape from a collection of images. Inspired by [cncf/landscapeapp](https://github.com/cncf/landscapeapp)
+with simplicity and extensibility in mind.
+
+Landscapist does not care where the data to create a landscape comes from (whether that's Crunchbase, GitHub or something else).
+Instead each landscape creator should either write the data manually in `landscape.json` or write scripts that pull such
+information from 3rd party sources.
 
 ## Requirements
 

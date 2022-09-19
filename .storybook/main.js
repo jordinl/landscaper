@@ -25,7 +25,7 @@ module.exports = {
       resolve: {
         alias: {
           "@landscapist/core": resolve(__dirname, "../packages/core/src"),
-          "@landscaper/react": resolve(__dirname, "../packages/react/src"),
+          "@landscapist/react": resolve(__dirname, "../packages/react/src"),
           "@landscaper/interactive": resolve(
             __dirname,
             "../packages/interactive"

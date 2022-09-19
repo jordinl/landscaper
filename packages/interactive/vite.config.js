@@ -14,7 +14,7 @@ const __dirname = dirname(__filename);
 
 const extraAlias = process.env.MONOREPO
   ? {
-      "@landscaper/react": resolve(__dirname, "../react/src"),
+      "@landscapist/react": resolve(__dirname, "../react/src"),
     }
   : {};
 

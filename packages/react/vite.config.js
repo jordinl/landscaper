@@ -6,7 +6,7 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.js",
-      name: "@landscaper/react",
+      name: "@landscapist/react",
       fileName: "index",
     },
     rollupOptions: {

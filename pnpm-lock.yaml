@@ -73,7 +73,7 @@ importers:
   packages/interactive:
     specifiers:
       '@landscapist/core': workspace:^
-      '@landscaper/react': workspace:^
+      '@landscapist/react': workspace:^
       '@rollup/plugin-node-resolve': ^14.0.1
       '@rsuite/icons': ^1.0.2
       '@vitejs/plugin-react': ^2.1.0
@@ -85,7 +85,7 @@ importers:
       vite: ^3.1.0
     dependencies:
       '@landscapist/core': link:../core
-      '@landscaper/react': link:../react
+      '@landscapist/react': link:../react
       '@rollup/plugin-node-resolve': 14.0.1_rollup@2.78.1
       '@rsuite/icons': 1.0.2_biqbaboplfbrettd7655fr4n2y
       '@vitejs/plugin-react': 2.1.0_vite@3.1.0

@@ -48,3 +48,152 @@ This command will show a landscape that has been build inside the `dist/` folder
 First run `npm|yarn|pnm run build` and then just deploy the `dist/` created. Platforms such as Vercel or Netlify should
 allow to do that easily, probably it would also be possible to deploy a site using github pages. For instance, I've
 deployed the Landscapist version of the CNCF Landscape to Vercel: [landscapist-cncf.vercel.app](https://landscapist-cncf.vercel.app/)
+
+## landscape.json structure
+
+The landscape contents should be saved in `landscape.json` placed at the top of the landscape directory. Any logos/images
+should be saved in the `assets/` directory.
+
+### Simple landscape
+
+The main goal of a landscape is to show a collection of images grouped into categories/subcategories. As such the
+simplest landscape would be:
+
+```json
+{
+  "categories": [
+    {
+      "name": "Category 1",
+      "items": [
+        {
+          "id": "item-1",
+          "name": "Item 1",
+          "logo": "logos/logo1.svg"
+        }
+      ]
+    }
+  ]
+}
+```
+
+Notice that the item logo is `logos/logo1.svg`, that's relative to the `assets/` directory, so there should be a logo with
+path `assets/logo/logo1.svg`
+
+### Categories with subcategories
+
+Categories can have subcategories with items.
+
+```json
+{
+  "categories": [
+    {
+      "name": "Category 1",
+      "subcategories": [
+        {
+          "name": "Subcategory 1",
+          "items": [
+            {
+              "id": "item-1",
+              "name": "Item 1",
+              "logo": "logos/logo1.svg"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+### Adding header
+
+Add a "header" object to `landscape.json`. The children of this object can be "left", "center" or "right" object depending
+on how they should be aligned. It's not mandatory to use these three values, any combination of these or none at all are valid.
+
+```json
+{
+  "header": {
+    "left": {
+      "content": "Left aligned content"
+    },
+    "center": {
+      "content": "Centered content"
+    },
+    "right": {
+      "content": "Right aligned content"
+    }
+  }
+}
+```
+
+Header content can be plain text, like in the examples above. HTML like:
+
+```json
+{
+  "header": {
+    "left": {
+      "content": "<h1>Left aligned content</h1>",
+      "type": "html"
+    }
+  }
+}
+```
+
+Or an image (which should exist in the `assets/` directory (eg `assets/logo.svg`):
+
+```json
+{
+  "header": {
+    "left": {
+      "src": "logo.svg",
+      "type": "image"
+    }
+  }
+}
+```
+
+## Adding a footer
+
+A footer works exacly the same as the header, but with a "footer" object instead.
+
+### Adding filters
+
+Items on a landscape can be filtered by any of their values. Filters can be configured by adding a "filters" key to
+`landscape.json`
+
+```json
+{
+  "categories": [
+    {
+      "name": "Category 1",
+      "items": [
+        {
+          "id": "item-1",
+          "name": "Item 1",
+          "logo": "logos/logo1.svg",
+          "language": "Ruby"
+        },
+        {
+          "id": "item-2",
+          "name": "Item 2",
+          "logo": "logos/logo2.svg",
+          "language": "Python"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "name": "language",
+      "label": "Language"
+    }
+  ]
+}
+```
+
+This will add a Language filter with values "Python" and "Ruby" and when one value is selected it will filter those items
+whose `language` matches the selected value.
+
+## More advanced usages
+
+TODO.

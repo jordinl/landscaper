@@ -14,9 +14,10 @@ Node.js 14 <= version < 17 and a package manager (npm, yarn or pnpm)
 ## Installation
 
 Depending on the package manager used, execute one of the following commands and follow the instructions:
-npm: `npx -y create-landscape@latest <directory>`
-yarn: `yarn create landscape <directory>`
-pnpm: `pnpm create landscape <directory>`
+
+- npm: `npx -y create-landscape@latest <directory>`
+- yarn: `yarn create landscape <directory>`
+- pnpm: `pnpm create landscape <directory>`
 
 **NOTE: When executing one of the commands above in a directory containing a landscape created with [cncf/landscapeapp](https://github.com/cncf/landscapeapp)
 the script will offer the option to convert such landscape into the appropriate format.**

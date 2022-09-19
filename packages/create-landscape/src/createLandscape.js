@@ -325,7 +325,7 @@ const createLandscape = async (directory, options) => {
 
   if (existsSync(resolve(fullPath, "landscape.yml"))) {
     migrate = await confirmPrompt(
-      "landscape.yml detected, would you like the landscape to be migrated to the Landscaper format automatically?"
+      "landscape.yml detected, would you like the landscape to be migrated to the Landscapist format automatically?"
     );
   }
 

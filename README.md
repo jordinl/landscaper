@@ -18,23 +18,23 @@ the script will offer the option to convert such landscape into the appropriate 
 
 ## Running a landscape locally
 
-npm: `npm run dev`
-yarn: `yarn dev`
-pnpm: `pnpm dev`
+- npm: `npm run dev`
+- yarn: `yarn dev`
+- pnpm: `pnpm dev`
 
 ## Building a landscape
 
-npm: `npm run build`
-yarn: `yarn build`
-pnpm: `pnpm build`
+- npm: `npm run build`
+- yarn: `yarn build`
+- pnpm: `pnpm build`
 
 This command will generate and export a build inside the `dist/` folder
 
 ## Previewing a build landscape
 
-npm: `npm run preview`
-yarn: `yarn preview`
-pnpm: `pnpm preview`
+- npm: `npm run preview`
+- yarn: `yarn preview`
+- pnpm: `pnpm preview`
 
 This command will show a landscape that has been build inside the `dist/` folder.
 

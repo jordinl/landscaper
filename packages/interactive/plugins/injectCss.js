@@ -1,5 +1,5 @@
 import { resolve } from "path";
-import { prepareLandscape } from "@landscaper/core";
+import { prepareLandscape } from "@landscapist/core";
 import loadTheme from "../utils/loadTheme.js";
 import loadLandscape from "../utils/loadLandscape.js";
 

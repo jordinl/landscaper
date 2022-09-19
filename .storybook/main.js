@@ -24,7 +24,7 @@ module.exports = {
     return mergeConfig(config, {
       resolve: {
         alias: {
-          "@landscaper/core": resolve(__dirname, "../packages/core/src"),
+          "@landscapist/core": resolve(__dirname, "../packages/core/src"),
           "@landscaper/react": resolve(__dirname, "../packages/react/src"),
           "@landscaper/interactive": resolve(
             __dirname,

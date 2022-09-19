@@ -1,5 +1,5 @@
 import loadTheme from "./loadTheme.js";
-import { prepareLandscape } from "@landscaper/core";
+import { prepareLandscape } from "@landscapist/core";
 
 const transformOptions = (options) => {
   return options

@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "landscapist-monorepo",
   "private": true,
   "workspaces": [
     "packages/*",

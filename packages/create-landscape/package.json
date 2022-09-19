@@ -3,13 +3,13 @@
   "version": "0.1.23",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jordinl/landscaper.git",
+    "url": "git+https://github.com/jordinl/landscapist.git",
     "directory": "packages/create-landscape"
   },
   "bugs": {
-    "url": "https://github.com/jordinl/landscaper/issues"
+    "url": "https://github.com/jordinl/landscapist/issues"
   },
-  "homepage": "https://github.com/jordinl/landscaper#readme",
+  "homepage": "https://github.com/jordinl/landscapist#readme",
   "author": "Jordi Noguera",
   "license": "MIT",
   "description": "",

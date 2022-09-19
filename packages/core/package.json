@@ -3,7 +3,7 @@
   "version": "0.1.13",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jordinl/landscaper.git",
+    "url": "git+https://github.com/jordinl/landscapist.git",
     "directory": "packages/core"
   },
   "main": "./src/index.js",

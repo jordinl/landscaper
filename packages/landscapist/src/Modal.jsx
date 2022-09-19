@@ -35,8 +35,8 @@ const Modal = ({ item, onClose }) => {
           </div>
           <div className="margin-top description">{item.description}</div>
           <div className="margin-top links">
-            {item.info &&
-              item.info.map(({ text, url, label, format }) => {
+            {item.details &&
+              item.details.map(({ text, url, label, format }) => {
                 const textOrUrl =
                   text ||
                   (url &&

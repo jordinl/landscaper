@@ -133,7 +133,7 @@ const prepareItem = (item, relations) => {
   const relation = relations[item.project] || {};
   const label = relation.order && relation.label;
   const variant = relation.order && relation.name;
-  const info = itemLinks(item);
+  const details = itemLinks(item);
 
   return {
     id,
@@ -146,7 +146,7 @@ const prepareItem = (item, relations) => {
     ...(not_open_source && { variant: "Gray" }),
     ...(label && { label }),
     ...(variant && { variant }),
-    info,
+    details,
   };
 };
 

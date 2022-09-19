@@ -115,7 +115,7 @@ const prepareItem = (item, categoryName) => {
   const relation =
     item.project || (members.includes(item.crunchbase) ? "member" : "other");
   const country = (crunchbase_data || {}).country || "Unknown";
-  const info = itemLinks(item);
+  const details = itemLinks(item);
   const relationText =
     ["graduated", "incubating"].includes(relation) &&
     relation.replace(/^[a-z]/, (x) => x.toUpperCase());
@@ -134,7 +134,7 @@ const prepareItem = (item, categoryName) => {
       variant: relationText,
       label: `CNCF ${relationText}`,
     }),
-    info,
+    details,
   };
 };
 

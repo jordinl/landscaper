@@ -1,4 +1,4 @@
-import { existsSync, copyFileSync } from "fs";
+import { existsSync, readFileSync } from "fs";
 import { resolve } from "path";
 
 function injectFavicon() {
@@ -14,8 +14,12 @@ function injectFavicon() {
         '<link rel="icon" href="/favicon.png" />\n</head>'
       );
     },
-    generateBundle: function (options) {
-      copyFileSync(faviconPath, resolve(options.dir, "favicon.png"));
+    buildStart: function () {
+      this.emitFile({
+        type: "asset",
+        fileName: "favicon.png",
+        source: readFileSync(faviconPath),
+      });
     },
   };
 }

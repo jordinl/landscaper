@@ -31,7 +31,7 @@ function addLogosToBundle(srcPath) {
         refs[logo] = this.emitFile({
           type: "asset",
           name: basename(logo),
-          source: readFileSync(`${srcPath}/${logo}`, "utf-8"),
+          source: readFileSync(`${srcPath}/${logo}`),
         });
       });
     },

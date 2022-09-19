@@ -37,3 +37,9 @@ yarn: `yarn preview`
 pnpm: `pnpm preview`
 
 This command will show a landscape that has been build inside the `dist/` folder.
+
+## Deploying a landscape
+
+First run `npm|yarn|pnm run build` and then just deploy the `dist/` created. Platforms such as Vercel or Netlify should
+allow to do that easily, probably it would also be possible to deploy a site using github pages. For instance, I've
+deployed the Landscapist version of the CNCF Landscape to Vercel: [landscapist-cncf.vercel.app](https://landscapist-cncf.vercel.app/)

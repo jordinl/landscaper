@@ -152,7 +152,7 @@ Or an image (which should exist in the `assets/` directory (eg `assets/logo.svg`
 }
 ```
 
-## Adding a footer
+### Adding a footer
 
 A footer works exacly the same as the header, but with a "footer" object instead.
 
@@ -194,6 +194,79 @@ Items on a landscape can be filtered by any of their values. Filters can be conf
 This will add a Language filter with values "Python" and "Ruby" and when one value is selected it will filter those items
 whose `language` matches the selected value.
 
+### Showing information in the item modal
+
+The item description will be shown in the modal
+
+```json
+{
+  "categories": [
+    {
+      "name": "Category 1",
+      "items": [
+        {
+          "id": "item-1",
+          "name": "Item 1",
+          "logo": "logos/logo1.svg",
+          "description": "A very interesting description"
+        }
+      ]
+    }
+  ]
+}
+```
+
+It's also possible to show a list of key value pairs in "item.details":
+
+```json
+{
+  "categories": [
+    {
+      "name": "Category 1",
+      "items": [
+        {
+          "id": "item-1",
+          "name": "Item 1",
+          "logo": "logos/logo1.svg",
+          "details": [
+            {
+              "label": "Country",
+              "text": "United States"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+```
+
+Details item could also be a URL, like:
+
+```json
+{
+  "label": "Homepage",
+  "url": "https://github.com"
+}
+```
+
+Or a link:
+
+```json
+{
+  "label": "Twitter",
+  "url": "https://twitter.com/hello",
+  "text": "@hello"
+}
+```
+
 ## More advanced usages
 
 TODO.
+
+For the time being, the easiest would be to clone this repo. Run `pnpm install` and `pnpm prepare:cncf-landscape`.
+
+This will generate the `landscape.json` file for the CNCF landscape under `apps/cncf-landscape/landscape.json` and the theme
+in `apps/cncf-landscape/theme.json`.
+
+Additionally, you'll be able to run the CNCF landscape by executing `pnpm dev:cncf-landscape`.
